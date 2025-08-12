@@ -3,486 +3,606 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BUAN B205 • Introduction to Business Analytics with AI</title>
+  <title>BUAN B205 • Introduction to Business Analytics with AI — Week 1 (Interactive One‑Page)</title>
+  <meta name="description" content="Interactive, single-page presentation for Week 1 of BUAN B205: Business Analytics with AI (Loyola University New Orleans)." />
+  <!-- UI Framework & Charts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
   <style>
-    :root{--ink:#0f172a;--sub:#475569;--accent:#7c3aed;--bg:#f8fafc;--card:#ffffff}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0;scroll-behavior:smooth;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-    .snap-wrapper{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
-    .card{scroll-snap-align:start;min-height:100vh;display:flex;align-items:stretch}
-    .inner{max-width:1200px;margin:0 auto;padding:2rem;width:100%}
-    .panel{background:var(--card);border:1px solid #e5e7eb;border-radius:18px;padding:2rem;box-shadow:0 10px 30px rgba(2,6,23,.06);min-height:calc(100vh - 4rem);display:flex;flex-direction:column}
-    h1{font-size:clamp(28px,4.6vw,52px);font-weight:900;letter-spacing:-.02em;margin:0}
-    h2{font-size:clamp(22px,3.2vw,36px);font-weight:800;letter-spacing:-.02em;margin:0}
-    h3{font-size:clamp(16px,2.2vw,22px);font-weight:700;margin:0}
-    .lead{color:var(--sub);font-size:clamp(14px,1.4vw,18px)}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:#ede9fe;color:#5b21b6;border-radius:999px;font-weight:800;font-size:12px;letter-spacing:.04em}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;border:none;transition:.2s;text-decoration:none}
-    .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
-    .btn.primary{background:var(--accent);color:#fff}
-    .btn.ghost{background:#eef2ff;color:#3730a3}
-    .btn.small{padding:6px 10px;font-size:12px}
-    .grid{display:grid;gap:1rem}
-    .grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}
-    .col-span-4{grid-column:span 4 / span 4}.col-span-5{grid-column:span 5 / span 5}.col-span-6{grid-column:span 6 / span 6}.col-span-7{grid-column:span 7 / span 7}.col-span-12{grid-column:span 12 / span 12}
-    @media (max-width:768px){.col-span-4,.col-span-5,.col-span-6,.col-span-7{grid-column:span 12 / span 12}}
-    .kard{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
-    .icon{width:38px;height:38px;border-radius:10px;background:#f3e8ff;color:#6b21a8;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px}
-    .muted{color:var(--sub)} .note{font-size:13px;color:#64748b}
-    .chart{width:100%;height:300px;position:relative}
-    .helper-toggle{position:fixed;bottom:1rem;right:1rem;z-index:1000;border-radius:999px;padding:10px 14px;font-weight:900;background:#7c3aed;color:#fff;box-shadow:0 8px 18px rgba(124,58,237,.25);cursor:pointer;border:none;transition:.2s}
-    .helper-toggle:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(124,58,237,.35)}
-    .helper{position:fixed;bottom:5rem;right:1rem;z-index:999;width:min(90vw,400px)}
-    .helper[hidden]{display:none!important}
-    .promptbox{width:100%;min-height:80px;border:1px solid #e5e7eb;border-radius:10px;padding:10px;font-family:monospace;font-size:12px;resize:vertical}
-    .navdots{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
-    .navdots button{width:10px;height:10px;border-radius:999px;background:#c7d2fe;opacity:.6;border:none;cursor:pointer;transition:.2s}
-    .navdots button:hover{opacity:.8;transform:scale(1.2)}
-    .navdots button.active{background:var(--accent);opacity:1;box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-    input,select,textarea{border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;background:#fff;font-size:14px}
-    .mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.p-3{padding:.75rem}.p-4{padding:1rem}.text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.font-bold{font-weight:700}.text-center{text-align:center}
-    .bg-slate-50{background-color:#f8fafc}.bg-violet-50{background-color:#f5f3ff}.bg-yellow-50{background-color:#fefce8}.bg-green-50{background-color:#f0fdf4}
-    .border{border:1px solid #e5e7eb}.border-violet-200{border-color:#ddd6fe}.border-yellow-200{border-color:#fde047}.border-green-200{border-color:#bbf7d0}
-    .rounded{border-radius:.375rem}.rounded-xl{border-radius:.75rem}
-    .text-violet-700{color:#6d28d9}.text-yellow-800{color:#92400e}.text-yellow-700{color:#a16207}.text-green-600{color:#16a34a}.text-red-600{color:#dc2626}.text-blue-600{color:#2563eb}.text-purple-600{color:#9333ea}.underline{text-decoration:underline}
-    .flex{display:flex}.flex-1{flex:1 1 0%}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.w-full{width:100%}.h-full{height:100%}.max-h-40{max-height:10rem}.overflow-y-auto{overflow-y:auto}.whitespace-pre-wrap{white-space:pre-wrap}.ml-6{margin-left:1.5rem}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.animate-spin{animation:spin 1s linear infinite}
-    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    :root { --ink:#0f172a; --sub:#475569; --accent:#7c3aed; --bg:#f8fafc; --card:#ffffff; }
+    html,body { height:100%; scroll-behavior:smooth; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji','Segoe UI Emoji'; background:var(--bg); color:var(--ink); }
+    /* Scroll-snap full-screen sections */
+    .snap-wrapper { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+    .card { scroll-snap-align: start; min-height: 100vh; display: grid; place-items: stretch; }
+    .inner { max-width: 1220px; margin: 0 auto; padding: clamp(18px,4vw,36px); }
+    .panel { background: var(--card); border:1px solid #e5e7eb; border-radius: 18px; padding: clamp(12px,2.2vw,24px); box-shadow: 0 10px 30px rgba(2,6,23,.06); min-height: calc(100vh - clamp(28px,6vw,56px)); display:flex; flex-direction:column; }
+    h1 { font-size: clamp(28px,4.6vw,52px); font-weight: 900; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(22px,3.2vw,36px); font-weight: 800; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(16px,2.2vw,22px); font-weight: 700; }
+    p.lead { color: var(--sub); font-size: clamp(14px,1.4vw,18px); }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 12px; background:#ede9fe; color:#5b21b6; border-radius:999px; font-weight:800; font-size:12px; letter-spacing:.04em; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; font-weight:800; }
+    .btn.primary { background: var(--accent); color:white; }
+    .btn.ghost { background: #eef2ff; color:#3730a3; }
+    .grid12 { display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: clamp(10px,1.8vw,18px); }
+    .kard { background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:14px; display:flex; gap:12px; align-items:flex-start; }
+    .icon { width:38px; height:38px; border-radius:10px; background:#f3e8ff; color:#6b21a8; display:grid; place-items:center; font-weight:900 }
+    .muted { color: var(--sub); }
+    .note { font-size: 13px; color: #64748b; }
+    .chart { width: 100%; height: 360px; min-height: 300px; }
+.chart canvas{ width:100% !important; height:100% !important; display:block; }
+    .navdots { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index: 50; }
+    .navdots button { width: 10px; height: 10px; border-radius:999px; background:#c7d2fe; opacity:.6; border:none; }
+    .navdots button.active { background: var(--accent); opacity: 1; box-shadow: 0 0 0 4px rgba(124,58,237,.15); }
+    .helper { position: fixed; bottom: 16px; right: 16px; z-index: 60; display:flex; flex-direction:column; gap:8px; }
+    .helper .panel { min-height: auto; width: min(92vw, 420px); }
+    .helper-toggle { border-radius: 999px; padding: 10px 14px; font-weight: 900; background:#7c3aed; color:white; box-shadow: 0 8px 18px rgba(124,58,237,.25); }
+    .helper[hidden] { display:none }
+    textarea.promptbox{ width:100%; min-height:92px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px }
+    .prompt-actions{ display:flex; gap:8px; margin-top:8px }
+    .small{ font-size:12px }
+    @media (max-width: 900px){ .grid12 > * { grid-column: span 12 / span 12; } }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header style="position:sticky;top:0;z-index:40;backdrop-filter:blur(8px);background:rgba(255,255,255,.75);border-bottom:1px solid #e5e7eb">
-    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem">
+  <!-- Sticky Top Bar with syllabus context -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/75 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
       <div class="flex items-center gap-3">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:#7c3aed;color:#fff;font-weight:900">BA</span>
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-violet-600 text-white font-black">BA</span>
         <div>
-          <div style="font-size:.875rem;font-weight:900;color:#1f2937">BUAN B205: Business Analytics with AI</div>
-          <div style="font-size:.75rem;color:#64748b">Loyola University New Orleans · Fall 2025</div>
+          <div class="text-sm font-black tracking-wide text-slate-900">BUAN B205: Business Analytics with AI</div>
+          <div class="text-xs text-slate-500">Loyola University New Orleans · Fall 2025 · M/W/F 9:30–10:20 · Room MI 134 · Instructor: Dr. Nuwan Indika</div>
         </div>
       </div>
+      <nav class="hidden md:flex gap-2">
+        <a href="#d1" class="btn ghost">Day 1</a>
+        <a href="#d2" class="btn ghost">Day 2</a>
+        <a href="#d3" class="btn ghost">Day 3</a>
+      </nav>
       <div class="flex items-center gap-2">
-        <button id="prevBtn" class="btn ghost">◀ Prev</button>
-        <button id="nextBtn" class="btn primary">Next ▶</button>
+        <button id="prevBtn" class="btn ghost" title="Previous (↑/PgUp)">◀ Prev</button>
+        <button id="nextBtn" class="btn primary" title="Next (↓/PgDn)">Next ▶</button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- Scroll-snap container -->
   <main class="snap-wrapper" id="deck">
-    <!-- Day 1 -->
+
+    <!-- DAY 1 -->
     <section id="d1" class="card">
-      <div class="inner">
-        <div class="panel">
-          <div class="flex items-center justify-between">
-            <span class="pill">Day 1 · The Foundations of BA & AI</span>
-            <div class="text-sm" style="color:#64748b">Use ↓ or Next ▶ to continue</div>
-          </div>
-
-          <div class="grid grid-cols-12 mt-6">
-            <div class="col-span-7">
-              <h1>The Story of Data: From Insight to Action</h1>
-              <p class="lead mt-3">What is Business Analytics? Where does AI fit? We'll define the pillars, walk the data→insight→action flow, and try a simple descriptive exercise.</p>
-
-              <div class="grid grid-cols-3 mt-6 gap-3">
-                <div class="kard"><div class="icon">🎯</div><div><div class="text-xs font-bold" style="color:#64748b;text-transform:uppercase">Goal</div><div style="font-weight:800">Evidence-based decisions</div><div class="note">Descriptive → Predictive → Prescriptive</div></div></div>
-                <div class="kard"><div class="icon">🧠</div><div><div class="text-xs font-bold" style="color:#64748b;text-transform:uppercase">Skills</div><div style="font-weight:800">Business · Tech · Data Sci</div><div class="note">Pillars of BA</div></div></div>
-                <div class="kard"><div class="icon">⚙️</div><div><div class="text-xs font-bold" style="color:#64748b;text-transform:uppercase">Tools</div><div style="font-weight:800">Sheets · Excel · BI · ML</div><div class="note">Gemini & ChatGPT assist</div></div></div>
-              </div>
-
-              <div class="mt-6 flex gap-2">
-                <button class="btn ghost nav-link" data-target="d1-pillars">Pillars of BA</button>
-                <button class="btn ghost nav-link" data-target="d1-types">Three Types</button>
-              </div>
+      <div class="inner"><div class="panel">
+        <div class="flex items-center justify-between">
+          <span class="pill">Day 1 · The Foundations of BA & AI</span>
+          <div class="text-sm text-slate-500">Use ↓ or Next ▶ to continue</div>
+        </div>
+        <div class="mt-6 grid12">
+          <div class="col-span-7">
+            <h1>The Story of Data: From Insight to Action</h1>
+            <p class="lead mt-3">What is Business Analytics? Where does AI fit? We’ll define the pillars, walk the data→insight→action flow, and try a simple descriptive exercise.</p>
+            <div class="mt-6 grid12">
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">🎯</div><div><div class="text-xs font-bold uppercase text-slate-500">Goal</div><div class="font-extrabold">Evidence‑based decisions</div><div class="note">Descriptive → Predictive → Prescriptive</div></div></div>
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">🧠</div><div><div class="text-xs font-bold uppercase text-slate-500">Skills</div><div class="font-extrabold">Business · Tech · Data Sci</div><div class="note">Pillars of BA</div></div></div>
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">⚙️</div><div><div class="text-xs font-bold uppercase text-slate-500">Tools</div><div class="font-extrabold">Sheets · Excel · BI · ML</div><div class="note">Gemini & ChatGPT assist</div></div></div>
             </div>
-
-            <div class="col-span-5">
-              <div class="rounded-xl bg-violet-50 border border-violet-200 p-4 h-full flex" style="flex-direction:column">
-                <h3 class="mb-2">Core Components of BA</h3>
-                <div class="chart"><canvas id="chartBA"></canvas></div>
-                <p class="note mt-2">Reading: Davenport & Harris, <em>Competing on Analytics</em> (HBR).</p>
-              </div>
+            <div class="mt-6 flex gap-2">
+              <a href="#d1-pillars" class="btn ghost">Pillars of BA</a>
+              <a href="#d1-journey" class="btn ghost">Analytics Journey</a>
+              <a href="#d1-types" class="btn ghost">Three Types</a>
             </div>
           </div>
-
-          <div style="margin-top:auto;padding-top:1.5rem" class="flex items-center justify-between">
-            <div class="text-xs" style="color:#64748b">Course policies & schedule in Canvas syllabus.</div>
-            <button class="btn primary nav-link" data-target="d1-pillars">Continue</button>
+          <div class="col-span-5">
+            <div class="rounded-xl bg-violet-50 border border-violet-200 p-4 h-full flex flex-col">
+              <h3 class="mb-2">Core Components of BA</h3>
+              <div class="chart"><canvas id="chartBA"></canvas></div>
+              <p class="note mt-2">Reading: Davenport & Harris, <em>Competing on Analytics</em> (HBR).</p>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Course policies & schedule in Canvas syllabus.</div>
+          <a href="#d1-pillars" class="btn primary">Continue</a>
+        </div>
+      </div></div>
     </section>
 
-    <!-- Pillars -->
     <section id="d1-pillars" class="card">
-      <div class="inner">
-        <div class="panel">
-          <span class="pill">Day 1</span>
-          <h2 class="mt-2">What is Business Analytics? — The Three Pillars</h2>
-
-          <div class="grid grid-cols-3 mt-4 gap-4">
-            <div class="kard"><div class="icon">💼</div><div><h3>Business Acumen</h3><p class="muted">Markets, customers, strategy, KPIs.</p></div></div>
-            <div class="kard"><div class="icon">🧰</div><div><h3>Technical Skills</h3><p class="muted">Data collection, cleaning, SQL, BI.</p></div></div>
-            <div class="kard"><div class="icon">📊</div><div><h3>Data Science & AI</h3><p class="muted">Stats, ML, experimentation, GenAI.</p></div></div>
-          </div>
-
-          <div class="grid grid-cols-12 mt-6">
-            <div class="col-span-7">
-              <h3>Analytics Journey</h3>
-              <ol class="list-decimal ml-6" style="color:#475569">
-                <li><strong>Data</strong> → events, tables</li>
-                <li><strong>Information</strong> → cleaned, joined</li>
-                <li><strong>Insight</strong> → patterns, forecasts</li>
-                <li><strong>Action</strong> → decisions, policies</li>
-              </ol>
-
-              <div class="rounded-xl bg-slate-50 border p-4 mt-4">
-                <h3 class="mb-2">Quick Quiz</h3>
-                <p class="text-sm">Which pillar aligns most with designing an A/B test?</p>
-                <div class="mt-2 grid grid-cols-2 gap-2">
-                  <button class="ans btn ghost" data-correct="false">Business</button>
-                  <button class="ans btn ghost" data-correct="false">Technical</button>
-                  <button class="ans btn ghost" data-correct="true">Data Science</button>
-                  <button class="ans btn ghost" data-correct="false">None</button>
-                </div>
-                <div class="mt-2 text-sm" id="quizMsg"></div>
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 1</span>
+        <h2 class="mt-2">What is Business Analytics? — The Three Pillars</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">💼</div><div><h3>Business Acumen</h3><p class="muted">Markets, customers, strategy, KPIs.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧰</div><div><h3>Technical Skills</h3><p class="muted">Data collection, cleaning, SQL, BI.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">📊</div><div><h3>Data Science & AI</h3><p class="muted">Stats, ML, experimentation, GenAI.</p></div></div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="col-span-12 md:col-span-7">
+            <h3 id="d1-journey">Analytics Journey</h3>
+            <ol class="list-decimal ml-6 text-slate-700">
+              <li><strong>Data</strong> → events, tables</li>
+              <li><strong>Information</strong> → cleaned, joined</li>
+              <li><strong>Insight</strong> → patterns, forecasts</li>
+              <li><strong>Action</strong> → decisions, policies</li>
+            </ol>
+            <div class="rounded-xl bg-slate-50 border p-4 mt-4">
+              <h3 class="mb-2">Quick Quiz</h3>
+              <p class="text-sm">Which pillar aligns most with designing an A/B test?</p>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">Business</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">Technical</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="true">Data Science</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">None</button>
               </div>
-            </div>
-
-            <div class="col-span-5">
-              <div class="rounded-xl border p-4" style="background:#fff">
-                <h3 class="mb-2">Interactive Venn — BA Combination</h3>
-                <div class="chart"><canvas id="chartVenn"></canvas></div>
-                <p class="note">Hover shows overlaps: Biz+Tech = BI, Tech+DS = MLOps, etc.</p>
-              </div>
+              <div class="mt-2 text-sm" id="quizMsg1"></div>
             </div>
           </div>
-
-          <div style="margin-top:auto;padding-top:1.5rem" class="flex items-center justify-between">
-            <div class="text-xs" style="color:#64748b">Source: HBR; MIT Sloan articles on AI in business.</div>
-            <button class="btn primary nav-link" data-target="d1-types">Next ▶ Three Types</button>
+          <div class="col-span-12 md:col-span-5">
+            <div class="rounded-xl bg-white border p-4">
+              <h3 class="mb-2">Interactive Venn — BA is a Combination</h3>
+              <svg id="vennBA" viewBox="0 0 320 220" class="w-full">
+                <defs>
+                  <style>
+                    .c{mix-blend-mode:multiply;opacity:.75}
+                    .lbl{font:600 12px Inter, sans-serif; fill:#334155}
+                  </style>
+                </defs>
+                <circle cx="120" cy="110" r="80" fill="#60a5fa" class="c"/>
+                <circle cx="200" cy="110" r="80" fill="#34d399" class="c"/>
+                <circle cx="160" cy="60" r="80" fill="#fbbf24" class="c"/>
+                <text x="70" y="200" class="lbl">Business</text>
+                <text x="210" y="200" class="lbl">Technical</text>
+                <text x="145" y="24" class="lbl">Data Science</text>
+                <text id="vennCenter" x="160" y="115" text-anchor="middle" class="lbl" style="font-size:14px">Business Analytics</text>
+              </svg>
+              <p class="note">Hover/tap to see overlaps: Biz+Tech = BI, Tech+DS = MLOps, Biz+DS = Data‑Driven Strategy, center = BA.</p>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Source: HBR; MIT Sloan articles on AI in business.</div>
+          <a href="#d1-types" class="btn primary">Next ▶ Three Types</a>
+        </div>
+      </div></div>
     </section>
 
-    <!-- Three Types -->
     <section id="d1-types" class="card">
-      <div class="inner">
-        <div class="panel">
-          <span class="pill">Day 1</span>
-          <h2 class="mt-2">The Three Types of Analytics</h2>
-
-          <div class="grid grid-cols-3 mt-4 gap-4">
-            <div class="kard"><div class="icon">🔎</div><div><h3>Descriptive</h3><p class="muted">What happened? Dashboards & KPIs.</p></div></div>
-            <div class="kard"><div class="icon">📈</div><div><h3>Predictive</h3><p class="muted">What will happen? Forecasts & models.</p></div></div>
-            <div class="kard"><div class="icon">🧭</div><div><h3>Prescriptive</h3><p class="muted">What should we do? Optimization & policy.</p></div></div>
-          </div>
-
-          <div class="grid grid-cols-12 mt-6">
-            <div class="col-span-6">
-              <h3>Descriptive Example</h3>
-              <div class="rounded-xl bg-slate-50 border p-4">
-                <p class="text-sm">Q3 Sales by Region</p>
-                <div class="chart"><canvas id="chartDesc"></canvas></div>
-                <p class="note">Example: Adobe Experience Cloud dashboards.</p>
-              </div>
-            </div>
-            <div class="col-span-6">
-              <h3>Predictive Example</h3>
-              <div class="rounded-xl bg-slate-50 border p-4">
-                <p class="text-sm">AI-assisted forecast</p>
-                <div class="chart"><canvas id="chartPred"></canvas></div>
-                <p class="note">Example: Zillow Zestimate methodology.</p>
-              </div>
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 1</span>
+        <h2 class="mt-2">The Three Types of Analytics</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔎</div><div><h3>Descriptive</h3><p class="muted">What happened? Dashboards & KPIs.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">📈</div><div><h3>Predictive</h3><p class="muted">What will happen? Forecasts & models.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧭</div><div><h3>Prescriptive</h3><p class="muted">What should we do? Optimization & policy.</p></div></div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="col-span-12 md:col-span-6">
+            <h3>Descriptive Example</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">Q3 Sales by Region</p>
+              <div class="chart"><canvas id="chartDesc"></canvas></div>
+              <p class="note">Example source: Adobe Experience Cloud dashboards (Adobe case studies).</p>
             </div>
           </div>
-
-          <div class="grid grid-cols-12 mt-6">
-            <div class="col-span-6">
-              <h3>Prescriptive Example</h3>
-              <div class="rounded-xl bg-slate-50 border p-4">
-                <p class="text-sm">Optimal marketing allocation</p>
-                <div class="chart"><canvas id="chartPres"></canvas></div>
-                <p class="note">Example: HBR analyses of Uber pricing.</p>
-              </div>
+          <div class="col-span-12 md:col-span-6">
+            <h3>Predictive vs Actual</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">AI-assisted forecast with influence band</p>
+              <div class="chart"><canvas id="chartPredD1"></canvas></div>
+              <p class="note">Example source: Zillow Zestimate methodology.</p>
             </div>
-            <div class="col-span-6">
-              <h3>Hands-on Exercise</h3>
-              <div class="rounded-xl border p-4">
-                <p class="text-sm">Dataset: <a class="text-violet-700 underline" target="_blank" href="https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing">Google Merchandise Store Sample</a></p>
-                <ol class="list-decimal ml-6 text-sm mt-2">
-                  <li>Make a copy (File → Make a copy)</li>
-                  <li>Pivot: Category → SUM(Revenue)</li>
-                  <li>Add region share % and insert Column chart</li>
-                </ol>
-                <div class="mt-3">
-                  <button class="btn primary small use-prompt" data-prompt="Summarize this Google Sheet: https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing. Build a pivot (Category→SUM Revenue), list top 3 categories by revenue, compute region share %, and explain insights in plain English.">Ask Gemini</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top:auto;padding-top:1.5rem" class="flex items-center justify-between">
-            <div class="text-xs" style="color:#64748b">Sources: Adobe case studies; Zillow Research; HBR.</div>
-            <button class="btn primary nav-link" data-target="d2">Proceed to Day 2</button>
           </div>
         </div>
-      </div>
+        <div class="mt-6 grid12">
+          <div class="col-span-12 md:col-span-6">
+            <h3>Prescriptive Mix</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">Optimal marketing allocation</p>
+              <div class="chart"><canvas id="chartPresD1"></canvas></div>
+              <p class="note">Example source: Harvard Business Review analyses of Uber surge pricing.</p>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <h3>Hands‑on (Descriptive)</h3>
+            <div class="rounded-xl border p-4">
+              <p class="text-sm">Dataset (Google Sheets): <a class="text-violet-700 underline" target="_blank" href="https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing">Google Merchandise Store Sample</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>Make a copy (File → Make a copy).</li>
+                <li>Pivot: <em>Category → SUM(Revenue)</em>.</li>
+                <li>Add region share % and insert a Column chart.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Reveal expected answer</summary><p class="text-sm mt-2">Top categories typically: <strong>Apparel</strong>, <strong>Electronics</strong>, <strong>Accessories</strong>. Interpret drivers and margins.</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="Summarize this Google Sheet: https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing. Build a pivot (Category→SUM Revenue), list top 3 categories by revenue, compute region share %, and explain insights in plain English.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Explain the revenue distribution by category as three bullet points.;What are likely reasons the bottom category underperforms?;Suggest one test to improve sales in the #2 category.;Create a 1‑minute script to present the chart to executives.;Propose one new KPI we should track and why.">More prompts</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Sources: Adobe case studies; Zillow Research; HBR on Uber.</div>
+          <a href="#d2" class="btn primary">Proceed to Day 2</a>
+        </div>
+      </div></div>
     </section>
 
-    <!-- Day 2 -->
+    <!-- DAY 2: Big Data, Tools, Ethics, Labs with Sheets + 5 prompts each -->
     <section id="d2" class="card">
-      <div class="inner">
-        <div class="panel">
-          <span class="pill">Day 2 · Applications & Big Data</span>
-          <h2 class="mt-2">Big Data, AI Tools, Real Cases</h2>
-
-          <div class="grid grid-cols-2 mt-4 gap-6">
-            <div>
-              <h3>Big Data — 4Vs Evolution</h3>
-              <div class="rounded-xl bg-slate-50 border p-4">
-                <div class="chart"><canvas id="chartBigData"></canvas></div>
-                <ul class="list-disc ml-6 text-sm muted mt-2">
-                  <li><strong>Volume</strong> — Petabytes of data daily</li>
-                  <li><strong>Velocity</strong> — Real-time streaming</li>
-                  <li><strong>Variety</strong> — Structured + unstructured</li>
-                  <li><strong>Veracity</strong> — Data quality matters</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h3>Industry AI Adoption</h3>
-              <div class="rounded-xl bg-slate-50 border p-4">
-                <div class="chart"><canvas id="chartAdoption"></canvas></div>
-                <p class="note mt-2">Source: McKinsey AI Survey 2024</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 mt-6 gap-4">
-            <div class="kard"><div class="icon">🏭</div><div><h3>Descriptive Case</h3><p class="muted">P&G dashboards enabled supply-chain redesign.</p><p class="note">Source: McKinsey Insights</p></div></div>
-            <div class="kard"><div class="icon">🏠</div><div><h3>Predictive Case</h3><p class="muted">Zillow Zestimate — property value ML.</p><p class="note">Source: Zillow Research</p></div></div>
-            <div class="kard"><div class="icon">🚗</div><div><h3>Prescriptive Case</h3><p class="muted">Uber dynamic pricing balances supply/demand.</p><p class="note">Source: Harvard Business Review</p></div></div>
-          </div>
-
-          <div style="margin-top:auto;padding-top:1.5rem" class="flex items-center justify-between">
-            <div class="text-xs" style="color:#64748b">Ethics discussion: fairness, transparency, privacy.</div>
-            <button class="btn primary nav-link" data-target="d3">Proceed to Day 3</button>
-          </div>
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Applications & Big Data</span>
+        <h2 class="mt-2">Big Data, AI Tools, Real Cases, Ethics</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-6"><div class="icon">📦</div><div><h3>Big Data — 4Vs</h3><ul class="list-disc ml-5 text-sm muted"><li><strong>Volume</strong> — Walmart reportedly processes petabytes/day (IBM, 2023).</li><li><strong>Velocity</strong> — Streaming events arrive in real time.</li><li><strong>Variety</strong> — Structured sales + unstructured reviews.</li><li><strong>Veracity</strong> — Data quality & trust.</li></ul><p class="note">Sources: IBM “What is Big Data?”, McKinsey AI Adoption by Industry.</p></div></div>
+          <div class="kard col-span-12 md:col-span-6"><div class="icon">🧰</div><div><h3>AI Tools for BA</h3><ul class="list-disc ml-5 text-sm"><li><a class="underline" target="_blank" href="https://www.tableau.com">Tableau</a> — Visualization</li><li><a class="underline" target="_blank" href="https://powerbi.microsoft.com">Power BI</a> — BI dashboards</li><li><a class="underline" target="_blank" href="https://cloud.google.com/automl">Google Cloud AutoML</a> — ML</li><li><a class="underline" target="_blank" href="https://openai.com/chatgpt">ChatGPT</a> & <a class="underline" target="_blank" href="https://workspace.google.com/products/gemini/">Gemini for Workspace</a> — GenAI</li></ul></div></div>
         </div>
-      </div>
+        <div class="grid12 mt-6">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🏭</div><div><h3>Descriptive Case</h3><p class="muted">Procter & Gamble dashboards enabled a supply‑chain network redesign.</p><p class="note">Source: McKinsey Insights.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🏠</div><div><h3>Predictive Case</h3><p class="muted">Zillow Zestimate — property value ML.</p><p class="note">Source: Zillow Research (methodology docs).</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🚗</div><div><h3>Prescriptive Case</h3><p class="muted">Uber dynamic pricing balances supply/demand with constraints.</p><p class="note">Source: Harvard Business Review.</p></div></div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Add article links in Canvas module for pre‑reads.</div>
+          <a href="#d2-forecast" class="btn primary">Next ▶ Forecast Lab</a>
+        </div>
+      </div></div>
     </section>
 
-    <!-- Day 3 -->
+    <section id="d2-forecast" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Hands‑on</span>
+        <h2>Predictive Lab — Forecast Next 3 Months</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-1">Dataset</h3>
+              <p class="text-sm">Open a blank sheet: <a target="_blank" class="underline text-violet-700" href="https://sheet.new">sheet.new</a> → Import CSV below.</p>
+              <p class="text-sm">Download CSV: <a id="dlTS" class="underline text-violet-700" download="monthly_sales.csv">monthly_sales.csv</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>File → Import → Upload CSV → Insert new sheet.</li>
+                <li>Sort by date ascending (A→Z).</li>
+                <li>Add 3 future months (next rows).</li>
+                <li>Use <code class="px-1 rounded bg-slate-900 text-white text-xs">=FORECAST.ETS(next_date, sales_range, date_range)</code>.</li>
+                <li>Insert a line chart: Actual vs Forecast.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Expected pattern</summary><p class="text-sm mt-2">Seasonal uptick in Q3; July≈165k, Aug≈172k, Sep≈178k (illustrative).</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="I imported monthly_sales.csv into Google Sheets. Use FORECAST.ETS to predict the next 3 months. Explain assumptions, seasonality, and provide a short executive summary with a simple chart instruction.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Check if a linear trend gives a worse MAPE than ETS.;Explain how to handle outliers before forecasting.;Write a one‑paragraph risk note about forecast uncertainty.;Suggest inventory actions if August forecast dips.;Create 3 follow‑up questions to ask stakeholders.">More prompts</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-1">Reference Visual</h3>
+              <div class="chart"><canvas id="chartPred2"></canvas></div>
+              <p class="note mt-2">Tip: Use data labels on the forecasted points for clarity.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Remember to annotate anomalies or promotions in your sheet.</div>
+          <a href="#d2-opt" class="btn primary">Next ▶ Optimization Lab</a>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d2-opt" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Hands‑on</span>
+        <h2>Prescriptive Lab — Optimize Marketing Spend</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-1">Dataset</h3>
+              <p class="text-sm">Open a blank sheet: <a target="_blank" class="underline text-violet-700" href="https://sheet.new">sheet.new</a> → Import CSV below.</p>
+              <p class="text-sm">Download CSV: <a id="dlROI" class="underline text-violet-700" download="channel_roi.csv">channel_roi.csv</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>Columns: Channel, ROI. Create Spend cells for each.</li>
+                <li>Total budget cell (e.g., 100000).</li>
+                <li>Objective cell: <code class="px-1 rounded bg-slate-900 text-white text-xs">=SUMPRODUCT(spend_range, roi_range)</code></li>
+                <li>Constraints: SUM(spend)=Budget; spend ≥0; optional min/max.</li>
+                <li>Extensions → Add‑ons → Solver → Maximize objective.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Expected result</summary><p class="text-sm mt-2">Approx split: Social 45% · SEM 30% · Email 20% · Print 5% (ROI‑dependent).</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="In Google Sheets, I have channels with ROI and decision cells for Spend. Build and solve an optimization using SUMPRODUCT objective and a fixed budget. Suggest realistic min/max constraints and interpret the results.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Write a 3‑bullet exec summary of the allocation.;What sensitivity checks should we run on ROI?;Add a constraint for minimum email spend (brand goal).;Explain cannibalization risk between Social and SEM.;Propose an A/B to validate this plan next month.">More prompts</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-1">Reference Visual</h3>
+              <div class="chart"><canvas id="chartPres2"></canvas></div>
+              <p class="note mt-2">Use data validation to cap spend ranges for realism.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Source: HBR case discussions on surge pricing & trade‑offs.</div>
+          <a href="#d2-ethics" class="btn primary">Next ▶ Ethics</a>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d2-ethics" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2</span>
+        <h2>Ethics in BA & AI</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">⚖️</div><div><h3>Fairness</h3><p class="muted">Bias from data & labels.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔍</div><div><h3>Transparency</h3><p class="muted">Explainability & documentation.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔐</div><div><h3>Privacy</h3><p class="muted">Minimize, retain responsibly.</p></div></div>
+        </div>
+        <div class="rounded-xl bg-slate-50 border p-4 mt-6">
+          <h3 class="mb-2">Case: Amazon Recruiting Tool</h3>
+          <p class="text-sm">Amazon reportedly discontinued a resume‑screening AI due to gender bias.</p>
+          <p class="text-xs text-slate-500">Source: <a class="underline" target="_blank" href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G">Reuters (2018)</a></p>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Discuss guardrails: audits, diverse data, human‑in‑the‑loop.</div>
+          <a href="#d3" class="btn primary">Proceed to Day 3</a>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- DAY 3: Careers -->
     <section id="d3" class="card">
-      <div class="inner">
-        <div class="panel">
-          <span class="pill">Day 3 · Careers & The Future</span>
-          <h2 class="mt-2">Job Market, Skills, Certifications</h2>
-
-          <div class="grid grid-cols-2 mt-4 gap-6">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 3 · Careers & The Future</span>
+        <h2>Job Market, Skills, Certifications</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
             <div class="rounded-xl bg-slate-50 border p-4">
-              <h3 class="mb-2">Salary & Demand Trends</h3>
+              <h3 class="mb-1">Salary & Demand Snapshot</h3>
               <div class="chart"><canvas id="chartCareer"></canvas></div>
-              <p class="note mt-2">Sources: BLS, LinkedIn Jobs Report, Glassdoor</p>
+              <p class="note mt-2">Update numbers with current year and cite on slide: BLS (Data Scientists), LinkedIn Jobs Report, GMAC, Glassdoor.</p>
+              <div class="mt-2 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="Using current BLS, LinkedIn Jobs Report, GMAC, and Glassdoor sources, create a concise summary of demand trends and median salaries for Data Analyst, BI Developer, Data Scientist, AI/ML Engineer, and BA Manager. Cite each stat inline with source and year.">Ask Gemini to draft the snapshot</button>
+                <button class="btn ghost small more-prompts" data-prompts="List top 8 transferable skills across these roles.;Create a 6‑month learning plan for a BA‑track student.;Suggest 3 certifications that best signal readiness.;Write a 90‑second pitch for an internship interview.;Turn the snapshot into a one‑slide executive brief.">More prompts</button>
+              </div>
             </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
             <div class="rounded-xl bg-slate-50 border p-4">
-              <h3 class="mb-2">Skills by Role</h3>
+              <h3 class="mb-1">Skills by Role</h3>
               <div class="chart"><canvas id="chartSkills"></canvas></div>
-              <p class="note mt-2">Core: SQL · Python · Communication · Visualization</p>
+              <p class="note mt-2">Common core: SQL · Python · Communication · Visualization.</p>
             </div>
-          </div>
-
-          <div class="grid grid-cols-3 mt-6 gap-4">
-            <div class="kard"><div class="icon">🎓</div><div><h3>Top Certifications</h3><p class="muted">Google Data Analytics, Tableau, AWS ML</p></div></div>
-            <div class="kard"><div class="icon">💬</div><div><h3>Alumni Success</h3><p class="muted">"BA gave me a playbook for measurable impact."</p></div></div>
-            <div class="kard"><div class="icon">🧭</div><div><h3>Hot Industries</h3><p class="muted">Healthcare, Finance, Retail, Tech/Media</p></div></div>
-          </div>
-
-          <div class="mt-6 rounded-xl border p-4">
-            <h3 class="mb-3">Career Path Builder</h3>
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <select id="roleSelect"><option>Data Analyst</option><option>BI Developer</option><option>Data Scientist</option><option>AI/ML Engineer</option><option>BA Manager</option></select>
-              <select id="industrySelect"><option>Healthcare</option><option>Finance</option><option>Retail</option><option>Tech/Media</option></select>
-            </div>
-            <button id="generatePlan" class="btn primary mb-3">Generate Learning Plan</button>
-            <div id="careerPlan" class="text-sm bg-slate-50 p-3 rounded" style="display:none">
-              <div id="planContent"></div>
-            </div>
-          </div>
-
-          <div style="margin-top:auto;padding-top:1.5rem" class="flex items-center justify-between">
-            <div class="text-xs" style="color:#64748b">Next: Bring 3 job posts and map skills to requirements.</div>
-            <button class="btn ghost nav-link" data-target="d1">Back to Start ↑</button>
           </div>
         </div>
-      </div>
+        <div class="grid12 mt-6">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🎓</div><div><h3>Certifications</h3><p class="muted"><a class="underline" target="_blank" href="https://www.coursera.org/professional-certificates/google-data-analytics">Google Data Analytics</a>, <a class="underline" target="_blank" href="https://www.tableau.com/learn/certification">Tableau</a>, <a class="underline" target="_blank" href="https://aws.amazon.com/certification/certified-machine-learning-specialty/">AWS ML</a></p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">💬</div><div><h3>Alumni Quotes</h3><p class="muted">“BA gave me a playbook for measurable impact.”</p><p class="muted">“AI literacy made me stand out for product roles.”</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧭</div><div><h3>Where the Jobs Are</h3><p class="muted">Healthcare, Finance, Retail, Tech/Media.</p></div></div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Bring 3 job posts next class and map skills → requirements.</div>
+          <a href="#d3-final" class="btn primary">Final Exercise ▶</a>
+        </div>
+      </div></div>
     </section>
+
+    <section id="d3-final" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 3 · Final Exercise</span>
+        <h2>Career Pathfinder — Build Your Target Role</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-2">Step 1 — Choose Role & Industry</h3>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="role" class="border rounded-lg px-3 py-2">
+                  <option>Data Analyst</option>
+                  <option>BI Developer</option>
+                  <option>Data Scientist</option>
+                  <option>AI/ML Engineer</option>
+                  <option>BA Manager</option>
+                </select>
+                <select id="industry" class="border rounded-lg px-3 py-2">
+                  <option>Healthcare</option>
+                  <option>Finance</option>
+                  <option>Retail</option>
+                  <option>Tech/Media</option>
+                </select>
+              </div>
+              <h3 class="mt-4 mb-2">Step 2 — Generate Your Checklist</h3>
+              <button id="genPlan" class="btn primary">Generate</button>
+              <p class="note mt-2">This uses a built‑in template (no external calls).</p>
+              <div class="mt-4">
+                <button class="btn ghost small use-prompt" data-prompt="I am choosing a target analytics role and industry. Based on current market data, recommend the top 8 skills to learn, 3 certifications to pursue, and a 6‑month learning roadmap. Provide inline citations for salary/demand figures you mention.">Ask Gemini to tailor my plan</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-2">Your Plan</h3>
+              <div id="planOut" class="text-sm text-slate-700 space-y-2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Tip: Use LinkedIn Jobs & BLS pages as primary references.</div>
+          <a href="#d1" class="btn ghost">Back to Start ↑</a>
+        </div>
+      </div></div>
+    </section>
+
   </main>
 
-  <!-- Gemini Helper -->
-  <div id="helper" class="helper" hidden>
+<!-- Floating Back button -->
+<button id="backFloat" class="helper-toggle fixed bottom-4 left-4" title="Go back to previous card">◀ Back</button>
+
+<!-- Global Gemini helper (floating) -->
+  <button id="helperToggle" class="helper-toggle fixed bottom-4 right-4">Ask Gemini ✨</button>
+  <aside id="helper" class="helper" hidden>
     <div class="panel">
       <div class="flex items-center justify-between">
-        <h3>Live AI Assistant ✨</h3>
-        <button id="helperClose" class="btn ghost">×</button>
+        <h3>Ask Gemini about BA & AI ✨</h3>
+        <button id="helperClose" class="btn ghost">Close</button>
       </div>
-
-      <div id="apiSetup" class="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded">
-        <h4 class="text-sm font-bold text-yellow-800">🔑 Setup Required</h4>
-        <p class="text-xs text-yellow-700 mt-2">Enter your Gemini API key:</p>
-        <div class="flex gap-2 mt-2">
-          <input type="password" id="apiKeyInput" placeholder="Your Gemini API Key" class="flex-1 text-xs">
-          <button id="saveApiKey" class="btn primary small">Save</button>
-        </div>
-        <p class="text-xs text-yellow-700 mt-2">Get a key: <a href="https://makersuite.google.com/app/apikey" target="_blank" class="underline">Google AI Studio</a></p>
+      <p class="note mt-1">Paste or edit the prompt below, then copy it into Gemini (Workspace side panel or web app).</p>
+      <textarea id="helperPrompt" class="promptbox" placeholder="e.g., Summarize this dataset…"></textarea>
+      <div class="prompt-actions">
+        <button id="copyPrompt" class="btn primary">Copy Prompt</button>
+        <button id="clearPrompt" class="btn ghost">Clear</button>
       </div>
-
-      <div class="grid grid-cols-2 gap-2 mt-3">
-        <button id="askLiveGemini" class="btn primary small" disabled>🧠 Ask Gemini</button>
-        <button id="openGeminiWeb" class="btn ghost small">🌐 Open Web</button>
-      </div>
-
-      <textarea id="helperPrompt" class="promptbox mt-2" placeholder="Ask about business analytics..."></textarea>
-
-      <div id="geminiResponse" class="mt-3 p-3 bg-slate-50 border rounded max-h-40 overflow-y-auto text-sm" style="display:none">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-purple-600 font-bold">🤖 Gemini:</span>
-          <div id="loadingSpinner" class="animate-spin" style="width:12px;height:12px;border:2px solid #7c3aed;border-top:2px solid transparent;border-radius:50%;display:none"></div>
-        </div>
-        <div id="responseText" class="text-slate-700 whitespace-pre-wrap"></div>
-      </div>
-
-      <div class="flex gap-2 mt-2">
-        <button id="copyPrompt" class="btn ghost small">📋 Copy</button>
-        <button id="clearPrompt" class="btn ghost small">🗑️ Clear</button>
-      </div>
-
-      <p id="statusMsg" class="note mt-2"></p>
+      <p id="copyMsg" class="note mt-1"></p>
     </div>
-  </div>
-  <button id="helperToggle" class="helper-toggle">Ask Gemini ✨</button>
+  </aside>
 
-  <!-- Nav dots -->
+  <!-- Navigation dots -->
   <div class="navdots" id="navdots"></div>
 
   <script>
-    let geminiApiKey = '';
-    const sections = ['d1','d1-pillars','d1-types','d2','d3'];
-    const colors = {blue:'#3b82f6',green:'#10b981',yellow:'#f59e0b',purple:'#7c3aed',red:'#ef4444',text:'#1f2937'};
+    // ====== Style / Charts helpers ======
+    const P = { blue:'#3357FF', yellow:'#FFC300', red:'#FF5733', green:'#33FF57', light:'#DAF7A6', purple:'#7c3aed', text:'#334155' };
 
-    window.addEventListener('load',()=>{ try{
-      initializeCharts();
-      initializeNavigation();
-      initializeGeminiHelper();
-      initializeInteractivity();
-    }catch(e){ console.log('Init error:',e); }});
+    const centerTextPlugin = { id:'centerText', afterDraw(chart, args, opts){ if(!opts?.text) return; const {ctx} = chart; const c = chart.getDatasetMeta(0).data[0]; if(!c) return; const x = c.x, y = c.y; ctx.save(); ctx.fillStyle = opts.color || P.purple; ctx.font = (opts.fontSize||14)+'px Inter, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; const lines = Array.isArray(opts.text)?opts.text:[opts.text]; const lh=(opts.fontSize||14)*1.3; const total = lh*lines.length; lines.forEach((ln,i)=>ctx.fillText(ln,x,y-total/2+i*lh)); ctx.restore(); } };
+    try { const ann = (Chart?.registry?.getPlugin && Chart.registry.getPlugin('annotation')) || undefined; if (ann) Chart.register(ann); } catch(_) {}
+Chart.register(centerTextPlugin);
 
-    function initializeCharts(){
-      try{
-        const baCtx=document.getElementById('chartBA');
-        if(baCtx) new Chart(baCtx,{type:'doughnut',data:{labels:['Business Acumen','Technical Skills','Data Science & AI'],datasets:[{data:[33,33,34],backgroundColor:[colors.blue,colors.green,colors.yellow],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{color:colors.text,padding:15}}}}});
+    // Charts
+    new Chart(document.getElementById('chartBA'),{ type:'doughnut', data:{ labels:['Business','Technical','Data Science'], datasets:[{ data:[33,33,34], backgroundColor:[P.blue,P.green,P.yellow], borderColor:'#fff', borderWidth:4 }]}, options:{ responsive:true, maintainAspectRatio:false, cutout:'65%', plugins:{ legend:{ labels:{ color:P.text } }, title:{ display:true, text:'Core Components of BA', color:P.text }, centerText:{ text:['AI amplifies','all three'], color:P.purple, fontSize:14 } } }});
+    new Chart(document.getElementById('chartDesc'),{ type:'bar', data:{ labels:['North America','Europe','Asia Pacific'], datasets:[{ label:'Q3 Sales', data:[150,120,180], backgroundColor:[P.blue,P.green,P.yellow], borderRadius:6 }]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, title:{ display:true, text:'Sales by Region (Q3)', color:P.text } }, scales:{ x:{ ticks:{ color:P.text } }, y:{ beginAtZero:true, ticks:{ color:P.text } } } }});
+    new Chart(document.getElementById('chartPredD1'),{ type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Actual', data:[120,135,140,130,155,160], borderColor:P.yellow, tension:.3 },{ label:'Predicted (AI)', data:[125,130,145,140,150,165], borderColor:P.purple, borderDash:[6,6], tension:.3 }]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{ color:P.text } }, title:{ display:true, text:'Forecast vs Actual (AI-assisted)', color:P.text }, annotation:{ annotations:{ band:{ type:'box', xMin:'Apr', xMax:'Jun', backgroundColor:'rgba(124,58,237,.08)', borderColor:'rgba(124,58,237,.25)' } } } }, scales:{ x:{ ticks:{ color:P.text } }, y:{ ticks:{ color:P.text } } } }});
+    new Chart(document.getElementById('chartPresD1'),{ type:'doughnut', data:{ labels:['Social','SEM','Email','Print'], datasets:[{ data:[45,30,20,5], backgroundColor:[P.red,P.purple,P.blue,P.green], borderColor:'#fff', borderWidth:4 }]}, options:{ responsive:true, maintainAspectRatio:false, cutout:'65%', plugins:{ legend:{ labels:{ color:P.text } }, title:{ display:true, text:'Optimal Budget Allocation (AI)', color:P.text }, centerText:{ text:['AI prescribes','best mix'], color:P.purple, fontSize:14 } } }});
+    new Chart(document.getElementById('chartCareer'),{ type:'bar', data:{ labels:['Data Analyst','BI Dev','Mkt Analyst','Data Scientist','AI/ML Eng','BA Manager'], datasets:[{ data:[75,80,70,110,125,95], backgroundColor:[P.green,P.blue,P.yellow,P.red,P.purple,'#6366f1'], borderRadius:6 }]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, title:{ display:true, text:'Relative Salary/Index (placeholder)', color:P.text } }, scales:{ x:{ ticks:{ color:P.text } }, y:{ ticks:{ color:P.text } } } }});
+    new Chart(document.getElementById('chartSkills'),{ type:'radar', data:{ labels:['Programming','Statistics','Business','Communication','Visualization'], datasets:[{ label:'Business Analyst', data:[60,70,95,90,85], fill:true, backgroundColor:'rgba(51,87,255,.18)', borderColor:P.blue, pointBackgroundColor:P.blue },{ label:'AI-focused Data Scientist', data:[95,90,75,70,80], fill:true, backgroundColor:'rgba(255,87,51,.18)', borderColor:P.red, pointBackgroundColor:P.red }]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{ color:P.text } } }, scales:{ r:{ angleLines:{ color:'rgba(0,0,0,.08)' }, grid:{ color:'rgba(0,0,0,.08)' }, pointLabels:{ color:P.text }, ticks:{ display:false } } } }});
 
-        const venn=document.getElementById('chartVenn');
-        if(venn) new Chart(venn,{type:'scatter',data:{datasets:[{label:'Business Analytics',data:[{x:50,y:50}],backgroundColor:colors.purple,pointRadius:15}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false,min:0,max:100},y:{display:false,min:0,max:100}}}});
+    // ====== Quiz & helper logic ======
+    document.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const target = document.querySelector(btn.dataset.target);
+        const ok = btn.dataset.correct === 'true';
+        if(target) target.textContent = ok ? '✅ Correct: Experimental design sits in Data Science (with business context).' : '❌ Not quite — think about who designs statistical tests.';
+      });
+    });
 
-        const desc=document.getElementById('chartDesc');
-        if(desc) new Chart(desc,{type:'bar',data:{labels:['North America','Europe','Asia Pacific'],datasets:[{label:'Q3 Sales ($K)',data:[450,380,520],backgroundColor:[colors.blue,colors.green,colors.yellow],borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{color:colors.text}},x:{ticks:{color:colors.text}}}});
+    // Scroll helpers (Prev/Next + keyboard + dots)
+    const sections = Array.from(document.querySelectorAll('main .card'));
+    function visibleIndex(){ const y = document.querySelector('.snap-wrapper').scrollTop; let idx = 0; let best = Infinity; sections.forEach((s,i)=>{ const d = Math.abs(s.offsetTop - y); if(d < best){ best = d; idx = i; } }); return idx; }
+    function go(delta){ const i = Math.max(0, Math.min(sections.length-1, visibleIndex()+delta)); sections[i].scrollIntoView({behavior:'smooth'}); }
+    document.getElementById('prevBtn').addEventListener('click',()=>go(-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>go(+1));
+    document.addEventListener('keydown', (e)=>{ if(['ArrowDown','PageDown'].includes(e.key)) go(+1); if(['ArrowUp','PageUp'].includes(e.key)) go(-1); });
+    const dots = document.getElementById('navdots');
+    sections.forEach((s,i)=>{ const b=document.createElement('button'); b.title = s.id || `Section ${i+1}`; b.addEventListener('click',()=>sections[i].scrollIntoView({behavior:'smooth'})); dots.appendChild(b); });
+    function syncDots(){ const idx = visibleIndex(); const bs = dots.querySelectorAll('button'); bs.forEach((b,i)=> b.classList.toggle('active', i===idx)); }
+    document.querySelector('.snap-wrapper').addEventListener('scroll', ()=>{ window.requestAnimationFrame(syncDots); });
+    syncDots();
 
-        const pred=document.getElementById('chartPred');
-        if(pred) new Chart(pred,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{label:'Actual',data:[120,135,140,130,155,160],borderColor:colors.blue,backgroundColor:'transparent',tension:.3},{label:'Predicted',data:[125,130,145,140,150,165],borderColor:colors.purple,backgroundColor:'transparent',borderDash:[5,5],tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:colors.text}}},scales:{y:{ticks:{color:colors.text}},x:{ticks:{color:colors.text}}}});
+    // Smooth internal links so Back works reliably
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === '#') return;
+        e.preventDefault();
+        const node = document.querySelector(id);
+        if(node) node.scrollIntoView({behavior:'smooth'});
+      });
+    });
 
-        const pres=document.getElementById('chartPres');
-        if(pres) new Chart(pres,{type:'doughnut',data:{labels:['Social Media','Search (SEM)','Email','Print'],datasets:[{data:[45,30,20,5],backgroundColor:[colors.red,colors.purple,colors.blue,colors.green],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{color:colors.text,padding:10}}}});
+    // ====== Floating Gemini helper ======
+    const helper = document.getElementById('helper');
+    const helperToggle = document.getElementById('helperToggle');
+    const helperClose = document.getElementById('helperClose');
+    const helperPrompt = document.getElementById('helperPrompt');
+    const copyPrompt = document.getElementById('copyPrompt');
+    const clearPrompt = document.getElementById('clearPrompt');
+    const copyMsg = document.getElementById('copyMsg');
 
-        const big=document.getElementById('chartBigData');
-        if(big) new Chart(big,{type:'radar',data:{labels:['Volume','Velocity','Variety','Veracity'],datasets:[{label:'Traditional Data',data:[30,40,25,85],borderColor:colors.blue,backgroundColor:'#3b82f620',pointBackgroundColor:colors.blue},{label:'Big Data Era',data:[95,90,85,60],borderColor:colors.red,backgroundColor:'#ef444420',pointBackgroundColor:colors.red}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:colors.text}}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false},pointLabels:{color:colors.text}}}});
+    helperToggle.addEventListener('click', ()=> helper.hidden = !helper.hidden);
+    helperClose.addEventListener('click', ()=> helper.hidden = true);
+    clearPrompt.addEventListener('click', ()=> { helperPrompt.value = ''; copyMsg.textContent=''; });
+    copyPrompt.addEventListener('click', async ()=>{
+      try { await navigator.clipboard.writeText(helperPrompt.value || ''); copyMsg.textContent='✅ Prompt copied. Open Gemini and paste.'; }
+      catch(e){ copyMsg.textContent='Copy failed — select text and copy manually.'; }
+    });
 
-        const adopt=document.getElementById('chartAdoption');
-        if(adopt) new Chart(adopt,{type:'bar',data:{labels:['Financial Services','Technology','Healthcare','Retail','Manufacturing'],datasets:[{label:'AI Adoption %',data:[78,85,62,71,58],backgroundColor:[colors.blue,colors.purple,colors.green,colors.yellow,colors.red],borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:100,ticks:{color:colors.text,callback:v=>v+'%'}},y:{ticks:{color:colors.text}}}});
+    // Buttons that push a prompt into the helper
+    document.querySelectorAll('.use-prompt').forEach(btn=>{
+      btn.addEventListener('click',()=>{ helperPrompt.value = btn.dataset.prompt || ''; helper.hidden = false; });
+    });
+    document.querySelectorAll('.more-prompts').forEach(btn=>{ btn.addEventListener('click',()=>{ const items=(btn.dataset.prompts||'').split(';').map(s=>s.trim()).filter(Boolean); helperPrompt.value = '• ' + items.join('
+• '); helper.hidden=false; }); });
+    });
 
-        const career=document.getElementById('chartCareer');
-        if(career) new Chart(career,{type:'bar',data:{labels:['Data Analyst','BI Developer','Data Scientist','AI/ML Engineer','BA Manager'],datasets:[{label:'Avg Salary ($K)',data:[75,85,110,125,95],backgroundColor:[colors.green,colors.blue,colors.purple,colors.red,colors.yellow],borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{color:colors.text,callback:v=>'$'+v+'K'}},x:{ticks:{color:colors.text}}}});
+    // ====== Data URIs for downloadable CSVs (self-contained)
+    const csvTS = `date,sales
+2023-01-01,120000
+2023-02-01,135000
+2023-03-01,140000
+2023-04-01,130000
+2023-05-01,155000
+2023-06-01,160000
+2023-07-01,150000
+2023-08-01,170000
+2023-09-01,175000
+2023-10-01,165000
+2023-11-01,158000
+2023-12-01,172000
+2024-01-01,125000
+2024-02-01,138000
+2024-03-01,142000
+2024-04-01,133000
+2024-05-01,157000
+2024-06-01,162000`;
+    const csvROI = `channel,roi
+Social,3.2
+SEM,2.7
+Email,2.1
+Print,1.2`;
+    const dlTS = document.getElementById('dlTS'); if (dlTS) dlTS.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvTS);
+    const dlROI = document.getElementById('dlROI'); if (dlROI) dlROI.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvROI);
 
-        const skills=document.getElementById('chartSkills');
-        if(skills) new Chart(skills,{type:'radar',data:{labels:['Programming','Statistics','Business','Communication','Visualization'],datasets:[{label:'Business Analyst',data:[60,70,95,90,85],borderColor:colors.blue,backgroundColor:'#3b82f620',pointBackgroundColor:colors.blue},{label:'Data Scientist',data:[95,90,75,70,80],borderColor:colors.red,backgroundColor:'#ef444420',pointBackgroundColor:colors.red}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:colors.text}}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false},pointLabels:{color:colors.text}}}});
-      }catch(e){console.log('Charts error:',e)}
+    // ====== Extra charts for Day 2 (avoid duplicate IDs)
+    const cPred2 = document.getElementById('chartPred2');
+    if (cPred2) {
+      new Chart(cPred2,{ type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Actual', data:[120,135,140,130,155,160], borderColor:P.yellow, tension:.3 },{ label:'Predicted (AI)', data:[125,130,145,140,150,165], borderColor:P.purple, borderDash:[6,6], tension:.3 }]}, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{ color:P.text } }, title:{ display:true, text:'Forecast vs Actual (Reference)', color:P.text } }, scales:{ x:{ ticks:{ color:P.text } }, y:{ ticks:{ color:P.text } } } });
+    }
+    const cPres2 = document.getElementById('chartPres2');
+    if (cPres2) {
+      new Chart(cPres2,{ type:'doughnut', data:{ labels:['Social','SEM','Email','Print'], datasets:[{ data:[45,30,20,5], backgroundColor:[P.red,P.purple,P.blue,P.green], borderColor:'#fff', borderWidth:4 }]}, options:{ responsive:true, maintainAspectRatio:false, cutout:'65%', plugins:{ legend:{ labels:{ color:P.text } }, title:{ display:true, text:'Allocation Reference', color:P.text }, centerText:{ text:['AI prescribes','best mix'], color:P.purple, fontSize:14 } } });
     }
 
-    function initializeNavigation(){
-      try{
-        const prev=document.getElementById('prevBtn'); const next=document.getElementById('nextBtn'); const dotsBox=document.getElementById('navdots'); const scroller=document.querySelector('.snap-wrapper');
-        const els=sections.map(id=>document.getElementById(id)).filter(Boolean);
+    // ====== Venn hover hints
+    (function(){
+      const svg = document.getElementById('vennBA');
+      if(!svg) return;
+      const label = document.getElementById('vennCenter');
+      const sets = [ {x:120,y:110,r:80}, {x:200,y:110,r:80}, {x:160,y:60,r:80} ];
+      svg.addEventListener('mousemove', (e)=>{
+        const rect = svg.getBoundingClientRect();
+        const p = {x:e.clientX-rect.left, y:e.clientY-rect.top};
+        const inside = sets.map(h => (p.x-h.x)**2 + (p.y-h.y)**2 < h.r**2);
+        let t='Business Analytics';
+        if (inside[0]&&inside[1]&&inside[2]) t='BA (all three)';
+        else if (inside[0]&&inside[1]) t='BI / Product Analytics';
+        else if (inside[1]&&inside[2]) t='MLOps / ML Engineering';
+        else if (inside[0]&&inside[2]) t='Data‑Driven Strategy';
+        else if (inside[0]) t='Business';
+        else if (inside[1]) t='Technical';
+        else if (inside[2]) t='Data Science';
+        label.textContent = t;
+      });
+      svg.addEventListener('mouseleave', ()=>{ label.textContent = 'Business Analytics'; });
+    })();
 
-        function currentIndex(){ const y=scroller.scrollTop; let idx=0,b=Infinity; els.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<b){b=d; idx=i;}}); return idx; }
-        function go(i){ if(i<0||i>=els.length) return; els[i].scrollIntoView({behavior:'smooth'}); }
-
-        prev?.addEventListener('click',()=>go(currentIndex()-1));
-        next?.addEventListener('click',()=>go(currentIndex()+1));
-        document.addEventListener('keydown',e=>{ if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();go(currentIndex()+1);} if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(currentIndex()-1);} });
-
-        sections.forEach((id,i)=>{const b=document.createElement('button'); b.title=id; b.addEventListener('click',()=>go(i)); dotsBox.appendChild(b);});
-        const dots=()=>{const i=currentIndex(); dotsBox.querySelectorAll('button').forEach((b,bi)=>b.classList.toggle('active',bi===i));};
-        scroller.addEventListener('scroll',()=>requestAnimationFrame(dots)); dots();
-
-        document.querySelectorAll('.nav-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); const t=a.getAttribute('data-target'); const node=document.getElementById(t); node?.scrollIntoView({behavior:'smooth'});}));
-      }catch(e){console.log('Nav error:',e)}
+    // ====== Floating Back button behavior
+    const backBtn = document.getElementById('backFloat');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        const scroller = document.querySelector('.snap-wrapper');
+        const y = scroller.scrollTop;
+        let idx = 0, best = Infinity;
+        sections.forEach((s,i)=>{ const d = Math.abs(s.offsetTop - y); if(d < best){ best=d; idx=i; } });
+        sections[Math.max(0, idx-1)].scrollIntoView({behavior:'smooth'});
+      });
     }
-
-    function initializeGeminiHelper(){
-      try{
-        const helper=document.getElementById('helper'), toggle=document.getElementById('helperToggle'), close=document.getElementById('helperClose');
-        const prompt=document.getElementById('helperPrompt'), apiKeyInput=document.getElementById('apiKeyInput'), saveKey=document.getElementById('saveApiKey');
-        const ask=document.getElementById('askLiveGemini'), openWeb=document.getElementById('openGeminiWeb'), copyBtn=document.getElementById('copyPrompt'), clearBtn=document.getElementById('clearPrompt');
-        const respBox=document.getElementById('geminiResponse'), respText=document.getElementById('responseText'), spinner=document.getElementById('loadingSpinner'), status=document.getElementById('statusMsg'), apiSetup=document.getElementById('apiSetup');
-
-        try{ const saved=localStorage.getItem('geminiApiKey'); if(saved){ geminiApiKey=saved; apiKeyInput.value='••••••••••••'; ask.disabled=false; apiSetup.className='mt-3 p-3 bg-green-50 border border-green-200 rounded'; apiSetup.querySelector('h4').textContent='✅ API Key Configured'; } }catch{}
-
-        toggle?.addEventListener('click',()=>helper.hidden=!helper.hidden);
-        close?.addEventListener('click',()=>helper.hidden=true);
-
-        saveKey?.addEventListener('click',()=>{ const key=apiKeyInput.value.trim(); if(key && key!=='••••••••••••'){ geminiApiKey=key; try{localStorage.setItem('geminiApiKey',key);}catch{} apiKeyInput.value='••••••••••••'; ask.disabled=false; apiSetup.className='mt-3 p-3 bg-green-50 border border-green-200 rounded'; apiSetup.querySelector('h4').textContent='✅ API Key Configured'; status.textContent='🔑 API key saved successfully!'; status.className='note mt-2 text-green-600'; } else { status.textContent='⚠️ Please enter a valid API key.'; status.className='note mt-2 text-red-600'; } });
-
-        ask?.addEventListener('click',async()=>{ const q=(prompt?.value||'').trim(); if(!q){ status.textContent='⚠️ Please enter a question first.'; status.className='note mt-2 text-orange-600'; return; } if(!geminiApiKey){ status.textContent='⚠️ Please configure your API key first.'; status.className='note mt-2 text-red-600'; return; }
-          respBox.style.display='block'; spinner.style.display='block'; respText.textContent='Thinking...'; ask.disabled=true; ask.textContent='⏳ Thinking...';
-          try{
-            const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+encodeURIComponent(geminiApiKey);
-            const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:`As a business analytics instructor, provide a clear educational response to: "${q}". Include practical examples and mention relevant tools (Excel, Sheets, Tableau). Keep it concise (2–3 paragraphs).` }]}],generationConfig:{temperature:0.7,maxOutputTokens:1024}})});
-            if(!r.ok) throw new Error('API Error: '+r.status);
-            const data=await r.json();
-            const text=data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
-            respText.textContent=text; status.textContent='🤖 Response generated successfully!'; status.className='note mt-2 text-green-600';
-          }catch(err){ respText.textContent='❌ Error: '+err.message+'\n\nTip: Check your API key and try again.'; status.textContent='❌ Failed to get response.'; status.className='note mt-2 text-red-600'; }
-          finally{ spinner.style.display='none'; ask.disabled=false; ask.textContent='🧠 Ask Gemini'; }
-        });
-
-        openWeb?.addEventListener('click',()=>{ const q=prompt?.value||'Help with business analytics'; window.open('https://gemini.google.com/app?q='+encodeURIComponent(q),'_blank'); status.textContent='🌐 Gemini web opened in new tab!'; status.className='note mt-2 text-blue-600'; });
-        copyBtn?.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(prompt?.value||''); status.textContent='📋 Copied to clipboard!'; status.className='note mt-2 text-green-600'; }catch{ status.textContent='⚠️ Copy failed.'; status.className='note mt-2 text-red-600'; } });
-        clearBtn?.addEventListener('click',()=>{ if(prompt) prompt.value=''; respBox.style.display='none'; status.textContent=''; });
-
-        document.querySelectorAll('.use-prompt').forEach(b=>b.addEventListener('click',()=>{ const p=b.getAttribute('data-prompt')||''; if(prompt) prompt.value=p; helper.hidden=false; respBox.style.display='none'; status.textContent='📝 Prompt loaded! Try asking Gemini.'; status.className='note mt-2 text-blue-600'; }));
-      }catch(e){console.log('Gemini helper error:',e)}
-    }
-
-    function initializeInteractivity(){
-      try{
-        document.querySelectorAll('.ans').forEach(b=>b.addEventListener('click',()=>{ const ok=b.getAttribute('data-correct')==='true'; const msg=document.getElementById('quizMsg'); if(!msg) return; msg.textContent= ok ? '✅ Correct! A/B testing involves experimental design, which is part of Data Science.' : '❌ Not quite. Think about statistical experimental design.'; msg.className= ok ? 'mt-2 text-sm text-green-600' : 'mt-2 text-sm text-red-600'; }));
-
-        const gen=document.getElementById('generatePlan'), role=document.getElementById('roleSelect'), ind=document.getElementById('industrySelect'), box=document.getElementById('careerPlan'), out=document.getElementById('planContent');
-        gen?.addEventListener('click',()=>{ const r=role.value, i=ind.value; const plans={ 'Data Analyst':{skills:['SQL','Excel/Sheets','Tableau/Power BI','Statistics','Data Cleaning'],certs:['Google Data Analytics','Tableau Desktop','Microsoft Excel Expert'],timeline:'3–6 months: Master SQL and Excel, then move to BI tools'}, 'BI Developer':{skills:['SQL','ETL/Data Warehousing','Power BI/Tableau','Database Design'],certs:['Microsoft Power BI','Tableau Server','AWS Cloud Practitioner'],timeline:'6–9 months: Advanced SQL, then cloud platforms and dashboards'}, 'Data Scientist':{skills:['Python/R','Machine Learning','Statistics','SQL','Data Viz'],certs:['Google ML','Coursera Data Science','AWS ML Specialty'],timeline:'9–12 months: Programming, then ML and advanced modeling'}, 'AI/ML Engineer':{skills:['Python','TensorFlow/PyTorch','MLOps','Cloud','Software Eng'],certs:['TensorFlow Developer','AWS ML','Kubernetes'],timeline:'12+ months: Deep learning frameworks and production systems'}, 'BA Manager':{skills:['Leadership','Strategy','Data Storytelling','Project Mgmt'],certs:['PMP','Google Analytics','Tableau Certified'],timeline:'6–9 months: Leadership skills plus advanced analytics'} };
-          const p=plans[r]; out.innerHTML=`<h4 class="font-bold text-purple-600 mb-2">${r} in ${i}</h4><div class="mb-3"><strong>Key Skills:</strong><ul class="list-disc ml-6 text-xs mt-1">${p.skills.map(s=>`<li>${s}</li>`).join('')}</ul></div><div class="mb-3"><strong>Recommended Certifications:</strong><ul class="list-disc ml-6 text-xs mt-1">${p.certs.map(s=>`<li>${s}</li>`).join('')}</ul></div><div class="mb-3"><strong>Learning Timeline:</strong><p class="text-xs mt-1">${p.timeline}</p></div><div class="bg-violet-50 p-2 rounded"><p class="text-xs"><strong>Next Step:</strong> Start with the first skill listed and build a portfolio project!</p></div>`; box.style.display='block'; });
-      }catch(e){console.log('UX error:',e)}
-    }
-
-    // basic guards
-    window.addEventListener('error',e=>{ console.log('Global error:',e.message); return true; });
-    if(!window.Chart){ console.log('Chart.js not loaded, charts will not display'); }
-    if(!window.fetch){ console.log('Fetch API not supported, Gemini integration will not work'); }
   </script>
 </body>
 </html>
