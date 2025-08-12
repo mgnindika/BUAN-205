@@ -1,671 +1,1805 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to Business Analytics with AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            margin: 0;
-            padding: 0;
-        }
-        .slide-card {
-            background-color: #ffffff;
-            border-radius: 1rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            width: 90%;
-            max-width: 1100px;
-            height: 100vh;
-            min-height: 620px;
-            margin: 2.5vh auto;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .slide-card h2, .slide-card h3 {
-            color: #1a202c;
-        }
-        .slide-card p, .slide-card li, .slide-card span, .slide-card strong {
-            color: #4a5568;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 250px;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .source-text {
-            font-size: 0.75rem;
-            font-style: italic;
-            color: #718096;
-            margin-top: 1rem;
-        }
-        @media (max-width: 1200px) {
-            .slide-card {
-                height: 95vh;
-                min-height: 506px;
-                padding: 2.5rem;
-            }
-        }
-        @media (max-width: 960px) {
-            .slide-card {
-                height: auto;
-                min-height: 337px;
-                padding: 1.5rem;
-            }
-            .slide-card h2 { font-size: 2rem; }
-            .slide-card h3 { font-size: 1.5rem; }
-            .slide-card p, .slide-card li { font-size: 0.875rem; }
-            .chart-container { height: 200px; }
-        }
-    </style>
-</head>
-<body class="text-gray-800">
-
-    <div class="main-container" id="presentation">
-        
-        <!-- DAY 1 -->
-        <div class="slide-card" id="slide-day-1-intro">
-            <h2 class="text-5xl font-extrabold mb-4">Introduction to Business Analytics with AI</h2>
-            <h3 class="text-2xl font-bold text-gray-700">Your guide to turning data into smart decisions.</h3>
-            <p class="mt-8 text-xl font-medium">Presenter: [Your Name]</p>
-        </div>
-
-        <div class="slide-card" id="slide-day-1-what-is-ba">
-            <h3 class="text-4xl font-bold mb-6">What is Business Analytics?</h3>
-            <p class="text-xl leading-relaxed">BA is the use of **data**, **technology**, **statistical analysis**, and **quantitative methods** to gain insights and make better, fact-based decisions.</p>
-            <p class="text-xl leading-relaxed mt-4">It's the intersection of **business**, **computing**, and **data**.</p>
-        </div>
-
-        <div class="slide-card" id="slide-day-1-pillars">
-            <h3 class="text-4xl font-bold mb-6">The 3 Pillars of BA</h3>
-            <div class="chart-container">
-                <canvas id="baCompositionChart"></canvas>
-            </div>
-            <p class="source-text">(This chart is a conceptual representation of the core pillars.)</p>
-        </div>
-        
-        <div class="slide-card" id="slide-day-1-journey">
-            <h3 class="text-4xl font-bold mb-6 text-center">The Analytics Journey</h3>
-            <div class="flex flex-col space-y-6 w-full max-w-xl text-left">
-                <div>
-                    <h4 class="text-2xl font-bold text-blue-600">1. Data → Information</h4>
-                    <p class="text-lg">Taking raw data and giving it context (e.g., this number is a sales figure).</p>
-                </div>
-                <div>
-                    <h4 class="text-2xl font-bold text-yellow-600">2. Information → Insight</h4>
-                    <p class="text-lg">Discovering meaningful patterns (e.g., sales are higher in the Asia Pacific region).</p>
-                </div>
-                <div>
-                    <h4 class="text-2xl font-bold text-red-600">3. Insight → Action</h4>
-                    <p class="text-lg">Making a decision based on the insight (e.g., launching a new marketing campaign in Asia Pacific).</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide-card" id="slide-day-1-types">
-            <h3 class="text-4xl font-bold mb-6 text-center">The Three Types of Analytics</h3>
-            <div class="flex flex-col space-y-6 w-full max-w-xl text-left">
-                <div>
-                    <h4 class="text-2xl font-bold text-blue-600">Descriptive Analytics</h4>
-                    <p class="text-lg">**What happened?** Summarizes past and current data.</p>
-                </div>
-                <div>
-                    <h4 class="text-2xl font-bold text-yellow-600">Predictive Analytics</h4>
-                    <p class="text-lg">**What will happen?** Forecasts future trends based on past data.</p>
-                </div>
-                <div>
-                    <h4 class="text-2xl font-bold text-red-600">Prescriptive Analytics</h4>
-                    <p class="text-lg">**What should we do?** Recommends an optimal course of action.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide-card" id="slide-day-1-exercise-1">
-            <h3 class="text-4xl font-bold mb-6 text-center">Descriptive Analytics: A Hands-On Exercise</h3>
-            <p class="text-lg mb-4">**Goal:** Summarize Q3 sales data to find the highest-performing region.</p>
-            <p class="text-sm italic mb-4">You can copy and paste this dataset into a Google Sheet to begin the exercise:</p>
-            <div class="bg-gray-100 p-4 rounded-lg text-xs md:text-sm mt-4 overflow-x-auto w-full max-w-2xl">
-                <pre>Region,Product,Q3 Sales
-North America,Laptop,50000
-Europe,Laptop,45000
-Asia Pacific,Laptop,60000
-North America,Monitor,30000
-Europe,Monitor,25000
-Asia Pacific,Monitor,40000
-North America,Keyboard,20000
-Europe,Keyboard,15000
-Asia Pacific,Keyboard,10000</pre>
-            </div>
-        </div>
-
-        <div class="slide-card" id="slide-day-1-exercise-1-answer">
-            <h3 class="text-4xl font-bold mb-6">Day 1 Exercise: Expected Answer</h3>
-            <p class="text-xl leading-relaxed">By using a pivot table and column chart, you'll find that **Asia Pacific** had the highest sales in Q3, accounting for approximately **44%** of total sales.</p>
-            <div class="chart-container">
-                <canvas id="descriptiveChart"></canvas>
-            </div>
-            <p class="source-text">(This chart is based on a sample dataset for this exercise.)</p>
-        </div>
-        
-        <div class="slide-card" id="slide-day-1-gemini-exercise">
-            <h3 class="text-4xl font-bold mb-6 text-center">Day 1 Exercise: The Company Explorer</h3>
-            <p class="text-xl leading-relaxed mb-4">Using the Gemini AI tool below, research a company you're interested in (e.g., Spotify, Tesla, Starbucks).</p>
-            <p class="text-lg leading-relaxed">Ask Gemini to provide a real-world example of **Descriptive**, **Predictive**, and **Prescriptive** analytics that the company might use.</p>
-        </div>
-
-        <!-- DAY 2 -->
-        <div class="slide-card" id="slide-day-2-intro">
-            <h2 class="text-4xl font-extrabold mb-4 text-yellow-800">Day 2: Application & Hands-on Analytics</h2>
-            <h3 class="text-xl text-yellow-700">Putting theory into practice with real-world examples.</h3>
-        </div>
-        
-        <div class="slide-card" id="slide-day-2-deep-dive">
-            <h3 class="text-4xl font-bold mb-6 text-center">Descriptive vs. Predictive vs. Prescriptive</h3>
-            <div class="grid grid-cols-3 gap-6 w-full text-center">
-                <div>
-                    <h4 class="text-xl font-bold mb-2 text-blue-600">Descriptive</h4>
-                    <p class="text-sm">Sales by Region (Q3)</p>
-                    <div class="chart-container h-48 md:h-64">
-                        <canvas id="descriptiveChart"></canvas>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold mb-2 text-yellow-600">Predictive</h4>
-                    <p class="text-sm">Sales Forecast vs. Actual</p>
-                    <div class="chart-container h-48 md:h-64">
-                        <canvas id="predictiveChart"></canvas>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold mb-2 text-red-600">Prescriptive</h4>
-                    <p class="text-sm">Optimal Budget Allocation</p>
-                    <div class="chart-container h-48 md:h-64">
-                        <canvas id="prescriptiveChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <p class="source-text mt-4">(These charts are based on sample datasets for this exercise.)</p>
-        </div>
-
-        <div class="slide-card" id="slide-day-2-cases">
-            <h3 class="text-4xl font-bold mb-6 text-center">Real-World Case Studies</h3>
-            <div class="grid grid-cols-2 gap-8 w-full">
-                <div class="p-4 rounded-lg">
-                    <h4 class="text-2xl font-bold mb-2 text-blue-600">Retailer Analytics</h4>
-                    <p class="text-lg">Retailers use analytics to optimize their business, from predicting demand to identifying fraud.</p>
-                    <div class="chart-container h-48">
-                        <canvas id="retailAnalyticsChart"></canvas>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">(This chart is a conceptual representation of the impact of various retail analytics applications.)</p>
-                </div>
-                <div class="p-4 rounded-lg">
-                    <h4 class="text-2xl font-bold mb-2 text-yellow-600">Netflix Recommendations</h4>
-                    <p class="text-lg">Netflix's recommendation engine is a predictive model that influences **80%** of viewer activity. (Source: <a href="https://www.businessinsider.com/how-the-netflix-algorithm-works-2016-8" target="_blank" class="text-blue-600 underline">Business Insider, 2016</a>)</p>
-                    <div class="flex flex-col space-y-4 text-center mt-4">
-                        <div class="kpi-card">
-                            <div class="text-4xl font-extrabold text-red-600">80%</div>
-                            <div class="text-lg font-semibold">of viewer activity is driven by recommendations.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide-card" id="slide-day-2-ethics">
-            <h3 class="text-4xl font-bold mb-6 text-center">Ethics in BA & AI: Algorithmic Bias</h3>
-            <p class="text-xl leading-relaxed mb-4">AI models can unintentionally learn and amplify human biases from data. This is a critical ethical challenge.</p>
-            <p class="text-lg leading-relaxed mb-4">**Case Study: Amazon's AI Recruiting Tool** was scrapped because it showed bias against women, having been trained on historical data that favored male candidates.</p>
-            <p class="source-text">Source: <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G" target="_blank" class="text-blue-600 underline">Reuters, 2018</a></p>
-        </div>
-
-        <div class="slide-card" id="slide-day-2-exercise-2">
-            <h3 class="text-4xl font-bold mb-6 text-center">Day 2 Exercise: Predictive & Prescriptive</h3>
-            <p class="text-lg mb-4">**Goal:** Forecast future sales and recommend a budget mix to maximize profit.</p>
-            <p class="text-sm italic mb-4">You can copy and paste this dataset into a Google Sheet to begin the exercise:</p>
-            <div class="bg-gray-100 p-4 rounded-lg text-xs md:text-sm mt-4 overflow-x-auto w-full max-w-2xl">
-                <pre>Month,Sales,Marketing Budget,ROI
-Jan,100000,20000,2.5
-Feb,110000,22000,2.6
-Mar,105000,21000,2.4
-Apr,125000,28000,2.8</pre>
-            </div>
-        </div>
-        
-        <div class="slide-card" id="slide-day-2-innovator-challenge">
-            <h3 class="text-4xl font-bold mb-6 text-center">Day 2 Exercise: The Innovator's Challenge</h3>
-            <p class="text-xl leading-relaxed mb-4">In small groups, propose a new AI-driven prescriptive analytics solution for a company. Be prepared to present your idea!</p>
-        </div>
-
-        <!-- DAY 3 -->
-        <div class="slide-card" id="slide-day-3-intro">
-            <h2 class="text-4xl font-extrabold mb-4 text-green-800">Day 3: Careers & The Future</h2>
-            <h3 class="text-xl text-green-700">Connecting this course to your professional goals.</h3>
-        </div>
-
-        <div class="slide-card" id="slide-day-3-jobs">
-            <h3 class="text-4xl font-bold mb-6 text-center">The BA & AI Job Market</h3>
-            <p class="text-xl leading-relaxed mb-4">The demand for professionals with BA and AI skills is booming across every industry.</p>
-            <div class="grid grid-cols-2 gap-4 w-full text-center">
-                <div class="kpi-card">
-                    <div class="text-4xl font-extrabold text-green-600">$70k - $80k</div>
-                    <div class="text-lg font-semibold text-gray-700">Median Salary for a Data Analyst</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="text-4xl font-extrabold text-purple-600">$100k - $120k+</div>
-                    <div class="text-lg font-semibold text-gray-700">Median Salary for a Data Scientist</div>
-                </div>
-            </div>
-            <p class="source-text mt-4">Source: <a href="https://www.bls.gov/ooh/math/data-scientists.htm" target="_blank" class="text-blue-600 underline">U.S. Bureau of Labor Statistics</a>, <a href="https://www.glassdoor.com/Salaries/data-analyst-salary-SRCH_KO0,13.htm" target="_blank" class="text-blue-600 underline">Glassdoor (2023)</a></p>
-        </div>
-
-        <div class="slide-card" id="slide-day-3-skills">
-            <h3 class="text-4xl font-bold mb-6">Comparing Key Skillsets</h3>
-            <div class="chart-container">
-                <canvas id="skillsChart"></canvas>
-            </div>
-            <p class="source-text mt-4">Source: Based on an analysis of job descriptions from <a href="https://www.linkedin.com/business/talent/blog/talent-acquisition/linkedin-jobs-report-data-analytics" target="_blank" class="text-blue-600 underline">LinkedIn (2023)</a></p>
-        </div>
-
-        <div class="slide-card" id="slide-day-3-certifications">
-            <h3 class="text-4xl font-bold mb-6 text-center">Certification & Professional Pathways</h3>
-            <p class="text-xl leading-relaxed mb-4">Professional certifications are a great way to validate your skills and stand out to employers. Consider these popular options as you plan your career.</p>
-            <div class="grid grid-cols-3 gap-4 w-full">
-                <div class="bg-gray-100 p-4 rounded-lg text-center">
-                    <h4 class="font-bold text-lg mb-2">Google Data Analytics</h4>
-                    <p class="text-sm">A foundational certificate for those new to data analysis.</p>
-                </div>
-                <div class="bg-gray-100 p-4 rounded-lg text-center">
-                    <h4 class="font-bold text-lg mb-2">Tableau Desktop Specialist</h4>
-                    <p class="text-sm">Focuses on building data visualization skills.</p>
-                </div>
-                <div class="bg-gray-100 p-4 rounded-lg text-center">
-                    <h4 class="font-bold text-lg mb-2">AWS Machine Learning</h4>
-                    <p class="text-sm">For those wanting to specialize in building AI models on the cloud.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide-card" id="slide-day-3-quotes">
-            <h3 class="text-4xl font-bold mb-6 text-center">Alumni & Employer Quotes</h3>
-            <div class="flex flex-col space-y-8 w-full max-w-3xl">
-                <div class="bg-gray-100 p-6 rounded-lg italic text-gray-700">
-                    <p class="mb-4">"The ability to tell a story with data is the most valuable skill I learned. It's what separates a good analyst from a great one."</p>
-                    <p class="text-right font-bold">- Jane Doe, Senior Business Analyst at a Fortune 500 company</p>
-                </div>
-                <div class="bg-gray-100 p-6 rounded-lg italic text-gray-700">
-                    <p class="mb-4">"We don't just need people who can code; we need people who can solve problems. The blend of business and technical knowledge is what we look for in every hire."</p>
-                    <p class="text-right font-bold">- John Smith, Director of Analytics at a tech startup</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide-card" id="slide-day-3-exercise">
-            <h3 class="text-4xl font-bold mb-6 text-center">Day 3 Exercise: Your Future Role</h3>
-            <p class="text-xl leading-relaxed mb-4">Using the Gemini AI tool below, ask about the key skills for a specific job title you're interested in.</p>
-            <p class="text-lg leading-relaxed">Compare the response with the skills chart to identify where you can focus your learning and professional development.</p>
-        </div>
-
-        <!-- Ask Gemini -->
-        <div class="slide-card" id="slide-ask-gemini">
-            <h2 class="text-3xl font-bold text-center mb-6">Ask Gemini about BA & AI ✨</h2>
-            <p class="max-w-3xl mx-auto text-center text-lg text-gray-600 mb-8">Have a question? Ask our AI assistant anything to get a quick explanation!</p>
-            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4 w-full max-w-xl">
-                <input type="text" id="prompt-input" class="flex-grow p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500" placeholder="e.g., What is a neural network?">
-                <button id="ask-button" class="bg-blue-600 text-white font-bold p-3 rounded-lg hover:bg-blue-700 transition-colors">Ask Gemini ✨</button>
-            </div>
-            <div id="loading-indicator" class="text-center text-gray-500 hidden mb-4">Thinking...</div>
-            <div id="response-container" class="bg-gray-100 p-4 rounded-lg min-h-[100px] text-gray-800 w-full max-w-xl text-left overflow-y-auto">
-                <p class="italic text-gray-500">Your answer will appear here.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const wrapLabel = (label, maxWidth) => {
-            if (typeof label !== 'string') return label;
-            const words = label.split(' ');
-            if (words.length === 1) return label;
-            const lines = [];
-            let currentLine = words[0];
-            for (let i = 1; i < words.length; i++) {
-                if ((currentLine + ' ' + words[i]).length > maxWidth) {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                } else {
-                    currentLine += ' ' + words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        };
-
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            return Array.isArray(label) ? label.join(' ') : label;
-        };
-        
-        const energeticPlayfulPalette = {
-            blue: '#3357FF',
-            yellow: '#FFC300',
-            red: '#FF5733',
-            green: '#33FF57',
-            lightGreen: '#DAF7A6',
-            textColor: '#4A5568',
-            purple: '#800080'
-        };
-
-        const defaultChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                },
-                legend: {
-                    labels: {
-                        color: energeticPlayfulPalette.textColor,
-                        font: { size: 14 }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        display: false
-                    },
-                    ticks: {
-                        color: energeticPlayfulPalette.textColor
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: '#e2e8f0'
-                    },
-                    ticks: {
-                        color: energeticPlayfulPalette.textColor
-                    }
-                },
-                r: {
-                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                    pointLabels: {
-                        color: energeticPlayfulPalette.textColor,
-                        font: { size: 12 }
-                    },
-                    ticks: {
-                        display: false
-                    }
-                }
-            }
-        };
-
-        function initializeCharts() {
-            const baCompositionCtx = document.getElementById('baCompositionChart');
-            if (baCompositionCtx) {
-                new Chart(baCompositionCtx.getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Business Acumen', 'Technical Skills', 'Data Science'],
-                        datasets: [{
-                            data: [33.3, 33.3, 33.3],
-                            backgroundColor: [energeticPlayfulPalette.blue, energeticPlayfulPalette.green, energeticPlayfulPalette.yellow],
-                            borderColor: '#ffffff',
-                            borderWidth: 4
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: {
-                            ...defaultChartOptions.plugins,
-                            title: { display: true, text: 'The Core Components of Business Analytics', font: { size: 16, weight: 'bold' }, color: energeticPlayfulPalette.textColor, padding: { bottom: 20 }}
-                        }
-                    }
-                });
-            }
-
-            const descriptiveCtx = document.getElementById('descriptiveChart');
-            if (descriptiveCtx) {
-                new Chart(descriptiveCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['North America', 'Europe', 'Asia Pacific'],
-                        datasets: [{
-                            label: 'Quarterly Sales',
-                            data: [150, 120, 180],
-                            backgroundColor: energeticPlayfulPalette.blue,
-                            borderRadius: 5
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: { ...defaultChartOptions.plugins, legend: { display: false }, title: { display: true, text: 'Example: Sales by Region (Q3)', font: { size: 14, weight: 'bold' }, color: energeticPlayfulPalette.textColor}}
-                    }
-                });
-            }
-
-            const predictiveCtx = document.getElementById('predictiveChart');
-            if (predictiveCtx) {
-                new Chart(predictiveCtx.getContext('2d'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                        datasets: [{
-                            label: 'Actual Sales',
-                            data: [120, 135, 140, 130, 155, 160],
-                            borderColor: energeticPlayfulPalette.yellow,
-                            tension: 0.3
-                        }, {
-                            label: 'Predicted Sales',
-                            data: [125, 130, 145, 140, 150, 165],
-                            borderColor: energeticPlayfulPalette.yellow,
-                            borderDash: [5, 5],
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: { ...defaultChartOptions.plugins, title: { display: true, text: 'Example: Sales Forecast vs. Actual', font: { size: 14, weight: 'bold' }, color: energeticPlayfulPalette.textColor}}
-                    }
-                });
-            }
-
-            const prescriptiveCtx = document.getElementById('prescriptiveChart');
-            if (prescriptiveCtx) {
-                const prescriptiveLabels = ['Social Media', 'SEM', 'Email', 'Print Ads'];
-                new Chart(prescriptiveCtx.getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: prescriptiveLabels.map(l => wrapLabel(l, 12)),
-                        datasets: [{
-                            label: 'Optimal Marketing Budget Allocation',
-                            data: [45, 30, 20, 5],
-                            backgroundColor: [energeticPlayfulPalette.red, energeticPlayfulPalette.purple, energeticPlayfulPalette.blue, energeticPlayfulPalette.green],
-                            borderColor: '#ffffff',
-                            borderWidth: 4
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: { ...defaultChartOptions.plugins, title: { display: true, text: 'Example: Optimal Budget Allocation', font: { size: 14, weight: 'bold' }, color: energeticPlayfulPalette.textColor}}
-                    }
-                });
-            }
-
-            const retailAnalyticsCtx = document.getElementById('retailAnalyticsChart');
-            if (retailAnalyticsCtx) {
-                const retailLabels = ['Inventory Mgt', 'Fraud Detection', 'Demand Forecasting', 'Dynamic Pricing'];
-                new Chart(retailAnalyticsCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: retailLabels.map(l => wrapLabel(l, 16)),
-                        datasets: [{
-                            label: 'Impact on Profitability',
-                            data: [65, 75, 90, 85],
-                            backgroundColor: [energeticPlayfulPalette.blue, energeticPlayfulPalette.lightGreen, energeticPlayfulPalette.yellow, energeticPlayfulPalette.red],
-                            borderRadius: 5
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        indexAxis: 'y',
-                        scales: { x: { ...defaultChartOptions.scales.x }, y: { ...defaultChartOptions.scales.y, grid: { display: false }, ticks: { color: energeticPlayfulPalette.textColor }}},
-                        plugins: { ...defaultChartOptions.plugins, legend: { display: false }, title: { display: true, text: 'Key Analytics Applications in Retail', font: { size: 16, weight: 'bold' }, color: energeticPlayfulPalette.textColor, padding: { bottom: 20 }}}
-                    }
-                });
-            }
-            
-            const healthcareCtx = document.getElementById('healthcareChart');
-            if (healthcareCtx) {
-                const originalHealthcareLabels = ['ER wait time', 'Lab processing', 'In-patient transfer'];
-                const wrappedHealthcareLabels = originalHealthcareLabels.map(label => wrapLabel(label, 16));
-                new Chart(healthcareCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: wrappedHealthcareLabels,
-                        datasets: [{
-                            label: 'Time Reduction (Minutes)',
-                            data: [45, 15, 20],
-                            backgroundColor: [energeticPlayfulPalette.red, energeticPlayfulPalette.blue, energeticPlayfulPalette.yellow],
-                            borderRadius: 5
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: { ...defaultChartOptions.plugins, legend: { display: false }, title: { display: true, text: 'AI-Driven Operational Efficiency', font: { size: 16, weight: 'bold' }, color: energeticPlayfulPalette.textColor, padding: { bottom: 20 }}},
-                        scales: {
-                            y: { ...defaultChartOptions.scales.y },
-                            x: { ...defaultChartOptions.scales.x, ticks: { font: { size: 12 } } }
-                        }
-                    }
-                });
-            }
-
-            const careerCtx = document.getElementById('careerChart');
-            if (careerCtx) {
-                const originalCareerLabels = ['Data Analyst', 'BI Developer', 'Marketing Analyst', 'Data Scientist', 'AI/ML Engineer', 'BA Manager'];
-                new Chart(careerCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: originalCareerLabels.map(l => wrapLabel(l, 16)),
-                        datasets: [{
-                            label: 'Relative Demand (Indexed)',
-                            data: [85, 80, 75, 98, 100, 90],
-                            backgroundColor: [energeticPlayfulPalette.lightGreen, energeticPlayfulPalette.green, energeticPlayfulPalette.blue, energeticPlayfulPalette.yellow, energeticPlayfulPalette.red, energeticPlayfulPalette.purple],
-                            borderRadius: 5
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        scales: { x: { ...defaultChartOptions.scales.x, ticks: { font: { size: 12 }}}, y: { ...defaultChartOptions.scales.y, grid: { color: '#e2e8f0' }}},
-                        plugins: { ...defaultChartOptions.plugins, legend: { display: false } }
-                    }
-                });
-            }
-
-            const skillsCtx = document.getElementById('skillsChart');
-            if (skillsCtx) {
-                new Chart(skillsCtx.getContext('2d'), {
-                    type: 'radar',
-                    data: {
-                        labels: ['Programming', 'Statistics', 'Business Acumen', 'Communication', 'Data Visualization'],
-                        datasets: [{
-                            label: 'Business Analyst',
-                            data: [60, 70, 95, 90, 85],
-                            fill: true,
-                            backgroundColor: 'rgba(51, 87, 255, 0.2)',
-                            borderColor: energeticPlayfulPalette.blue,
-                            pointBackgroundColor: energeticPlayfulPalette.blue
-                        }, {
-                            label: 'AI-focused Data Scientist',
-                            data: [95, 90, 75, 70, 80],
-                            fill: true,
-                            backgroundColor: 'rgba(255, 87, 51, 0.2)',
-                            borderColor: energeticPlayfulPalette.red,
-                            pointBackgroundColor: energeticPlayfulPalette.red
-                        }]
-                    },
-                    options: {
-                        ...defaultChartOptions,
-                        plugins: { ...defaultChartOptions.plugins, legend: { position: 'top' }}
-                    }
-                });
-            }
-        }
-        
-        function showPillar(pillarId) {
-            document.querySelectorAll('[id^="pillar-"]').forEach(el => {
-                el.classList.add('hidden');
-            });
-            document.getElementById(`pillar-${pillarId}`).classList.remove('hidden');
-        }
-
-        window.onload = function() {
-            initializeCharts();
-            
-            const askGemini = async () => {
-                const prompt = document.getElementById('prompt-input').value;
-                const responseContainer = document.getElementById('response-container');
-                const loadingIndicator = document.getElementById('loading-indicator');
-
-                if (!prompt) {
-                    responseContainer.innerHTML = '<p class="italic text-gray-500">Please enter a question to get a response.</p>';
-                    return;
-                }
-
-                loadingIndicator.classList.remove('hidden');
-                responseContainer.innerHTML = '';
-                
-                try {
-                    let chatHistory = [];
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = "";
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-                    let response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`API error: ${response.status} ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        responseContainer.innerHTML = text.replace(/\n/g, '<br>');
-                    } else {
-                        responseContainer.innerHTML = '<p class="text-red-500">Sorry, I could not generate a response. Please try again.</p>';
-                    }
-                } catch (error) {
-                    responseContainer.innerHTML = `<p class="text-red-500">An error occurred: ${error.message}</p>`;
-                } finally {
-                    loadingIndicator.classList.add('hidden');
-                }
-            };
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BUAN B205 • Introduction to Business Analytics with AI — Week 1 (Interactive One‑Page)</title>
+  <meta name="description" content="Interactive, single-page presentation for Week 1 of BUAN B205: Business Analytics with AI (Loyola University New Orleans)." />
+  <!-- UI Framework & Charts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#0f172a; --sub:#475569; --accent:#7c3aed; --bg:#f8fafc; --card:#ffffff; }
+    html,body { height:100%; scroll-behavior:smooth; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji','Segoe UI Emoji'; background:var(--bg); color:var(--ink); }
+    /* Scroll-snap full-screen sections */
+    .snap-wrapper { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+    .card { scroll-snap-align: start; min-height: 100vh; display: grid; place-items: stretch; }
+    .inner { max-width: 1220px; margin: 0 auto; padding: clamp(18px,4vw,36px); }
+    .panel { background: var(--card); border:1px solid #e5e7eb; border-radius: 18px; padding: clamp(12px,2.2vw,24px); box-shadow: 0 10px 30px rgba(2,6,23,.06); min-height: calc(100vh - clamp(28px,6vw,56px)); display:flex; flex-direction:column; }
+    h1 { font-size: clamp(28px,4.6vw,52px); font-weight: 900; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(22px,3.2vw,36px); font-weight: 800; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(16px,2.2vw,22px); font-weight: 700; }
+    p.lead { color: var(--sub); font-size: clamp(14px,1.4vw,18px); }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 12px; background:#ede9fe; color:#5b21b6; border-radius:999px; font-weight:800; font-size:12px; letter-spacing:.04em; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; font-weight:800; cursor:pointer; border:none; transition:all 0.2s ease; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .btn.primary { background: var(--accent); color:white; }
+    .btn.ghost { background: #eef2ff; color:#3730a3; }
+    .grid12 { display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: clamp(10px,1.8vw,18px); }
+    .kard { background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:14px; display:flex; gap:12px; align-items:flex-start; }
+    .icon { width:38px; height:38px; border-radius:10px; background:#f3e8ff; color:#6b21a8; display:grid; place-items:center; font-weight:900; font-size:18px; }
+    .muted { color: var(--sub); }
+    .note { font-size: 13px; color: #64748b; }
+    .chart { width: 100%; height: 360px; min-height: 300px; }
+    .chart canvas{ width:100% !important; height:100% !important; display:block; }
+    .navdots { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index: 50; }
+    .navdots button { width: 10px; height: 10px; border-radius:999px; background:#c7d2fe; opacity:.6; border:none; cursor:pointer; transition:all 0.2s ease; }
+    .navdots button:hover { opacity: 0.8; transform: scale(1.2); }
+    .navdots button.active { background: var(--accent); opacity: 1; box-shadow: 0 0 0 4px rgba(124,58,237,.15); }
+    .helper { position: fixed; bottom: 16px; right: 16px; z-index: 60; display:flex; flex-direction:column; gap:8px; }
+    .helper .panel { min-height: auto; width: min(92vw, 420px); }
+    .helper-toggle { border-radius: 999px; padding: 10px 14px; font-weight: 900; background:#7c3aed; color:white; box-shadow: 0 8px 18px rgba(124,58,237,.25); cursor:pointer; border:none; transition:all 0.2s ease; }
+    .helper-toggle:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(124,58,237,.35); }
+    .helper[hidden] { display:none }
+    textarea.promptbox{ width:100%; min-height:92px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; resize:vertical; }
+    .prompt-actions{ display:flex; gap:8px; margin-top:8px }
+    .small{ font-size:12px }
+    @media (max-width: 900px){ .grid12 > * { grid-column: span 12 / span 12; } }
     
-            document.getElementById('ask-button').addEventListener('click', askGemini);
+    /* Fix for select styling */
+    select { border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; background: white; font-size: 14px; }
+    
+    /* Ensure proper spacing */
+    .col-span-7 { grid-column: span 7 / span 7; }
+    .col-span-5 { grid-column: span 5 / span 5; }
+    .col-span-6 { grid-column: span 6 / span 6; }
+    .col-span-4 { grid-column: span 4 / span 4; }
+    .col-span-12 { grid-column: span 12 / span 12; }
+    
+    @media (max-width: 768px) {
+      .col-span-7, .col-span-5, .col-span-6, .col-span-4 { grid-column: span 12 / span 12; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky Top Bar with syllabus context -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/75 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-violet-600 text-white font-black">BA</span>
+        <div>
+          <div class="text-sm font-black tracking-wide text-slate-900">BUAN B205: Business Analytics with AI</div>
+          <div class="text-xs text-slate-500">Loyola University New Orleans · Fall 2025 · M/W/F 9:30–10:20 · Room MI 134 · Instructor: Dr. Nuwan Indika</div>
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-2">
+        <button class="btn ghost nav-link" data-target="#d1">Day 1</button>
+        <button class="btn ghost nav-link" data-target="#d2">Day 2</button>
+        <button class="btn ghost nav-link" data-target="#d3">Day 3</button>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="prevBtn" class="btn ghost" title="Previous (↑/PgUp)">◀ Prev</button>
+        <button id="nextBtn" class="btn primary" title="Next (↓/PgDn)">Next ▶</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scroll-snap container -->
+  <main class="snap-wrapper" id="deck">
+
+    <!-- DAY 1 -->
+    <section id="d1" class="card">
+      <div class="inner"><div class="panel">
+        <div class="flex items-center justify-between">
+          <span class="pill">Day 1 · The Foundations of BA & AI</span>
+          <div class="text-sm text-slate-500">Use ↓ or Next ▶ to continue</div>
+        </div>
+        <div class="mt-6 grid12">
+          <div class="col-span-7">
+            <h1>The Story of Data: From Insight to Action</h1>
+            <p class="lead mt-3">What is Business Analytics? Where does AI fit? We'll define the pillars, walk the data→insight→action flow, and try a simple descriptive exercise.</p>
+            <div class="mt-6 grid12">
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">🎯</div><div><div class="text-xs font-bold uppercase text-slate-500">Goal</div><div class="font-extrabold">Evidence‑based decisions</div><div class="note">Descriptive → Predictive → Prescriptive</div></div></div>
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">🧠</div><div><div class="text-xs font-bold uppercase text-slate-500">Skills</div><div class="font-extrabold">Business · Tech · Data Sci</div><div class="note">Pillars of BA</div></div></div>
+              <div class="kard col-span-12 md:col-span-4"><div class="icon">⚙️</div><div><div class="text-xs font-bold uppercase text-slate-500">Tools</div><div class="font-extrabold">Sheets · Excel · BI · ML</div><div class="note">Gemini & ChatGPT assist</div></div></div>
+            </div>
+            <div class="mt-6 flex gap-2">
+              <button class="btn ghost nav-link" data-target="#d1-pillars">Pillars of BA</button>
+              <button class="btn ghost nav-link" data-target="#d1-journey">Analytics Journey</button>
+              <button class="btn ghost nav-link" data-target="#d1-types">Three Types</button>
+            </div>
+          </div>
+          <div class="col-span-5">
+            <div class="rounded-xl bg-violet-50 border border-violet-200 p-4 h-full flex flex-col">
+              <h3 class="mb-2">Core Components of BA</h3>
+              <div class="chart"><canvas id="chartBA"></canvas></div>
+              <p class="note mt-2">Reading: Davenport & Harris, <em>Competing on Analytics</em> (HBR).</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Course policies & schedule in Canvas syllabus.</div>
+          <button class="btn primary nav-link" data-target="#d1-pillars">Continue</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d1-pillars" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 1</span>
+        <h2 class="mt-2">What is Business Analytics? — The Three Pillars</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">💼</div><div><h3>Business Acumen</h3><p class="muted">Markets, customers, strategy, KPIs.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧰</div><div><h3>Technical Skills</h3><p class="muted">Data collection, cleaning, SQL, BI.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">📊</div><div><h3>Data Science & AI</h3><p class="muted">Stats, ML, experimentation, GenAI.</p></div></div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="col-span-12 md:col-span-7">
+            <h3 id="d1-journey">Analytics Journey</h3>
+            <ol class="list-decimal ml-6 text-slate-700">
+              <li><strong>Data</strong> → events, tables</li>
+              <li><strong>Information</strong> → cleaned, joined</li>
+              <li><strong>Insight</strong> → patterns, forecasts</li>
+              <li><strong>Action</strong> → decisions, policies</li>
+            </ol>
+            <div class="rounded-xl bg-slate-50 border p-4 mt-4">
+              <h3 class="mb-2">Quick Quiz</h3>
+              <p class="text-sm">Which pillar aligns most with designing an A/B test?</p>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">Business</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">Technical</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="true">Data Science</button>
+                <button class="ans btn ghost" data-target="#quizMsg1" data-correct="false">None</button>
+              </div>
+              <div class="mt-2 text-sm" id="quizMsg1"></div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-5">
+            <div class="rounded-xl bg-white border p-4">
+              <h3 class="mb-2">Interactive Venn — BA is a Combination</h3>
+              <svg id="vennBA" viewBox="0 0 320 220" class="w-full" style="cursor:pointer;">
+                <defs>
+                  <style>
+                    .c{mix-blend-mode:multiply;opacity:.75}
+                    .lbl{font:600 12px Inter, sans-serif; fill:#334155}
+                  </style>
+                </defs>
+                <circle cx="120" cy="110" r="80" fill="#60a5fa" class="c"/>
+                <circle cx="200" cy="110" r="80" fill="#34d399" class="c"/>
+                <circle cx="160" cy="60" r="80" fill="#fbbf24" class="c"/>
+                <text x="70" y="200" class="lbl">Business</text>
+                <text x="210" y="200" class="lbl">Technical</text>
+                <text x="145" y="24" class="lbl">Data Science</text>
+                <text id="vennCenter" x="160" y="115" text-anchor="middle" class="lbl" style="font-size:14px">Business Analytics</text>
+              </svg>
+              <p class="note">Hover/tap to see overlaps: Biz+Tech = BI, Tech+DS = MLOps, Biz+DS = Data‑Driven Strategy, center = BA.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Source: HBR; MIT Sloan articles on AI in business.</div>
+          <button class="btn primary nav-link" data-target="#d1-types">Next ▶ Three Types</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d1-types" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 1</span>
+        <h2 class="mt-2">The Three Types of Analytics</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔎</div><div><h3>Descriptive</h3><p class="muted">What happened? Dashboards & KPIs.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">📈</div><div><h3>Predictive</h3><p class="muted">What will happen? Forecasts & models.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧭</div><div><h3>Prescriptive</h3><p class="muted">What should we do? Optimization & policy.</p></div></div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="col-span-12 md:col-span-6">
+            <h3>Descriptive Example</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">Q3 Sales by Region</p>
+              <div class="chart"><canvas id="chartDesc"></canvas></div>
+              <p class="note">Example source: Adobe Experience Cloud dashboards (Adobe case studies).</p>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <h3>Predictive vs Actual</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">AI-assisted forecast with influence band</p>
+              <div class="chart"><canvas id="chartPredD1"></canvas></div>
+              <p class="note">Example source: Zillow Zestimate methodology.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 grid12">
+          <div class="col-span-12 md:col-span-4">
+            <h3>Prescriptive Mix</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">Optimal marketing allocation</p>
+              <div class="chart"><canvas id="chartPresD1"></canvas></div>
+              <p class="note">Example source: Harvard Business Review analyses of Uber surge pricing.</p>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-4">
+            <h3>ROI by Analytics Type</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <p class="text-sm">Return vs Implementation Cost</p>
+              <div class="chart"><canvas id="chartROITypes"></canvas></div>
+              <p class="note">Higher complexity = Higher returns.</p>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-4">
+            <h3>Hands‑on (Descriptive)</h3>
+            <div class="rounded-xl border p-4">
+              <p class="text-sm">Dataset (Google Sheets): <a class="text-violet-700 underline" target="_blank" href="https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing">Google Merchandise Store Sample</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>Make a copy (File → Make a copy).</li>
+                <li>Pivot: <em>Category → SUM(Revenue)</em>.</li>
+                <li>Add region share % and insert a Column chart.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Reveal expected answer</summary><p class="text-sm mt-2">Top categories typically: <strong>Apparel</strong>, <strong>Electronics</strong>, <strong>Accessories</strong>. Interpret drivers and margins.</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="Summarize this Google Sheet: https://docs.google.com/spreadsheets/d/1m9S7vOb41t4HwX8SFXeDbqYV8w1z6i-pQZ_0i6V3YyQ/edit?usp=sharing. Build a pivot (Category→SUM Revenue), list top 3 categories by revenue, compute region share %, and explain insights in plain English.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Explain the revenue distribution by category as three bullet points.;What are likely reasons the bottom category underperforms?;Suggest one test to improve sales in the #2 category.;Create a 1‑minute script to present the chart to executives.;Propose one new KPI we should track and why.">More prompts</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Sources: Adobe case studies; Zillow Research; HBR on Uber.</div>
+          <button class="btn primary nav-link" data-target="#d2">Proceed to Day 2</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- DAY 2: Big Data, Tools, Ethics, Labs with Sheets + 5 prompts each -->
+    <section id="d2" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Applications & Big Data</span>
+        <h2 class="mt-2">Big Data, AI Tools, Real Cases, Ethics</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-6">
+            <div class="icon">📦</div>
+            <div>
+              <h3>Big Data — 4Vs</h3>
+              <div class="chart mt-2"><canvas id="chartBigData"></canvas></div>
+              <ul class="list-disc ml-5 text-sm muted mt-2">
+                <li><strong>Volume</strong> — Walmart reportedly processes petabytes/day (IBM, 2023).</li>
+                <li><strong>Velocity</strong> — Streaming events arrive in real time.</li>
+                <li><strong>Variety</strong> — Structured sales + unstructured reviews.</li>
+                <li><strong>Veracity</strong> — Data quality & trust.</li>
+              </ul>
+              <p class="note">Sources: IBM "What is Big Data?", McKinsey AI Adoption by Industry.</p>
+            </div>
+          </div>
+          <div class="kard col-span-12 md:col-span-6">
+            <div class="icon">🧰</div>
+            <div>
+              <h3>AI Tools for BA</h3>
+              <ul class="list-disc ml-5 text-sm">
+                <li><a class="underline" target="_blank" href="https://www.tableau.com">Tableau</a> — Visualization</li>
+                <li><a class="underline" target="_blank" href="https://powerbi.microsoft.com">Power BI</a> — BI dashboards</li>
+                <li><a class="underline" target="_blank" href="https://cloud.google.com/automl">Google Cloud AutoML</a> — ML</li>
+                <li><a class="underline" target="_blank" href="https://openai.com/chatgpt">ChatGPT</a> & <a class="underline" target="_blank" href="https://workspace.google.com/products/gemini/">Gemini for Workspace</a> — GenAI</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="col-span-12 md:col-span-6">
+            <h3>Analytics Maturity Journey</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <div class="chart"><canvas id="chartMaturity"></canvas></div>
+              <p class="note mt-2">Value increases exponentially, but so does complexity.</p>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <h3>Industry AI Adoption Rates</h3>
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <div class="chart"><canvas id="chartAdoption"></canvas></div>
+              <p class="note mt-2">Source: McKinsey AI Survey 2024.</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🏭</div><div><h3>Descriptive Case</h3><p class="muted">Procter & Gamble dashboards enabled a supply‑chain network redesign.</p><p class="note">Source: McKinsey Insights.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🏠</div><div><h3>Predictive Case</h3><p class="muted">Zillow Zestimate — property value ML.</p><p class="note">Source: Zillow Research (methodology docs).</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🚗</div><div><h3>Prescriptive Case</h3><p class="muted">Uber dynamic pricing balances supply/demand with constraints.</p><p class="note">Source: Harvard Business Review.</p></div></div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Add article links in Canvas module for pre‑reads.</div>
+          <button class="btn primary nav-link" data-target="#d2-forecast">Next ▶ Forecast Lab</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d2-forecast" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Hands‑on</span>
+        <h2>Predictive Lab — Forecast Next 3 Months</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-1">Dataset</h3>
+              <p class="text-sm">Open a blank sheet: <a target="_blank" class="underline text-violet-700" href="https://sheet.new">sheet.new</a> → Import CSV below.</p>
+              <p class="text-sm">Download CSV: <a id="dlTS" class="underline text-violet-700" download="monthly_sales.csv">monthly_sales.csv</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>File → Import → Upload CSV → Insert new sheet.</li>
+                <li>Sort by date ascending (A→Z).</li>
+                <li>Add 3 future months (next rows).</li>
+                <li>Use <code class="px-1 rounded bg-slate-900 text-white text-xs">=FORECAST.ETS(next_date, sales_range, date_range)</code>.</li>
+                <li>Insert a line chart: Actual vs Forecast.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Expected pattern</summary><p class="text-sm mt-2">Seasonal uptick in Q3; July≈165k, Aug≈172k, Sep≈178k (illustrative).</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="I imported monthly_sales.csv into Google Sheets. Use FORECAST.ETS to predict the next 3 months. Explain assumptions, seasonality, and provide a short executive summary with a simple chart instruction.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Check if a linear trend gives a worse MAPE than ETS.;Explain how to handle outliers before forecasting.;Write a one‑paragraph risk note about forecast uncertainty.;Suggest inventory actions if August forecast dips.;Create 3 follow‑up questions to ask stakeholders.">More prompts</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-1">Reference Visual</h3>
+              <div class="chart"><canvas id="chartPred2"></canvas></div>
+              <p class="note mt-2">Tip: Use data labels on the forecasted points for clarity.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Remember to annotate anomalies or promotions in your sheet.</div>
+          <button class="btn primary nav-link" data-target="#d2-opt">Next ▶ Optimization Lab</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d2-opt" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2 · Hands‑on</span>
+        <h2>Prescriptive Lab — Optimize Marketing Spend</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-1">Dataset</h3>
+              <p class="text-sm">Open a blank sheet: <a target="_blank" class="underline text-violet-700" href="https://sheet.new">sheet.new</a> → Import CSV below.</p>
+              <p class="text-sm">Download CSV: <a id="dlROI" class="underline text-violet-700" download="channel_roi.csv">channel_roi.csv</a></p>
+              <ol class="list-decimal ml-6 text-sm mt-2">
+                <li>Columns: Channel, ROI. Create Spend cells for each.</li>
+                <li>Total budget cell (e.g., 100000).</li>
+                <li>Objective cell: <code class="px-1 rounded bg-slate-900 text-white text-xs">=SUMPRODUCT(spend_range, roi_range)</code></li>
+                <li>Constraints: SUM(spend)=Budget; spend ≥0; optional min/max.</li>
+                <li>Extensions → Add‑ons → Solver → Maximize objective.</li>
+              </ol>
+              <details class="mt-2"><summary class="cursor-pointer font-bold">Expected result</summary><p class="text-sm mt-2">Approx split: Social 45% · SEM 30% · Email 20% · Print 5% (ROI‑dependent).</p></details>
+              <div class="mt-3 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="In Google Sheets, I have channels with ROI and decision cells for Spend. Build and solve an optimization using SUMPRODUCT objective and a fixed budget. Suggest realistic min/max constraints and interpret the results.">Ask Gemini on this</button>
+                <button class="btn ghost small more-prompts" data-prompts="Write a 3‑bullet exec summary of the allocation.;What sensitivity checks should we run on ROI?;Add a constraint for minimum email spend (brand goal).;Explain cannibalization risk between Social and SEM.;Propose an A/B to validate this plan next month.">More prompts</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-1">Reference Visual</h3>
+              <div class="chart"><canvas id="chartPres2"></canvas></div>
+              <p class="note mt-2">Use data validation to cap spend ranges for realism.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Source: HBR case discussions on surge pricing & trade‑offs.</div>
+          <button class="btn primary nav-link" data-target="#d2-ethics">Next ▶ Ethics</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d2-ethics" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 2</span>
+        <h2>Ethics in BA & AI</h2>
+        <div class="grid12 mt-4">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">⚖️</div><div><h3>Fairness</h3><p class="muted">Bias from data & labels.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔍</div><div><h3>Transparency</h3><p class="muted">Explainability & documentation.</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🔐</div><div><h3>Privacy</h3><p class="muted">Minimize, retain responsibly.</p></div></div>
+        </div>
+        <div class="rounded-xl bg-slate-50 border p-4 mt-6">
+          <h3 class="mb-2">Case: Amazon Recruiting Tool</h3>
+          <p class="text-sm">Amazon reportedly discontinued a resume‑screening AI due to gender bias.</p>
+          <p class="text-xs text-slate-500">Source: <a class="underline" target="_blank" href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G">Reuters (2018)</a></p>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Discuss guardrails: audits, diverse data, human‑in‑the‑loop.</div>
+          <button class="btn primary nav-link" data-target="#d3">Proceed to Day 3</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- DAY 3: Careers -->
+    <section id="d3" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 3 · Careers & The Future</span>
+        <h2>Job Market, Skills, Certifications</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <h3 class="mb-1">Salary & Demand Snapshot</h3>
+              <div class="chart"><canvas id="chartCareer"></canvas></div>
+              <p class="note mt-2">Update numbers with current year and cite on slide: BLS (Data Scientists), LinkedIn Jobs Report, GMAC, Glassdoor.</p>
+              <div class="mt-2 flex gap-2">
+                <button class="btn primary small use-prompt" data-prompt="Using current BLS, LinkedIn Jobs Report, GMAC, and Glassdoor sources, create a concise summary of demand trends and median salaries for Data Analyst, BI Developer, Data Scientist, AI/ML Engineer, and BA Manager. Cite each stat inline with source and year.">Ask Gemini to draft the snapshot</button>
+                <button class="btn ghost small more-prompts" data-prompts="List top 8 transferable skills across these roles.;Create a 6‑month learning plan for a BA‑track student.;Suggest 3 certifications that best signal readiness.;Write a 90‑second pitch for an internship interview.;Turn the snapshot into a one‑slide executive brief.">More prompts</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4">
+              <h3 class="mb-1">Skills by Role</h3>
+              <div class="chart"><canvas id="chartSkills"></canvas></div>
+              <p class="note mt-2">Common core: SQL · Python · Communication · Visualization.</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid12 mt-6">
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🎓</div><div><h3>Certifications</h3><p class="muted"><a class="underline" target="_blank" href="https://www.coursera.org/professional-certificates/google-data-analytics">Google Data Analytics</a>, <a class="underline" target="_blank" href="https://www.tableau.com/learn/certification">Tableau</a>, <a class="underline" target="_blank" href="https://aws.amazon.com/certification/certified-machine-learning-specialty/">AWS ML</a></p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">💬</div><div><h3>Alumni Quotes</h3><p class="muted">"BA gave me a playbook for measurable impact."</p><p class="muted">"AI literacy made me stand out for product roles."</p></div></div>
+          <div class="kard col-span-12 md:col-span-4"><div class="icon">🧭</div><div><h3>Where the Jobs Are</h3><p class="muted">Healthcare, Finance, Retail, Tech/Media.</p></div></div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Bring 3 job posts next class and map skills → requirements.</div>
+          <button class="btn primary nav-link" data-target="#d3-final">Final Exercise ▶</button>
+        </div>
+      </div></div>
+    </section>
+
+    <section id="d3-final" class="card">
+      <div class="inner"><div class="panel">
+        <span class="pill">Day 3 · Final Exercise</span>
+        <h2>Career Pathfinder — Build Your Target Role</h2>
+        <div class="grid12 mt-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl border p-4 h-full">
+              <h3 class="mb-2">Step 1 — Choose Role & Industry</h3>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="role" class="border rounded-lg px-3 py-2">
+                  <option>Data Analyst</option>
+                  <option>BI Developer</option>
+                  <option>Data Scientist</option>
+                  <option>AI/ML Engineer</option>
+                  <option>BA Manager</option>
+                </select>
+                <select id="industry" class="border rounded-lg px-3 py-2">
+                  <option>Healthcare</option>
+                  <option>Finance</option>
+                  <option>Retail</option>
+                  <option>Tech/Media</option>
+                </select>
+              </div>
+              <h3 class="mt-4 mb-2">Step 2 — Generate Your Checklist</h3>
+              <button id="genPlan" class="btn primary">Generate</button>
+              <p class="note mt-2">This uses a built‑in template (no external calls).</p>
+              <div class="mt-4">
+                <button class="btn ghost small use-prompt" data-prompt="I am choosing a target analytics role and industry. Based on current market data, recommend the top 8 skills to learn, 3 certifications to pursue, and a 6‑month learning roadmap. Provide inline citations for salary/demand figures you mention.">Ask Gemini to tailor my plan</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-xl bg-slate-50 border p-4 h-full">
+              <h3 class="mb-2">Your Plan</h3>
+              <div id="planOut" class="text-sm text-slate-700 space-y-2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto pt-6 flex items-center justify-between">
+          <div class="text-xs text-slate-500">Tip: Use LinkedIn Jobs & BLS pages as primary references.</div>
+          <button class="btn ghost nav-link" data-target="#d1">Back to Start ↑</button>
+        </div>
+      </div></div>
+    </section>
+
+  </main>
+
+<!-- Floating Back button -->
+<button id="backFloat" class="helper-toggle fixed bottom-4 left-4" title="Go back to previous card">◀ Back</button>
+
+<!-- Global Gemini helper (floating) -->
+  <button id="helperToggle" class="helper-toggle fixed bottom-4 right-4">Ask Gemini ✨</button>
+  <aside id="helper" class="helper" hidden>
+    <div class="panel">
+      <div class="flex items-center justify-between">
+        <h3>Live AI Assistant ✨</h3>
+        <button id="helperClose" class="btn ghost">Close</button>
+      </div>
+      
+      <!-- API Key Setup -->
+      <div id="apiSetup" class="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded">
+        <h4 class="text-sm font-bold text-yellow-800">🔑 Setup Required</h4>
+        <p class="text-xs text-yellow-700 mt-1">Enter your Gemini API key for live responses:</p>
+        <div class="flex gap-2 mt-2">
+          <input type="password" id="apiKeyInput" placeholder="Your Gemini API Key" class="flex-1 text-xs border rounded px-2 py-1">
+          <button id="saveApiKey" class="btn primary small">Save</button>
+        </div>
+        <p class="text-xs text-yellow-600 mt-1">Get free API key: <a href="https://makersuite.google.com/app/apikey" target="_blank" class="underline">Google AI Studio</a></p>
+      </div>
+      
+      <!-- Quick Launch Options -->
+      <div class="grid grid-cols-2 gap-2 mt-3">
+        <button id="askLiveGemini" class="btn primary small" disabled>
+          🧠 Ask Live Gemini
+        </button>
+        <button id="openGemini" class="btn ghost small">
+          🌟 Open Gemini Web
+        </button>
+      </div>
+      
+      <textarea id="helperPrompt" class="promptbox mt-2" placeholder="Ask anything about business analytics..."></textarea>
+      
+      <!-- Response Area -->
+      <div id="geminiResponse" class="mt-3 p-3 bg-slate-50 border rounded min-h-20 max-h-40 overflow-y-auto text-sm" style="display:none;">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-purple-600 font-bold">🤖 Gemini:</span>
+          <div id="loadingSpinner" class="animate-spin w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full" style="display:none;"></div>
+        </div>
+        <div id="responseText" class="text-slate-700 whitespace-pre-wrap"></div>
+      </div>
+      
+      <div class="prompt-actions">
+        <button id="copyPrompt" class="btn ghost small">📋 Copy</button>
+        <button id="clearPrompt" class="btn ghost small">🗑️ Clear</button>
+        <button id="improvePrompt" class="btn ghost small">✨ Enhance</button>
+      </div>
+      
+      <!-- Quick Templates -->
+      <details class="mt-2">
+        <summary class="text-xs font-bold cursor-pointer">📝 Quick Templates</summary>
+        <div class="mt-2 space-y-1">
+          <button class="template-btn btn ghost small w-full text-left text-xs" data-template="Explain the difference between descriptive, predictive, and prescriptive analytics with simple examples.">📊 Analytics Types</button>
+          <button class="template-btn btn ghost small w-full text-left text-xs" data-template="How do I create a sales forecast in Google Sheets using the FORECAST.ETS function? Give me step-by-step instructions.">📈 Forecasting Guide</button>
+          <button class="template-btn btn ghost small w-full text-left text-xs" data-template="What are the top 5 skills needed for a data analyst career and how can I learn them?">💼 Career Advice</button>
+          <button class="template-btn btn ghost small w-full text-left text-xs" data-template="Explain how AI is transforming business analytics with real-world examples.">🤖 AI in Business</button>
+        </div>
+      </details>
+      
+      <p id="copyMsg" class="note mt-2"></p>
+    </div>
+  </aside>
+
+  <!-- Navigation dots -->
+  <div class="navdots" id="navdots"></div>
+
+  <script>
+    // ====== Style / Charts helpers ======
+    const P = { blue:'#3357FF', yellow:'#FFC300', red:'#FF5733', green:'#33FF57', light:'#DAF7A6', purple:'#7c3aed', text:'#334155' };
+
+    const centerTextPlugin = { 
+      id:'centerText', 
+      afterDraw(chart, args, opts){ 
+        if(!opts?.text) return; 
+        const {ctx} = chart; 
+        const c = chart.getDatasetMeta(0).data[0]; 
+        if(!c) return; 
+        const x = c.x, y = c.y; 
+        ctx.save(); 
+        ctx.fillStyle = opts.color || P.purple; 
+        ctx.font = (opts.fontSize||14)+'px Inter, sans-serif'; 
+        ctx.textAlign='center'; 
+        ctx.textBaseline='middle'; 
+        const lines = Array.isArray(opts.text)?opts.text:[opts.text]; 
+        const lh=(opts.fontSize||14)*1.3; 
+        const total = lh*lines.length; 
+        lines.forEach((ln,i)=>ctx.fillText(ln,x,y-total/2+i*lh)); 
+        ctx.restore(); 
+      } 
+    };
+    
+    // Register plugins
+    try { 
+      Chart.register(centerTextPlugin);
+      const ann = (Chart?.registry?.getPlugin && Chart.registry.getPlugin('annotation')) || undefined; 
+      if (ann) Chart.register(ann); 
+    } catch(_) {}
+
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Charts initialization
+      if (document.getElementById('chartBA')) {
+        new Chart(document.getElementById('chartBA'),{ 
+          type:'doughnut', 
+          data:{ 
+            labels:['Business','Technical','Data Science'], 
+            datasets:[{ 
+              data:[33,33,34], 
+              backgroundColor:[P.blue,P.green,P.yellow], 
+              borderColor:'#fff', 
+              borderWidth:4 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            cutout:'65%', 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } }, 
+              title:{ display:true, text:'Core Components of BA', color:P.text }, 
+              centerText:{ text:['AI amplifies','all three'], color:P.purple, fontSize:14 } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartDesc')) {
+        new Chart(document.getElementById('chartDesc'),{ 
+          type:'bar', 
+          data:{ 
+            labels:['North America','Europe','Asia Pacific'], 
+            datasets:[{ 
+              label:'Q3 Sales', 
+              data:[150,120,180], 
+              backgroundColor:[P.blue,P.green,P.yellow], 
+              borderRadius:6 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ display:false }, 
+              title:{ display:true, text:'Sales by Region (Q3)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ ticks:{ color:P.text } }, 
+              y:{ beginAtZero:true, ticks:{ color:P.text } } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartPredD1')) {
+        new Chart(document.getElementById('chartPredD1'),{ 
+          type:'line', 
+          data:{ 
+            labels:['Jan','Feb','Mar','Apr','May','Jun'], 
+            datasets:[{ 
+              label:'Actual', 
+              data:[120,135,140,130,155,160], 
+              borderColor:P.yellow, 
+              tension:.3,
+              backgroundColor:'transparent' 
+            },{ 
+              label:'Predicted (AI)', 
+              data:[125,130,145,140,150,165], 
+              borderColor:P.purple, 
+              borderDash:[6,6], 
+              tension:.3,
+              backgroundColor:'transparent' 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } }, 
+              title:{ display:true, text:'Forecast vs Actual (AI-assisted)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ ticks:{ color:P.text } }, 
+              y:{ ticks:{ color:P.text } } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartPresD1')) {
+        new Chart(document.getElementById('chartPresD1'),{ 
+          type:'doughnut', 
+          data:{ 
+            labels:['Social','SEM','Email','Print'], 
+            datasets:[{ 
+              data:[45,30,20,5], 
+              backgroundColor:[P.red,P.purple,P.blue,P.green], 
+              borderColor:'#fff', 
+              borderWidth:4 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            cutout:'65%', 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } }, 
+              title:{ display:true, text:'Optimal Budget Allocation (AI)', color:P.text }, 
+              centerText:{ text:['AI prescribes','best mix'], color:P.purple, fontSize:14 } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartCareer')) {
+        new Chart(document.getElementById('chartCareer'),{ 
+          type:'bar', 
+          data:{ 
+            labels:['Data Analyst','BI Dev','Mkt Analyst','Data Scientist','AI/ML Eng','BA Manager'], 
+            datasets:[{ 
+              data:[75,80,70,110,125,95], 
+              backgroundColor:[P.green,P.blue,P.yellow,P.red,P.purple,'#6366f1'], 
+              borderRadius:6 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ display:false }, 
+              title:{ display:true, text:'Relative Salary/Index (placeholder)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ ticks:{ color:P.text } }, 
+              y:{ ticks:{ color:P.text } } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartSkills')) {
+        new Chart(document.getElementById('chartSkills'),{ 
+          type:'radar', 
+          data:{ 
+            labels:['Programming','Statistics','Business','Communication','Visualization'], 
+            datasets:[{ 
+              label:'Business Analyst', 
+              data:[60,70,95,90,85], 
+              fill:true, 
+              backgroundColor:'rgba(51,87,255,.18)', 
+              borderColor:P.blue, 
+              pointBackgroundColor:P.blue 
+            },{ 
+              label:'AI-focused Data Scientist', 
+              data:[95,90,75,70,80], 
+              fill:true, 
+              backgroundColor:'rgba(255,87,51,.18)', 
+              borderColor:P.red, 
+              pointBackgroundColor:P.red 
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } } 
+            }, 
+            scales:{ 
+              r:{ 
+                angleLines:{ color:'rgba(0,0,0,.08)' }, 
+                grid:{ color:'rgba(0,0,0,.08)' }, 
+                pointLabels:{ color:P.text }, 
+                ticks:{ display:false } 
+              } 
+            } 
+          }
+        });
+      }
+
+      // Extra charts for Day 2 
+      if (document.getElementById('chartPred2')) {
+        new Chart(document.getElementById('chartPred2'),{ 
+          type:'line', 
+          data:{ 
+            labels:['Jan 2024','Feb 2024','Mar 2024','Apr 2024','May 2024','Jun 2024','Jul 2024','Aug 2024','Sep 2024'], 
+            datasets:[{ 
+              label:'Actual Sales', 
+              data:[120000,135000,140000,130000,155000,160000,null,null,null], 
+              borderColor:P.blue, 
+              backgroundColor:P.blue,
+              tension:.3,
+              pointBackgroundColor:P.blue,
+              pointBorderColor:'#fff',
+              pointBorderWidth:2
+            },{ 
+              label:'ETS Forecast', 
+              data:[null,null,null,null,null,160000,165000,172000,178000], 
+              borderColor:P.purple, 
+              backgroundColor:P.purple,
+              borderDash:[8,4], 
+              tension:.3,
+              pointBackgroundColor:P.purple,
+              pointBorderColor:'#fff',
+              pointBorderWidth:2
+            },{
+              label:'Confidence Band',
+              data:[null,null,null,null,null,160000,158000,164000,170000],
+              borderColor:'rgba(124,58,237,0.3)',
+              backgroundColor:'rgba(124,58,237,0.1)',
+              fill: '+1',
+              tension:.3,
+              pointRadius:0
+            },{
+              label:'Upper Bound',
+              data:[null,null,null,null,null,160000,172000,180000,186000],
+              borderColor:'rgba(124,58,237,0.3)',
+              backgroundColor:'rgba(124,58,237,0.1)',
+              tension:.3,
+              pointRadius:0
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ 
+                labels:{ color:P.text },
+                filter: function(item) {
+                  return !item.text.includes('Bound');
+                }
+              }, 
+              title:{ display:true, text:'Monthly Sales Forecast (ETS Method)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ ticks:{ color:P.text } }, 
+              y:{ 
+                beginAtZero:false, 
+                ticks:{ 
+                  color:P.text,
+                  callback: function(value) {
+                    return '
+    });
+
+    // ====== Quiz & helper logic ======
+    document.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const target = document.querySelector(btn.dataset.target);
+        const ok = btn.dataset.correct === 'true';
+        if(target) target.textContent = ok ? '✅ Correct: Experimental design sits in Data Science (with business context).' : '❌ Not quite — think about who designs statistical tests.';
+      });
+    });
+
+    // Scroll helpers (Prev/Next + keyboard + dots)
+    const sections = Array.from(document.querySelectorAll('main .card'));
+    function visibleIndex(){ 
+      const y = document.querySelector('.snap-wrapper').scrollTop; 
+      let idx = 0; 
+      let best = Infinity; 
+      sections.forEach((s,i)=>{ 
+        const d = Math.abs(s.offsetTop - y); 
+        if(d < best){ 
+          best = d; 
+          idx = i; 
+        } 
+      }); 
+      return idx; 
+    }
+    
+    function go(delta){ 
+      const i = Math.max(0, Math.min(sections.length-1, visibleIndex()+delta)); 
+      sections[i].scrollIntoView({behavior:'smooth'}); 
+    }
+    
+    document.getElementById('prevBtn').addEventListener('click',()=>go(-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>go(+1));
+    document.addEventListener('keydown', (e)=>{ 
+      if(['ArrowDown','PageDown'].includes(e.key)) { e.preventDefault(); go(+1); }
+      if(['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+    });
+
+    // Navigation dots
+    const dots = document.getElementById('navdots');
+    sections.forEach((s,i)=>{ 
+      const b=document.createElement('button'); 
+      b.title = s.id || `Section ${i+1}`; 
+      b.addEventListener('click',()=>sections[i].scrollIntoView({behavior:'smooth'})); 
+      dots.appendChild(b); 
+    });
+    
+    function syncDots(){ 
+      const idx = visibleIndex(); 
+      const bs = dots.querySelectorAll('button'); 
+      bs.forEach((b,i)=> b.classList.toggle('active', i===idx)); 
+    }
+    
+    document.querySelector('.snap-wrapper').addEventListener('scroll', ()=>{ 
+      window.requestAnimationFrame(syncDots); 
+    });
+    syncDots();
+
+    // Navigation links (fixed)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        if (target) {
+          const element = document.querySelector(target);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // ====== Live Gemini API Integration ======
+    const helper = document.getElementById('helper');
+    const helperToggle = document.getElementById('helperToggle');
+    const helperClose = document.getElementById('helperClose');
+    const helperPrompt = document.getElementById('helperPrompt');
+    const copyPrompt = document.getElementById('copyPrompt');
+    const clearPrompt = document.getElementById('clearPrompt');
+    const improvePrompt = document.getElementById('improvePrompt');
+    const copyMsg = document.getElementById('copyMsg');
+    const openGemini = document.getElementById('openGemini');
+    const askLiveGemini = document.getElementById('askLiveGemini');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const saveApiKey = document.getElementById('saveApiKey');
+    const apiSetup = document.getElementById('apiSetup');
+    const geminiResponse = document.getElementById('geminiResponse');
+    const responseText = document.getElementById('responseText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    let geminiApiKey = '';
+
+    // Load saved API key
+    if (typeof(Storage) !== "undefined") {
+      const savedKey = localStorage.getItem('geminiApiKey');
+      if (savedKey) {
+        geminiApiKey = savedKey;
+        apiKeyInput.value = '••••••••••••';
+        askLiveGemini.disabled = false;
+        apiSetup.classList.add('bg-green-50', 'border-green-200');
+        apiSetup.classList.remove('bg-yellow-50', 'border-yellow-200');
+        apiSetup.querySelector('h4').textContent = '✅ API Key Configured';
+        apiSetup.querySelector('p').textContent = 'Live Gemini responses are available!';
+      }
+    }
+
+    helperToggle.addEventListener('click', () => helper.hidden = !helper.hidden);
+    helperClose.addEventListener('click', () => helper.hidden = true);
+    clearPrompt.addEventListener('click', () => { 
+      helperPrompt.value = ''; 
+      copyMsg.textContent = '';
+      geminiResponse.style.display = 'none';
+    });
+
+    // Save API Key
+    saveApiKey.addEventListener('click', () => {
+      const key = apiKeyInput.value.trim();
+      if (key && key !== '••••••••••••') {
+        geminiApiKey = key;
+        if (typeof(Storage) !== "undefined") {
+          localStorage.setItem('geminiApiKey', key);
+        }
+        apiKeyInput.value = '••••••••••••';
+        askLiveGemini.disabled = false;
+        apiSetup.classList.add('bg-green-50', 'border-green-200');
+        apiSetup.classList.remove('bg-yellow-50', 'border-yellow-200');
+        apiSetup.querySelector('h4').textContent = '✅ API Key Configured';
+        apiSetup.querySelector('p').textContent = 'Live Gemini responses are available!';
+        copyMsg.textContent = '🔑 API key saved securely!';
+        copyMsg.className = 'note mt-2 text-green-600';
+      } else {
+        copyMsg.textContent = '⚠️ Please enter a valid API key.';
+        copyMsg.className = 'note mt-2 text-red-600';
+      }
+    });
+
+    // Live Gemini API Call
+    askLiveGemini.addEventListener('click', async () => {
+      const prompt = helperPrompt.value.trim();
+      if (!prompt) {
+        copyMsg.textContent = '⚠️ Please enter a question first.';
+        copyMsg.className = 'note mt-2 text-orange-600';
+        return;
+      }
+
+      if (!geminiApiKey) {
+        copyMsg.textContent = '⚠️ Please configure your API key first.';
+        copyMsg.className = 'note mt-2 text-red-600';
+        return;
+      }
+
+      // Show loading state
+      geminiResponse.style.display = 'block';
+      loadingSpinner.style.display = 'block';
+      responseText.textContent = 'Thinking...';
+      askLiveGemini.disabled = true;
+      askLiveGemini.textContent = '⏳ Thinking...';
+
+      try {
+        const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+        const requestBody = {
+          contents: [{
+            parts: [{
+              text: 'As a business analytics instructor, please provide a clear and educational response to this question from a student in BUAN B205 (Business Analytics with AI): "' + prompt + '". Please format your response to be: 1) Educational and appropriate for undergraduate business students 2) Include practical examples when relevant 3) Mention specific tools (Excel, Google Sheets, Tableau, etc.) when applicable 4) Keep it concise but comprehensive (2-3 paragraphs max)'
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024
+          }
         };
-    </script>
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-goog-api-key': geminiApiKey
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+          throw new Error('API Error: ' + response.status + ' ' + response.statusText);
+        }
+
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+          const generatedText = data.candidates[0].content.parts[0].text;
+          responseText.textContent = generatedText;
+          copyMsg.textContent = '🤖 Response generated successfully!';
+          copyMsg.className = 'note mt-2 text-green-600';
+        } else {
+          throw new Error('Unexpected response format');
+        }
+
+      } catch (error) {
+        console.error('Gemini API Error:', error);
+        responseText.textContent = '❌ Error: ' + error.message + '\n\nTip: Check your API key and internet connection. You can also try the "Open Gemini Web" option as a fallback.';
+        copyMsg.textContent = '❌ Failed to get response. Try the web version.';
+        copyMsg.className = 'note mt-2 text-red-600';
+      } finally {
+        loadingSpinner.style.display = 'none';
+        askLiveGemini.disabled = false;
+        askLiveGemini.textContent = '🧠 Ask Live Gemini';
+      }
+    });
+    
+    // Enhanced copy with response included
+    copyPrompt.addEventListener('click', async () => {
+      let textToCopy = helperPrompt.value || '';
+      
+      // Include response if available
+      if (responseText.textContent && !responseText.textContent.includes('❌')) {
+        textToCopy += '\n\n--- Gemini Response ---\n' + responseText.textContent;
+      }
+      
+      try { 
+        await navigator.clipboard.writeText(textToCopy); 
+        copyMsg.textContent = '✅ Prompt and response copied!'; 
+        copyMsg.className = 'note mt-2 text-green-600';
+      }
+      catch(e){ 
+        copyMsg.textContent = '⚠️ Copy failed — select text manually.'; 
+        copyMsg.className = 'note mt-2 text-red-600';
+      }
+    });
+
+    // Web Gemini fallback
+    openGemini.addEventListener('click', () => {
+      const prompt = helperPrompt.value || 'Help me with business analytics and AI concepts';
+      const geminiUrl = 'https://gemini.google.com/app?q=' + encodeURIComponent(prompt);
+      window.open(geminiUrl, '_blank');
+      copyMsg.textContent = '🌟 Gemini web opened in new tab!';
+      copyMsg.className = 'note mt-2 text-blue-600';
+    });
+
+    // Prompt enhancement feature
+    improvePrompt.addEventListener('click', () => {
+      const currentPrompt = helperPrompt.value.trim();
+      if (!currentPrompt) {
+        copyMsg.textContent = '⚠️ Enter a prompt first to enhance it.';
+        copyMsg.className = 'note mt-2 text-orange-600';
+        return;
+      }
+      
+      const enhancedPrompt = 'Please provide a detailed, step-by-step response about: "' + currentPrompt + '"\n\nInclude:\n✅ Clear explanations with examples\n✅ Practical tools (Excel, Sheets, Tableau)\n✅ Best practices for business analytics\n✅ Common mistakes to avoid\n✅ Real-world applications\n\nFormat: Educational, concise, actionable';
+
+      helperPrompt.value = enhancedPrompt;
+      copyMsg.textContent = '✨ Prompt enhanced for better responses!';
+      copyMsg.className = 'note mt-2 text-purple-600';
+    });
+
+    // Template buttons
+    document.querySelectorAll('.template-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        helperPrompt.value = btn.dataset.template;
+        geminiResponse.style.display = 'none';
+        copyMsg.textContent = '📝 Template loaded! Click "Ask Live Gemini" for instant response.';
+        copyMsg.className = 'note mt-2 text-blue-600';
+      });
+    });
+
+    // Context-aware prompt loading
+    function addContextToPrompt(basePrompt) {
+      const currentSection = document.querySelector('.card:nth-child(' + (visibleIndex() + 1) + ')');
+      const sectionId = currentSection ? currentSection.id : '';
+      let context = '';
+      
+      if (sectionId.includes('d1')) {
+        context = '\n\n[Context: Introduction to Business Analytics fundamentals]';
+      } else if (sectionId.includes('d2')) {
+        context = '\n\n[Context: Big Data, AI tools, and hands-on analytics exercises]';
+      } else if (sectionId.includes('d3')) {
+        context = '\n\n[Context: Business Analytics careers and industry applications]';
+      }
+      
+      return basePrompt + context;
+    }
+
+    // Enhanced prompt buttons with context
+    document.querySelectorAll('.use-prompt').forEach(btn => {
+      btn.addEventListener('click', () => { 
+        const basePrompt = btn.dataset.prompt || '';
+        helperPrompt.value = addContextToPrompt(basePrompt);
+        helper.hidden = false; 
+        geminiResponse.style.display = 'none';
+        copyMsg.textContent = '📍 Context-aware prompt loaded! Try live Gemini.';
+        copyMsg.className = 'note mt-2 text-green-600';
+      });
+    });
+    
+    document.querySelectorAll('.more-prompts').forEach(btn => { 
+      btn.addEventListener('click', () => { 
+        const items = (btn.dataset.prompts || '').split(';').map(s => s.trim()).filter(Boolean); 
+        const contextualPrompts = items.map(item => addContextToPrompt(item));
+        helperPrompt.value = contextualPrompts[0]; // Load first prompt for live response
+        helper.hidden = false; 
+        geminiResponse.style.display = 'none';
+        copyMsg.textContent = '📋 Multiple prompts available! Try each with live Gemini.';
+        copyMsg.className = 'note mt-2 text-purple-600';
+      }); 
+    });
+
+    // ====== Data URIs for downloadable CSVs (self-contained)
+    const csvTS = `date,sales
+2023-01-01,120000
+2023-02-01,135000
+2023-03-01,140000
+2023-04-01,130000
+2023-05-01,155000
+2023-06-01,160000
+2023-07-01,150000
+2023-08-01,170000
+2023-09-01,175000
+2023-10-01,165000
+2023-11-01,158000
+2023-12-01,172000
+2024-01-01,125000
+2024-02-01,138000
+2024-03-01,142000
+2024-04-01,133000
+2024-05-01,157000
+2024-06-01,162000`;
+
+    const csvROI = `channel,roi
+Social,3.2
+SEM,2.7
+Email,2.1
+Print,1.2`;
+
+    const dlTS = document.getElementById('dlTS'); 
+    if (dlTS) dlTS.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvTS);
+    
+    const dlROI = document.getElementById('dlROI'); 
+    if (dlROI) dlROI.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvROI);
+
+    // ====== Venn hover hints
+    (function(){
+      const svg = document.getElementById('vennBA');
+      if(!svg) return;
+      const label = document.getElementById('vennCenter');
+      const sets = [ {x:120,y:110,r:80}, {x:200,y:110,r:80}, {x:160,y:60,r:80} ];
+      svg.addEventListener('mousemove', (e)=>{
+        const rect = svg.getBoundingClientRect();
+        const p = {x:(e.clientX-rect.left)*(320/rect.width), y:(e.clientY-rect.top)*(220/rect.height)};
+        const inside = sets.map(h => (p.x-h.x)**2 + (p.y-h.y)**2 < h.r**2);
+        let t='Business Analytics';
+        if (inside[0]&&inside[1]&&inside[2]) t='BA (all three)';
+        else if (inside[0]&&inside[1]) t='BI / Product Analytics';
+        else if (inside[1]&&inside[2]) t='MLOps / ML Engineering';
+        else if (inside[0]&&inside[2]) t='Data‑Driven Strategy';
+        else if (inside[0]) t='Business';
+        else if (inside[1]) t='Technical';
+        else if (inside[2]) t='Data Science';
+        label.textContent = t;
+      });
+      svg.addEventListener('mouseleave', ()=>{ label.textContent = 'Business Analytics'; });
+    })();
+
+    // ====== Career Plan Generator ======
+    const genPlan = document.getElementById('genPlan');
+    const planOut = document.getElementById('planOut');
+    const roleSelect = document.getElementById('role');
+    const industrySelect = document.getElementById('industry');
+
+    if (genPlan && planOut && roleSelect && industrySelect) {
+      genPlan.addEventListener('click', () => {
+        const role = roleSelect.value;
+        const industry = industrySelect.value;
+        
+        const plans = {
+          'Data Analyst': {
+            skills: ['SQL', 'Excel/Sheets', 'Tableau/Power BI', 'Basic Statistics', 'Data Cleaning'],
+            certs: ['Google Data Analytics', 'Tableau Desktop Specialist', 'Microsoft Excel Expert'],
+            timeline: '3 months: SQL + Excel mastery; 6 months: BI tools + portfolio'
+          },
+          'BI Developer': {
+            skills: ['SQL', 'ETL/Data Warehousing', 'Power BI/Tableau', 'Database Design', 'Python'],
+            certs: ['Microsoft Power BI', 'Tableau Server', 'AWS Cloud Practitioner'],
+            timeline: '4 months: Advanced SQL + ETL; 6 months: Cloud platforms + dashboards'
+          },
+          'Data Scientist': {
+            skills: ['Python/R', 'Machine Learning', 'Statistics', 'SQL', 'Data Visualization'],
+            certs: ['Google Data Analytics', 'Coursera ML Specialization', 'AWS ML Specialty'],
+            timeline: '6 months: Python + ML fundamentals; 12 months: Advanced modeling + portfolio'
+          },
+          'AI/ML Engineer': {
+            skills: ['Python', 'TensorFlow/PyTorch', 'MLOps', 'Cloud Platforms', 'Software Engineering'],
+            certs: ['TensorFlow Developer', 'AWS ML Specialty', 'Kubernetes Certification'],
+            timeline: '8 months: Deep learning frameworks; 12 months: Production ML systems'
+          },
+          'BA Manager': {
+            skills: ['Leadership', 'Business Strategy', 'Data Storytelling', 'Project Management', 'Analytics Tools'],
+            certs: ['PMP', 'Google Analytics', 'Tableau Desktop Certified'],
+            timeline: '6 months: Leadership + strategy; 9 months: Advanced analytics + team management'
+          }
+        };
+
+        const industryFocus = {
+          'Healthcare': 'HIPAA compliance, clinical data, EHR systems',
+          'Finance': 'Risk modeling, regulatory compliance, algorithmic trading',
+          'Retail': 'Customer analytics, supply chain, personalization',
+          'Tech/Media': 'A/B testing, user analytics, recommendation systems'
+        };
+
+        const plan = plans[role];
+        const focus = industryFocus[industry];
+
+        planOut.innerHTML = `
+          <div class="space-y-3">
+            <div>
+              <h4 class="font-bold text-purple-700">${role} in ${industry}</h4>
+              <p class="text-xs text-slate-500">Industry Focus: ${focus}</p>
+            </div>
+            <div>
+              <h5 class="font-semibold">Key Skills to Develop:</h5>
+              <ul class="list-disc list-inside text-xs space-y-1">
+                ${plan.skills.map(skill => `<li>${skill}</li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <h5 class="font-semibold">Recommended Certifications:</h5>
+              <ul class="list-disc list-inside text-xs space-y-1">
+                ${plan.certs.map(cert => `<li>${cert}</li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <h5 class="font-semibold">Learning Timeline:</h5>
+              <p class="text-xs">${plan.timeline}</p>
+            </div>
+            <div class="bg-purple-50 p-2 rounded">
+              <p class="text-xs"><strong>Next Step:</strong> Create a LinkedIn Learning path and start with the first skill listed above.</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // ====== Floating Back button behavior
+    const backBtn = document.getElementById('backFloat');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        const scroller = document.querySelector('.snap-wrapper');
+        const y = scroller.scrollTop;
+        let idx = 0, best = Infinity;
+        sections.forEach((s,i)=>{ 
+          const d = Math.abs(s.offsetTop - y); 
+          if(d < best){ 
+            best=d; 
+            idx=i; 
+          } 
+        });
+        const prevIdx = Math.max(0, idx-1);
+        sections[prevIdx].scrollIntoView({behavior:'smooth'});
+      });
+    }
+  </script>
+</body>
+</html>
+                 + (value/1000) + 'K';
+                  }
+                } 
+              } 
+            } 
+          }
+        });
+      }
+
+      if (document.getElementById('chartPres2')) {
+        new Chart(document.getElementById('chartPres2'),{ 
+          type:'doughnut', 
+          data:{ 
+            labels:['Social Media','Search (SEM)','Email Marketing','Print/Display'], 
+            datasets:[{ 
+              data:[45000,30000,20000,5000], 
+              backgroundColor:[P.red,P.purple,P.blue,P.green], 
+              borderColor:'#fff', 
+              borderWidth:3,
+              hoverBorderWidth:5
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            cutout:'60%', 
+            plugins:{ 
+              legend:{ 
+                labels:{ color:P.text, padding:15 },
+                position:'bottom'
+              }, 
+              title:{ display:true, text:'Optimized Marketing Budget ($100K)', color:P.text },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const label = context.label || '';
+                    const value = context.parsed;
+                    const total = context.dataset.data.reduce((a,b) => a+b, 0);
+                    const percentage = ((value/total)*100).toFixed(1);
+                    return `${label}: ${value.toLocaleString()} (${percentage}%)`;
+                  }
+                }
+              },
+              centerText:{ text:['ROI-optimized','allocation'], color:P.purple, fontSize:13 } 
+            } 
+          }
+        });
+      }
+
+      // Big Data 4Vs Visualization
+      if (document.getElementById('chartBigData')) {
+        new Chart(document.getElementById('chartBigData'),{ 
+          type:'radar', 
+          data:{ 
+            labels:['Volume (Scale)','Velocity (Speed)','Variety (Types)','Veracity (Quality)'], 
+            datasets:[{ 
+              label:'Traditional Data', 
+              data:[30,40,25,85], 
+              fill:true, 
+              backgroundColor:'rgba(51,87,255,.15)', 
+              borderColor:P.blue, 
+              pointBackgroundColor:P.blue,
+              pointRadius:5
+            },{ 
+              label:'Big Data Era', 
+              data:[95,90,85,60], 
+              fill:true, 
+              backgroundColor:'rgba(255,87,51,.15)', 
+              borderColor:P.red, 
+              pointBackgroundColor:P.red,
+              pointRadius:5
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ labels:{ color:P.text, padding:20 } },
+              title:{ display:true, text:'Big Data 4Vs Evolution', color:P.text }
+            }, 
+            scales:{ 
+              r:{ 
+                angleLines:{ color:'rgba(0,0,0,.1)' }, 
+                grid:{ color:'rgba(0,0,0,.1)' }, 
+                pointLabels:{ color:P.text, font:{size:11} }, 
+                ticks:{ display:false, max:100 },
+                beginAtZero:true
+              } 
+            } 
+          }
+        });
+      }
+
+      // Analytics Maturity Model
+      if (document.getElementById('chartMaturity')) {
+        new Chart(document.getElementById('chartMaturity'),{ 
+          type:'line', 
+          data:{ 
+            labels:['Basic Reporting','Advanced Analytics','Predictive Models','Prescriptive AI','Autonomous Systems'], 
+            datasets:[{ 
+              label:'Business Value', 
+              data:[20,45,70,85,95], 
+              borderColor:P.purple, 
+              backgroundColor:'rgba(124,58,237,0.1)',
+              tension:.4,
+              fill:true,
+              pointBackgroundColor:P.purple,
+              pointBorderColor:'#fff',
+              pointBorderWidth:3,
+              pointRadius:6
+            },{
+              label:'Implementation Complexity',
+              data:[15,35,65,80,95],
+              borderColor:P.red,
+              backgroundColor:'rgba(255,87,51,0.1)',
+              tension:.4,
+              fill:false,
+              pointBackgroundColor:P.red,
+              pointBorderColor:'#fff',
+              pointBorderWidth:3,
+              pointRadius:6,
+              borderDash:[5,5]
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } }, 
+              title:{ display:true, text:'Analytics Maturity Journey', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ 
+                ticks:{ color:P.text, maxRotation:45 }
+              }, 
+              y:{ 
+                beginAtZero:true, 
+                max:100,
+                ticks:{ 
+                  color:P.text,
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                } 
+              } 
+            } 
+          }
+        });
+      }
+
+      // Industry AI Adoption
+      if (document.getElementById('chartAdoption')) {
+        new Chart(document.getElementById('chartAdoption'),{ 
+          type:'bar', 
+          data:{ 
+            labels:['Financial Services','Technology','Healthcare','Retail','Manufacturing','Energy'], 
+            datasets:[{ 
+              label:'AI Adoption Rate (%)',
+              data:[78,85,62,71,58,45], 
+              backgroundColor:[
+                '#6366f1','#8b5cf6','#06d6a0','#f72585','#4361ee','#f77f00'
+              ], 
+              borderRadius:8,
+              borderSkipped:false
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false,
+            indexAxis:'y',
+            plugins:{ 
+              legend:{ display:false }, 
+              title:{ display:true, text:'AI Adoption by Industry (2024)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ 
+                beginAtZero:true,
+                max:100,
+                ticks:{ 
+                  color:P.text,
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                }
+              }, 
+              y:{ ticks:{ color:P.text } } 
+            } 
+          }
+        });
+      }
+
+      // ROI by Analytics Type
+      if (document.getElementById('chartROITypes')) {
+        new Chart(document.getElementById('chartROITypes'),{ 
+          type:'bar', 
+          data:{ 
+            labels:['Descriptive\nDashboards','Predictive\nForecasting','Prescriptive\nOptimization'], 
+            datasets:[{ 
+              label:'Average ROI',
+              data:[150,280,420], 
+              backgroundColor:[P.blue,P.yellow,P.purple], 
+              borderRadius:12,
+              borderSkipped:false
+            },{
+              label:'Implementation Cost',
+              data:[50,120,200],
+              backgroundColor:['rgba(51,87,255,0.3)','rgba(255,195,0,0.3)','rgba(124,58,237,0.3)'],
+              borderRadius:12,
+              borderSkipped:false
+            }]
+          }, 
+          options:{ 
+            responsive:true, 
+            maintainAspectRatio:false, 
+            plugins:{ 
+              legend:{ labels:{ color:P.text } }, 
+              title:{ display:true, text:'ROI vs Cost by Analytics Type (%)', color:P.text } 
+            }, 
+            scales:{ 
+              x:{ ticks:{ color:P.text } }, 
+              y:{ 
+                beginAtZero:true, 
+                ticks:{ 
+                  color:P.text,
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                } 
+              } 
+            } 
+          }
+        });
+      }
+    });
+
+    // ====== Quiz & helper logic ======
+    document.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const target = document.querySelector(btn.dataset.target);
+        const ok = btn.dataset.correct === 'true';
+        if(target) target.textContent = ok ? '✅ Correct: Experimental design sits in Data Science (with business context).' : '❌ Not quite — think about who designs statistical tests.';
+      });
+    });
+
+    // Scroll helpers (Prev/Next + keyboard + dots)
+    const sections = Array.from(document.querySelectorAll('main .card'));
+    function visibleIndex(){ 
+      const y = document.querySelector('.snap-wrapper').scrollTop; 
+      let idx = 0; 
+      let best = Infinity; 
+      sections.forEach((s,i)=>{ 
+        const d = Math.abs(s.offsetTop - y); 
+        if(d < best){ 
+          best = d; 
+          idx = i; 
+        } 
+      }); 
+      return idx; 
+    }
+    
+    function go(delta){ 
+      const i = Math.max(0, Math.min(sections.length-1, visibleIndex()+delta)); 
+      sections[i].scrollIntoView({behavior:'smooth'}); 
+    }
+    
+    document.getElementById('prevBtn').addEventListener('click',()=>go(-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>go(+1));
+    document.addEventListener('keydown', (e)=>{ 
+      if(['ArrowDown','PageDown'].includes(e.key)) { e.preventDefault(); go(+1); }
+      if(['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+    });
+
+    // Navigation dots
+    const dots = document.getElementById('navdots');
+    sections.forEach((s,i)=>{ 
+      const b=document.createElement('button'); 
+      b.title = s.id || `Section ${i+1}`; 
+      b.addEventListener('click',()=>sections[i].scrollIntoView({behavior:'smooth'})); 
+      dots.appendChild(b); 
+    });
+    
+    function syncDots(){ 
+      const idx = visibleIndex(); 
+      const bs = dots.querySelectorAll('button'); 
+      bs.forEach((b,i)=> b.classList.toggle('active', i===idx)); 
+    }
+    
+    document.querySelector('.snap-wrapper').addEventListener('scroll', ()=>{ 
+      window.requestAnimationFrame(syncDots); 
+    });
+    syncDots();
+
+    // Navigation links (fixed)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        if (target) {
+          const element = document.querySelector(target);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // ====== Floating Gemini helper ======
+    const helper = document.getElementById('helper');
+    const helperToggle = document.getElementById('helperToggle');
+    const helperClose = document.getElementById('helperClose');
+    const helperPrompt = document.getElementById('helperPrompt');
+    const copyPrompt = document.getElementById('copyPrompt');
+    const clearPrompt = document.getElementById('clearPrompt');
+    const copyMsg = document.getElementById('copyMsg');
+
+    helperToggle.addEventListener('click', ()=> helper.hidden = !helper.hidden);
+    helperClose.addEventListener('click', ()=> helper.hidden = true);
+    clearPrompt.addEventListener('click', ()=> { helperPrompt.value = ''; copyMsg.textContent=''; });
+    copyPrompt.addEventListener('click', async ()=>{
+      try { 
+        await navigator.clipboard.writeText(helperPrompt.value || ''); 
+        copyMsg.textContent='✅ Prompt copied. Open Gemini and paste.'; 
+      }
+      catch(e){ 
+        copyMsg.textContent='Copy failed — select text and copy manually.'; 
+      }
+    });
+
+    // Buttons that push a prompt into the helper
+    document.querySelectorAll('.use-prompt').forEach(btn=>{
+      btn.addEventListener('click',()=>{ 
+        helperPrompt.value = btn.dataset.prompt || ''; 
+        helper.hidden = false; 
+      });
+    });
+    
+    document.querySelectorAll('.more-prompts').forEach(btn=>{ 
+      btn.addEventListener('click',()=>{ 
+        const items=(btn.dataset.prompts||'').split(';').map(s=>s.trim()).filter(Boolean); 
+        helperPrompt.value = '• ' + items.join('\n• '); 
+        helper.hidden=false; 
+      }); 
+    });
+
+    // ====== Data URIs for downloadable CSVs (self-contained)
+    const csvTS = `date,sales
+2023-01-01,120000
+2023-02-01,135000
+2023-03-01,140000
+2023-04-01,130000
+2023-05-01,155000
+2023-06-01,160000
+2023-07-01,150000
+2023-08-01,170000
+2023-09-01,175000
+2023-10-01,165000
+2023-11-01,158000
+2023-12-01,172000
+2024-01-01,125000
+2024-02-01,138000
+2024-03-01,142000
+2024-04-01,133000
+2024-05-01,157000
+2024-06-01,162000`;
+
+    const csvROI = `channel,roi
+Social,3.2
+SEM,2.7
+Email,2.1
+Print,1.2`;
+
+    const dlTS = document.getElementById('dlTS'); 
+    if (dlTS) dlTS.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvTS);
+    
+    const dlROI = document.getElementById('dlROI'); 
+    if (dlROI) dlROI.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvROI);
+
+    // ====== Venn hover hints
+    (function(){
+      const svg = document.getElementById('vennBA');
+      if(!svg) return;
+      const label = document.getElementById('vennCenter');
+      const sets = [ {x:120,y:110,r:80}, {x:200,y:110,r:80}, {x:160,y:60,r:80} ];
+      svg.addEventListener('mousemove', (e)=>{
+        const rect = svg.getBoundingClientRect();
+        const p = {x:(e.clientX-rect.left)*(320/rect.width), y:(e.clientY-rect.top)*(220/rect.height)};
+        const inside = sets.map(h => (p.x-h.x)**2 + (p.y-h.y)**2 < h.r**2);
+        let t='Business Analytics';
+        if (inside[0]&&inside[1]&&inside[2]) t='BA (all three)';
+        else if (inside[0]&&inside[1]) t='BI / Product Analytics';
+        else if (inside[1]&&inside[2]) t='MLOps / ML Engineering';
+        else if (inside[0]&&inside[2]) t='Data‑Driven Strategy';
+        else if (inside[0]) t='Business';
+        else if (inside[1]) t='Technical';
+        else if (inside[2]) t='Data Science';
+        label.textContent = t;
+      });
+      svg.addEventListener('mouseleave', ()=>{ label.textContent = 'Business Analytics'; });
+    })();
+
+    // ====== Career Plan Generator ======
+    const genPlan = document.getElementById('genPlan');
+    const planOut = document.getElementById('planOut');
+    const roleSelect = document.getElementById('role');
+    const industrySelect = document.getElementById('industry');
+
+    if (genPlan && planOut && roleSelect && industrySelect) {
+      genPlan.addEventListener('click', () => {
+        const role = roleSelect.value;
+        const industry = industrySelect.value;
+        
+        const plans = {
+          'Data Analyst': {
+            skills: ['SQL', 'Excel/Sheets', 'Tableau/Power BI', 'Basic Statistics', 'Data Cleaning'],
+            certs: ['Google Data Analytics', 'Tableau Desktop Specialist', 'Microsoft Excel Expert'],
+            timeline: '3 months: SQL + Excel mastery; 6 months: BI tools + portfolio'
+          },
+          'BI Developer': {
+            skills: ['SQL', 'ETL/Data Warehousing', 'Power BI/Tableau', 'Database Design', 'Python'],
+            certs: ['Microsoft Power BI', 'Tableau Server', 'AWS Cloud Practitioner'],
+            timeline: '4 months: Advanced SQL + ETL; 6 months: Cloud platforms + dashboards'
+          },
+          'Data Scientist': {
+            skills: ['Python/R', 'Machine Learning', 'Statistics', 'SQL', 'Data Visualization'],
+            certs: ['Google Data Analytics', 'Coursera ML Specialization', 'AWS ML Specialty'],
+            timeline: '6 months: Python + ML fundamentals; 12 months: Advanced modeling + portfolio'
+          },
+          'AI/ML Engineer': {
+            skills: ['Python', 'TensorFlow/PyTorch', 'MLOps', 'Cloud Platforms', 'Software Engineering'],
+            certs: ['TensorFlow Developer', 'AWS ML Specialty', 'Kubernetes Certification'],
+            timeline: '8 months: Deep learning frameworks; 12 months: Production ML systems'
+          },
+          'BA Manager': {
+            skills: ['Leadership', 'Business Strategy', 'Data Storytelling', 'Project Management', 'Analytics Tools'],
+            certs: ['PMP', 'Google Analytics', 'Tableau Desktop Certified'],
+            timeline: '6 months: Leadership + strategy; 9 months: Advanced analytics + team management'
+          }
+        };
+
+        const industryFocus = {
+          'Healthcare': 'HIPAA compliance, clinical data, EHR systems',
+          'Finance': 'Risk modeling, regulatory compliance, algorithmic trading',
+          'Retail': 'Customer analytics, supply chain, personalization',
+          'Tech/Media': 'A/B testing, user analytics, recommendation systems'
+        };
+
+        const plan = plans[role];
+        const focus = industryFocus[industry];
+
+        planOut.innerHTML = `
+          <div class="space-y-3">
+            <div>
+              <h4 class="font-bold text-purple-700">${role} in ${industry}</h4>
+              <p class="text-xs text-slate-500">Industry Focus: ${focus}</p>
+            </div>
+            <div>
+              <h5 class="font-semibold">Key Skills to Develop:</h5>
+              <ul class="list-disc list-inside text-xs space-y-1">
+                ${plan.skills.map(skill => `<li>${skill}</li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <h5 class="font-semibold">Recommended Certifications:</h5>
+              <ul class="list-disc list-inside text-xs space-y-1">
+                ${plan.certs.map(cert => `<li>${cert}</li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <h5 class="font-semibold">Learning Timeline:</h5>
+              <p class="text-xs">${plan.timeline}</p>
+            </div>
+            <div class="bg-purple-50 p-2 rounded">
+              <p class="text-xs"><strong>Next Step:</strong> Create a LinkedIn Learning path and start with the first skill listed above.</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // ====== Floating Back button behavior
+    const backBtn = document.getElementById('backFloat');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        const scroller = document.querySelector('.snap-wrapper');
+        const y = scroller.scrollTop;
+        let idx = 0, best = Infinity;
+        sections.forEach((s,i)=>{ 
+          const d = Math.abs(s.offsetTop - y); 
+          if(d < best){ 
+            best=d; 
+            idx=i; 
+          } 
+        });
+        const prevIdx = Math.max(0, idx-1);
+        sections[prevIdx].scrollIntoView({behavior:'smooth'});
+      });
+    }
+  </script>
 </body>
 </html>
