@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BUAN B205 • Business Analytics with AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#0f172a; --sub:#475569; --accent:#7c3aed; --bg:#f8fafc; --card:#ffffff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+    .wrap{max-width:900px;margin:0 auto;padding:3rem 1.5rem 4rem}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:#ede9fe;color:#5b21b6;border-radius:999px;font-weight:800;font-size:12px;letter-spacing:.04em}
+    h1{font-size:clamp(28px,4.6vw,48px);font-weight:900;letter-spacing:-.02em;margin:1rem 0 .5rem}
+    .lead{color:var(--sub);font-size:clamp(15px,1.4vw,18px);margin:0 0 2.5rem}
+    h2{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin:2.5rem 0 1rem}
+    .card{display:block;background:var(--card);border:1px solid #e5e7eb;border-radius:16px;padding:1.5rem;
+          box-shadow:0 10px 30px rgba(2,6,23,.06);text-decoration:none;color:inherit;transition:.2s;margin-bottom:1rem}
+    .card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(2,6,23,.1);border-color:#ddd6fe}
+    .card h3{margin:0 0 .35rem;font-size:20px;font-weight:800;letter-spacing:-.01em}
+    .card p{margin:0;color:var(--sub);font-size:15px}
+    .tag{display:inline-block;margin-bottom:.6rem;font-size:11px;font-weight:800;letter-spacing:.06em;
+         color:#6d28d9;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:999px;padding:3px 9px}
+    .sub{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 0}
+    .sub a{font-size:13px;font-weight:700;text-decoration:none;color:#3730a3;background:#eef2ff;
+           border-radius:10px;padding:6px 10px;transition:.2s}
+    .sub a:hover{background:#e0e7ff}
+    footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e5e7eb;color:#64748b;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="pill">BUAN B205</span>
+    <h1>Business Analytics with AI</h1>
+    <p class="lead">Course materials. Everything below runs in your browser — nothing to install.</p>
+
+    <h2>Modules</h2>
+
+    <a class="card" href="Introduction_BUAN_with_AI.html">
+      <span class="tag">INTRODUCTION</span>
+      <h3>Introduction to Business Analytics with AI</h3>
+      <p>What analytics is, how AI fits into the workflow, and how we will work this semester.</p>
+    </a>
+
+    <a class="card" href="module4/">
+      <span class="tag">MODULE 4</span>
+      <h3>Data Visualization with AI</h3>
+      <p>Lecture notes plus a live notebook: move a control and every chart and number recomputes.
+         Covers decluttering, PivotTables, misleading axes, trendlines, time traps, and a mini dashboard.</p>
+      <span class="sub">
+        <a href="module4/module4-notebook/">Open the interactive notebook &rarr;</a>
+        <a href="module4/SuperMarket_Analysis.xlsx">Download the dataset</a>
+      </span>
+    </a>
+
+    <footer>
+      Nuwan Indika, Ph.D. &middot; College of Business, Loyola University New Orleans &middot; Fall 2026
+    </footer>
+  </div>
+</body>
+</html>

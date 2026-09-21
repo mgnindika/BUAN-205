@@ -1,0 +1,3 @@
+# Leave the exported marimo notebook bundle byte-for-byte as marimo produced it
+module4/module4-notebook/** -text
+*.xlsx binary

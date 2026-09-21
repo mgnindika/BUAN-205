@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Module 4: Data Visualization with AI | BUAN B205</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#231F20; --ink-soft:#57504C;
+  --maroon:#7B1E2E; --maroon-wash:#F6ECEE;
+  --gold:#C8922A; --gold-wash:#FBF3E2;
+  --slate:#3F6173; --slate-wash:#EBF1F4;
+  --paper:#FFFFFF; --wash:#F4F3F1; --line:#DCD8D2;
+  --sans:"Libre Franklin","Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.075rem;line-height:1.65}
+a{color:var(--maroon)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--sans);line-height:1.2;color:var(--ink)}
+h2{font-size:1.9rem;font-weight:800;margin:0 0 .4rem;letter-spacing:-.01em}
+h3{font-size:1.3rem;font-weight:700;margin:2.6rem 0 .5rem}
+h4{font-size:1rem;font-weight:700;margin:1.4rem 0 .4rem}
+p{margin:.6rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.25rem 0}
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1180px;margin:0 auto}
+nav.side{position:sticky;top:0;height:100vh;overflow-y:auto;padding:1.6rem 1.2rem 2rem;border-right:1px solid var(--line);font-family:var(--sans);font-size:.9rem}
+nav.side .course{font-weight:800;color:var(--maroon);font-size:1rem;margin-bottom:.1rem}
+nav.side .sub{color:var(--ink-soft);font-size:.82rem;margin-bottom:1.2rem}
+nav.side h5{font-size:.8rem;color:var(--ink-soft);margin:1.2rem 0 .35rem;font-weight:600}
+nav.side a{display:block;padding:.28rem .5rem;border-radius:6px;color:var(--ink);text-decoration:none}
+nav.side a:hover{background:var(--wash)}
+nav.side a.day{font-weight:600}
+main{padding:2.2rem 2.6rem 5rem;max-width:860px;min-width:0}
+.prose{max-width:70ch}
+/* instructor banner */
+.teacher-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;background:var(--maroon);color:#fff;font-family:var(--sans);font-size:.92rem;padding:.8rem 1rem;border-radius:10px;margin-bottom:1.6rem}
+.teacher-bar button{border-color:#fff;background:transparent;color:#fff}
+.teacher-bar button:hover{background:rgba(255,255,255,.15)}
+/* hero */
+.hero{padding-bottom:2rem;border-bottom:1px solid var(--line);margin-bottom:2.4rem}
+.hero .kicker{font-family:var(--sans);font-size:.95rem;color:var(--ink-soft)}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.025em;margin:.3rem 0 .8rem;line-height:1.02}
+.hero .lede{font-size:1.2rem;max-width:62ch;color:var(--ink-soft)}
+.sevens{margin-top:1.8rem;display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:start}
+.grid7{font-family:var(--mono);font-size:1.05rem;line-height:1.5;display:grid;grid-template-columns:repeat(10,1.55rem);background:var(--wash);padding:.9rem 1rem;border-radius:10px;justify-content:start}
+.grid7 span{text-align:center;transition:color .2s,font-size .2s}
+.grid7.color span.s{color:var(--maroon);font-weight:700}
+.grid7.size span.s{font-size:1.5rem;font-weight:700;line-height:1}
+.sevens .ctl h4{margin-top:0;font-size:1.25rem}
+.btnrow{display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0}
+button{font-family:var(--sans);font-size:.9rem;font-weight:600;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:.45rem .85rem;border-radius:999px;cursor:pointer}
+button:hover{background:var(--wash)}
+button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.timer{font-family:var(--sans);font-size:2.2rem;font-weight:800;color:var(--maroon);font-variant-numeric:tabular-nums}
+.answer7{font-family:var(--sans);font-weight:600;min-height:1.6em}
+/* sections */
+section.part{padding-top:1rem;margin-bottom:3.2rem}
+.part-head{display:flex;align-items:baseline;gap:1rem;border-bottom:3px solid var(--ink);padding-bottom:.5rem;margin-bottom:1rem}
+.part-head .num{font-family:var(--sans);font-weight:800;font-size:1.9rem;color:var(--maroon)}
+.datafile{display:inline-block;font-family:var(--mono);font-size:.78rem;background:var(--slate-wash);color:var(--slate);padding:.1rem .5rem;border-radius:4px;margin-left:.4rem;vertical-align:middle;font-weight:500}
+.idea{font-size:1.1rem}
+/* prompt ladder */
+.ladder{margin:1.4rem 0 1rem}
+.ladder-title{font-family:var(--sans);font-weight:700;font-size:.95rem;margin-bottom:.6rem}
+.rung{margin-bottom:.8rem;border-radius:10px;background:var(--wash);padding:.8rem 1rem .9rem}
+.rung.r2{margin-left:1.4rem}
+.rung.r3{margin-left:2.8rem;background:var(--maroon-wash)}
+.rung-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--sans);margin-bottom:.45rem}
+.rung-head b{font-size:.95rem}
+.rung-head .lvl{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:.85rem;margin-right:.5rem}
+.rung.r3 .rung-head .lvl{background:var(--maroon)}
+.rung-head .goal{color:var(--ink-soft);font-weight:400;font-size:.88rem}
+pre.prompt{margin:0;font-family:var(--mono);font-size:.86rem;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.75rem .9rem;color:var(--ink)}
+button.copy{font-size:.8rem;padding:.3rem .75rem;flex-shrink:0}
+button.copy.done{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+/* boxes */
+.check{background:var(--gold-wash);border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0}
+.check ul{margin:.3rem 0 0}
+.box{background:var(--wash);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
+.box.maroon{background:var(--maroon);color:#fff}
+.box.maroon h4{color:#fff;margin-top:0}
+details{border:1px solid var(--line);border-radius:10px;margin:.7rem 0;background:var(--paper)}
+details > summary{cursor:pointer;padding:.7rem 1rem;font-family:var(--sans);font-weight:600;font-size:.95rem;list-style:none}
+details > summary::-webkit-details-marker{display:none}
+details > summary::before{content:"+";display:inline-block;width:1.1rem;font-weight:800;color:var(--maroon)}
+details[open] > summary::before{content:"–"}
+details .inner{padding:0 1.1rem 1rem 2.1rem}
+details.excel > summary{color:var(--slate)}
+details.excel > summary::before{color:var(--slate)}
+/* answer key (instructor copy only) */
+details.key{border:2px solid var(--maroon);background:var(--maroon-wash)}
+details.key > summary{color:var(--maroon)}
+details.key .inner{font-size:.98rem}
+details.key .inner p:first-child{margin-top:0}
+details.key h5{font-family:var(--sans);font-size:.9rem;margin:.9rem 0 .2rem;color:var(--maroon)}
+details.key h5:first-child{margin-top:0}
+/* think harder */
+.think{margin:1.3rem 0}
+.think-title{font-family:var(--sans);font-weight:700;font-size:1rem;margin-bottom:.3rem}
+.q{margin:.9rem 0 .3rem;padding-left:1.6rem;position:relative}
+.q::before{content:"?";position:absolute;left:0;top:0;font-family:var(--sans);font-weight:800;color:var(--maroon)}
+.think details.key{margin:.3rem 0 1rem 1.6rem}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-family:var(--sans);font-size:.95rem;min-width:100%;color:var(--ink);background:var(--paper)}
+th,td{padding:.55rem .8rem;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--wash);border-bottom:2px solid var(--ink);font-weight:700}
+thead tr.group th{background:var(--paper);border-bottom:1px solid var(--line);text-align:center;font-weight:600;color:var(--ink-soft);font-size:.85rem}
+table.data td{font-variant-numeric:tabular-nums}
+table.data td:first-child{font-weight:600}
+table.data tbody tr:nth-child(even){background:#FAF9F8}
+table.data tr.total td{border-top:2px solid var(--ink);font-weight:700;background:var(--paper)}
+table.data td.tot{font-weight:700}
+td.hot{background:var(--gold-wash)!important;font-weight:700;box-shadow:inset 0 0 0 2px var(--gold)}
+table.plan{font-size:.92rem}
+table.plan td,table.plan th{white-space:normal;text-align:left;vertical-align:top}
+table.plan td:first-child{white-space:nowrap;font-weight:700;color:var(--maroon);width:5.5rem}
+table.files td,table.files th{white-space:normal;text-align:left}
+table.files td:first-child{font-family:var(--mono);font-size:.85rem;white-space:nowrap}
+/* charts */
+.chart{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1.2rem 0}
+.chart svg{width:100%;height:auto;display:block}
+.chart .cap{font-family:var(--sans);font-size:.88rem;color:var(--ink-soft);margin-top:.6rem}
+.chart .btnrow{margin-top:0}
+svg text{font-family:var(--sans)}
+.day-block{margin:1.8rem 0 2.2rem}
+.day-block h3{margin-top:0}
+.day-block .goal{color:var(--ink-soft);margin-top:-.2rem}
+.recipe{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:1rem}
+.recipe b{font-family:var(--sans)}
+footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:var(--sans);font-size:.85rem;color:var(--ink-soft)}
+.menu-btn{display:none}
+.swipe{display:none;font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);margin:.3rem 0 0}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);display:none}
+  nav.side.open{display:block}
+  .menu-btn{display:inline-block;margin:1rem 1.2rem 0}
+  main{padding:1.4rem 1.1rem 4rem}
+  .sevens{grid-template-columns:1fr}
+  .rung.r2{margin-left:.6rem}.rung.r3{margin-left:1.2rem}
+  .rung-head{flex-wrap:wrap}
+  th,td{padding:.5rem .6rem}
+  .swipe{display:block}
+  table.data th:first-child,table.data td:first-child{position:sticky;left:0;z-index:1;background:var(--paper);box-shadow:1px 0 0 var(--line)}
+  table.data thead th:first-child{background:var(--wash)}
+  table.data thead tr.group th:first-child{background:var(--paper);box-shadow:none}
+  table.data tbody tr:nth-child(even) td:first-child{background:#FAF9F8}
+  table.data tr.total td:first-child{background:var(--paper)}
+  .think details.key{margin-left:0}
+}
+@media print{
+  nav.side,.menu-btn,button.copy,.btnrow,.teacher-bar{display:none!important}
+  .wrap{display:block}
+  details{border:0}
+  details .inner{padding-left:0}
+  main{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<button class="menu-btn" onclick="document.querySelector('nav.side').classList.toggle('open')" aria-label="Open page menu">Menu</button>
+<div class="wrap">
+<nav class="side" aria-label="Page contents">
+  <div class="course">BUAN B205</div>
+  <div class="sub">Module 4: Data Visualization</div>
+  <a href="#start">Start here</a>
+  <a href="module4-notebook/">Reactive notebook</a>
+  <a href="#prompting">How to prompt well</a>
+  <a href="#files">Data files</a>
+  <h5>Two-week plan</h5>
+  <a class="day" href="#day1">Day 1: Seeing clearly</a>
+  <a class="day" href="#day2">Day 2: The core charts</a>
+  <a class="day" href="#day3">Day 3: Many variables</a>
+  <a class="day" href="#day4">Day 4: Maps and dashboards</a>
+  <h5>Notes</h5>
+  <a href="#s31">3.1 Seeing before thinking</a>
+  <a href="#s32">3.2 Tables and PivotTables</a>
+  <a href="#s33a">3.3 Scatter, line, bar</a>
+  <a href="#s33b">3.3 Many variables</a>
+  <a href="#s34">3.4 Specialized charts</a>
+  <a href="#s35">3.5 Maps</a>
+  <a href="#s36">3.6 Dashboards</a>
+  <h5>Practice and competition</h5>
+  <a href="#lab">Practice lab: supermarket</a>
+  <a href="#challenge">Data Viz Challenge</a>
+  <a href="#project">Practice project: restaurant</a>
+  <a href="#summary">Summary</a>
+</nav>
+
+<main>
+
+
+<header class="hero" id="top">
+  <div class="kicker">BUAN B205, Module 4. Nuwan Indika, Ph.D., College of Business, Loyola University New Orleans</div>
+  <h1>Data visualization, with AI as your lab partner</h1>
+  <p class="lede">In this module you will learn to turn a spreadsheet into a picture people understand in seconds. You'll build every chart in Excel, then ask AI to explain it, build it, and push it further. Your most important job is to check whether the AI got it right.</p>
+
+  <div class="sevens">
+    <div class="grid7" id="grid7" aria-label="Grid of 160 digits"></div>
+    <div class="ctl">
+      <h4>Warm-up: how many 7s?</h4>
+      <p>Press start and count every 7 in the grid. Then try again with a hint turned on and see how much faster you are.</p>
+      <div class="btnrow" role="group" aria-label="Hint type">
+        <button data-mode="plain" aria-pressed="true">No hint</button>
+        <button data-mode="color" aria-pressed="false">Color hint</button>
+        <button data-mode="size" aria-pressed="false">Size hint</button>
+      </div>
+      <div class="timer" id="timer">0.0 s</div>
+      <div class="btnrow">
+        <button id="timerBtn">Start timer</button>
+        
+      </div>
+      <div class="answer7" id="answer7" aria-live="polite"></div>
+      
+    </div>
+  </div>
+</header>
+
+<!-- ================= START HERE ================= -->
+<section class="part" id="start">
+  <div class="part-head"><h2>Start here</h2></div>
+  <div class="prose">
+    <p>Every topic on this page follows the same five steps.</p>
+    <ol>
+      <li><b>The idea.</b> First, read the idea in plain words.</li>
+      <li><b>Try it in Excel.</b> The click-by-click steps are in the blue boxes. Open them when you need them.</li>
+      <li><b>Ask AI, three levels up.</b> Copy a prompt, paste it into your AI tool (Copilot, ChatGPT, Claude or Gemini all work), and read the answer. Level 1 helps you understand, Level 2 has the AI do the work with our data, and Level 3 pushes the AI and you further.</li>
+      <li><b>Check the AI.</b> Compare what the AI says with what you built in Excel. When they don't match, find out who is wrong.</li>
+      <li><b>Think harder.</b> Answer these in your own words. We'll discuss them in class.</li>
+    </ol>
+  </div>
+  <div class="box maroon">
+    <h4>New: the reactive notebook</h4>
+    <p style="margin:0">Every idea in this module is also a live Python demo. Move a slider, and every chart that depends on it recomputes. It runs entirely in your browser. <a href="module4-notebook/" style="color:#fff;font-weight:700">Open the Module 4 notebook</a>, which works best on a laptop and takes a few seconds to start.</p>
+  </div>
+  <div class="box">
+    <h4 style="margin-top:0">Five rules for working with AI in this class</h4>
+    <ol style="margin-bottom:0">
+      <li><b>Upload the class file, or paste the data.</b> If the AI can't open a file, copy the cells from Excel and paste them into the prompt.</li>
+      <li><b>Never trust a number you didn't check.</b> AI can miscount, drop rows, or make up values that sound right.</li>
+      <li><b>Build it in Excel too.</b> AI explains, while Excel proves. You need both skills for your career.</li>
+      <li><b>Keep an AI log.</b> Write down the prompts you used and one time the AI was wrong. You will hand this in with the project.</li>
+      <li><b>Don't paste private data.</b> Our class datasets are fine, but a future employer's customer list is not.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= PROMPTING ================= -->
+<section class="part" id="prompting">
+  <div class="part-head"><h2>How to write a good prompt</h2></div>
+  <p class="prose">A weak prompt says "make a chart." A strong prompt tells the AI five things. You don't need all five every time, but the more you give it, the better the answer you get back.</p>
+  <div class="box recipe">
+    <b>Who</b><span>Tell it who the audience is: "Explain this to a restaurant owner with no stats background."</span>
+    <b>Data</b><span>Give it the data: attach the file, or paste the numbers.</span>
+    <b>Task</b><span>Name one clear job: "Build a crosstab of rating by price."</span>
+    <b>Format</b><span>Say what shape the answer should take: "A table, then three bullet findings, under 150 words."</span>
+    <b>Check</b><span>Ask it to check itself: "Show your totals so I can verify them."</span>
+  </div>
+  <h4>Five moves to push any answer further</h4>
+  <ul class="prose">
+    <li>"Why did you pick that chart? What's the second-best choice?"</li>
+    <li>"Show me the numbers behind that claim."</li>
+    <li>"Give me the exact Excel steps to build this myself."</li>
+    <li>"What is wrong or misleading about your own chart?"</li>
+    <li>"What would a skeptical manager ask about this?"</li>
+  </ul>
+</section>
+
+<!-- ================= FILES ================= -->
+<section class="part" id="files">
+  <div class="part-head"><h2>Data files for this module</h2></div>
+  <p class="prose">These are the same Excel files from our textbook, so download them from Canvas. Small datasets are also typed into the prompts below, so you can copy and go.</p>
+  <div class="tscroll">
+  <table class="files">
+    <thead><tr><th>File</th><th>What's inside</th><th>Used in</th></tr></thead>
+    <tbody>
+      <tr><td>restaurant</td><td>300 Los Angeles restaurants: quality rating, meal price ($), wait time (min)</td><td>3.2 crosstab, PivotChart, final project</td></tr>
+      <tr><td>gossamer</td><td>Six months of costs and revenues for Gossamer Industries</td><td>3.2 tables, 3.4 waterfall</td></tr>
+      <tr><td>electronics</td><td>10 weeks of TV commercials and sales ($100s)</td><td>3.3 scatter and trendline</td></tr>
+      <tr><td>kirkland</td><td>Monthly air compressor sales ($100s)</td><td>3.3 line chart</td></tr>
+      <tr><td>kirklandregional</td><td>The same sales split into North and South</td><td>3.3 multiple lines, sparklines, stacked and clustered</td></tr>
+      <tr><td>accountsmanaged</td><td>Number of accounts for 8 managers</td><td>3.3 bar chart, pie chart debate</td></tr>
+      <tr><td>airportdata</td><td>TSA wait, parking rate, passengers per year</td><td>3.3 bubble chart</td></tr>
+      <tr><td>nyc</td><td>55 NYC sub-boroughs: rent, % college grads, poverty rate, commute</td><td>3.3 scatter matrix, table lens</td></tr>
+      <tr><td>samestore_sales</td><td>Monthly same-store sales by store</td><td>3.4 heat map</td></tr>
+      <tr><td>brandvalues</td><td>Brand values grouped by industry</td><td>3.4 treemap</td></tr>
+      <tr><td>verizon</td><td>Five trading days of Verizon stock prices</td><td>3.4 stock chart</td></tr>
+      <tr><td>SuperMarket_Analysis</td><td>1,000 supermarket sales, 3 branches, Jan–Mar 2019 (<a href="SuperMarket_Analysis.xlsx" download>download</a>)</td><td>Practice lab and the Data Viz Challenge</td></tr>
+      <tr><td>income_state, income_county</td><td>Median household income by state and by county</td><td>3.5 maps</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ================= PLAN ================= -->
+<section class="part" id="plan">
+  <div class="part-head"><h2>Two-week plan</h2></div>
+  <p class="prose">We have four class meetings of 75 minutes each. Each one follows the same rhythm: a short warm-up, the idea, Excel, AI, a hard question, and an exit ticket.</p>
+
+  <div class="day-block" id="day1">
+    <h3>Day 1: Seeing clearly <span class="datafile">3.1 and 3.2</span></h3>
+    <p class="goal">Goal: know why some charts are easy to read, and build your first crosstab two ways.</p>
+    <div class="tscroll"><table class="plan"><tbody>
+      <tr><td>0–5</td><td>Count the 7s <a href="#top">(top of page)</a>. First time it with no hint, then with the color hint.</td></tr>
+      <tr><td>5–20</td><td><a href="#s31">Preattentive attributes and data-ink</a>. Click "Declutter" on the scarf chart, then have pairs run the Level 1 prompt.</td></tr>
+      <tr><td>20–30</td><td><a href="#tables">Tables versus charts</a> using Gossamer. Pairs run the Level 2 prompt and find the money-losing months.</td></tr>
+      <tr><td>30–60</td><td><b>Lab:</b> <a href="#crosstab">Restaurant crosstab</a>. Spend 10 minutes on the PivotTable in Excel, 10 minutes asking AI for the same table, and 10 minutes comparing the two.</td></tr>
+      <tr><td>60–70</td><td>Discuss the Think harder questions on the restaurant data.</td></tr>
+      <tr><td>70–75</td><td>Exit ticket: write down one number the AI got right, and one thing you had to double-check.</td></tr>
+      <tr><td>Homework</td><td><a href="#lab">Practice set A</a> (supermarket crosstabs) and the Data detective questions.</td></tr>
+    </tbody></table></div>
+    
+  </div>
+
+  <div class="day-block" id="day2">
+    <h3>Day 2: The core charts <span class="datafile">3.3 part 1</span></h3>
+    <p class="goal">Goal: pick the right chart for the question, and explain a trendline in dollars.</p>
+    <div class="tscroll"><table class="plan"><tbody>
+      <tr><td>0–5</td><td>Recap: show the cluttered scarf chart. The class calls out every piece of non-data ink.</td></tr>
+      <tr><td>5–25</td><td><a href="#scatter">Scatter chart and trendline</a> (electronics). Build it in Excel first, then run the Level 2 and Level 3 prompts.</td></tr>
+      <tr><td>25–45</td><td><a href="#line">Line charts and sparklines</a> (kirkland). The "hidden story" challenge.</td></tr>
+      <tr><td>45–60</td><td><a href="#bar">Bar and column charts</a>. Compare sorted with unsorted, then stacked with clustered.</td></tr>
+      <tr><td>60–70</td><td><a href="#pie">Pie chart debate</a>. Half the room asks AI to defend the pie chart, and the other half asks it to attack. Then vote.</td></tr>
+      <tr><td>70–75</td><td>Exit ticket: name the best chart for each case. (a) Daily website visits for a year. (b) Sales for 12 products. (c) Ad spending and sales for 50 stores.</td></tr>
+      <tr><td>Homework</td><td><a href="#lab">Practice set B</a> (supermarket line, scatter, histogram, clustered). Form teams of three for the challenge.</td></tr>
+    </tbody></table></div>
+    
+  </div>
+
+  <div class="day-block" id="day3">
+    <h3>Day 3: Many variables and special charts <span class="datafile">3.3 part 2 and 3.4</span></h3>
+    <p class="goal">Goal: show three or more variables at once, and know when a special chart earns its place.</p>
+    <div class="tscroll"><table class="plan"><tbody>
+      <tr><td>0–5</td><td>Show the <a href="#waterfall">waterfall chart</a> with no explanation. Ask students what they think it shows.</td></tr>
+      <tr><td>5–20</td><td><a href="#bubble">Bubble chart</a> (airportdata), then the <a href="#matrix">scatter matrix and table lens</a> (nyc).</td></tr>
+      <tr><td>20–30</td><td><a href="#pivotchart">PivotCharts</a> go back to the restaurant data.</td></tr>
+      <tr><td>30–55</td><td><b>Stations:</b> Teams of 3–4 each take one chart: heat map, treemap, waterfall or stock chart. Each team builds it in Excel, uses the Level 2 and Level 3 prompts, and prepares a 2-minute report.</td></tr>
+      <tr><td>55–65</td><td>Team reports. Then a quick <a href="#parallel">parallel coordinates</a> discussion.</td></tr>
+      <tr><td>65–75</td><td><b><a href="#challenge">Challenge Round 1</a>: chart makeover sprint.</b> Teams rebuild the bad supermarket pie chart, and the class votes.</td></tr>
+      <tr><td>Homework</td><td><a href="#lab">Practice set C</a> (heat map, bubble, waterfall, 100% stacked).</td></tr>
+    </tbody></table></div>
+    
+  </div>
+
+  <div class="day-block" id="day4">
+    <h3>Day 4: Maps, dashboards, and your project <span class="datafile">3.5 and 3.6</span></h3>
+    <p class="goal">Goal: read a map honestly, design a one-screen dashboard, and start the mini-project.</p>
+    <div class="tscroll"><table class="plan"><tbody>
+      <tr><td>0–15</td><td><a href="#s35">Choropleth maps</a> using income_state. Where does Louisiana land? Then look at the county map and the cartogram question.</td></tr>
+      <tr><td>15–30</td><td><a href="#s36">Dashboards</a>: go over the principles, then the Grogan Oil example with the Level 2 and 3 prompts.</td></tr>
+      <tr><td>30–40</td><td><b>Launch the <a href="#challenge">Data Viz Challenge</a>.</b> Read the brief, rules, and rubric together.</td></tr>
+      <tr><td>40–60</td><td><b>Challenge Round 2: insight sprint.</b> Teams find three facts and prove each with a PivotTable. Check them live.</td></tr>
+      <tr><td>60–75</td><td>Teams plan their dashboard: the question, the charts, and who owns which role. Use the "Find questions" prompt.</td></tr>
+      <tr><td>Next week</td><td><b>Finals:</b> 3-minute pitches, judge questions, and awards.</td></tr>
+    </tbody></table></div>
+    
+  </div>
+  <div class="check"><strong>Only two meetings?</strong> Session 1 covers Day 1, then the scatter and line charts from Day 2. Session 2 covers bar charts, the pie chart debate, bubble, heat map, waterfall, and dashboards, and launches the challenge. Skip Round 1, run Round 2 as homework, and hold finals the week after.</div>
+</section>
+
+<!-- ================= 3.1 ================= -->
+<section class="part" id="s31">
+  <div class="part-head"><span class="num">3.1</span><h2>Seeing before thinking</h2></div>
+
+  <h3 style="margin-top:.5rem">Preattentive attributes</h3>
+  <div class="prose">
+    <p class="idea">Your brain notices some things before you even start thinking: color, size, shape, and length. These are called <b>preattentive attributes</b>. A good chart uses them to point the reader's eye where it should go. That lowers the <b>cognitive load</b>, which means the mental effort needed to understand the chart.</p>
+    <p>You just saw this with the 7s. The numbers didn't change. Only the color or size did, and counting became easy.</p>
+    <ul>
+      <li><b>Color</b> is very strong. But too many colors becomes noise, and about 1 in 12 men has some color blindness.</li>
+      <li><b>Size</b> is weaker than it looks. People are bad at judging how much bigger one area is than another.</li>
+      <li><b>Length</b> is the best tool for showing amounts. A longer bar means a bigger number, and our eyes judge length well.</li>
+    </ul>
+  </div>
+
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b> <span class="goal">get the idea</span></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain "preattentive attributes" to a first-year business student in under 150 words. Use one example from a monthly sales report. Then tell me which attribute is best for showing amounts, and why.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b> <span class="goal">use our data</span></span><button class="copy">Copy</button></div>
+<pre class="prompt">Here are the number of accounts managed by 8 managers:
+Williams 6, Edwards 11, Jones 15, Smith 21, Davis 24, Francois 28, Lopez 29, Gentry 37.
+
+My manager wants anyone with fewer than 15 accounts to jump out at her instantly. Suggest two chart designs that do this. For each one, name the preattentive attribute it uses and explain why it works.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b> <span class="goal">test the AI and yourself</span></span><button class="copy">Copy</button></div>
+<pre class="prompt">Now assume my manager is color blind and the report will be printed in black and white. Redesign your best suggestion so it still works. Which attribute replaces color? What is one thing that gets worse in your new design?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Which managers did the AI highlight? Count them yourself from the list. Read "fewer than 15" carefully.</li><li>Does its design use length for the amounts, or something weaker like area?</li></ul></div>
+  
+
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">Why is length better than area for showing quantity? Use a pizza example.</p>
+    
+  </div>
+
+  <h3>Data-ink ratio and decluttering <span class="datafile">scarf sales</span></h3>
+  <div class="prose">
+    <p class="idea"><b>Data-ink</b> is ink that shows data. <b>Non-data-ink</b> is everything else: heavy gridlines, borders, shaded backgrounds, a legend for one line, and extra decimals. The <b>data-ink ratio</b> is data-ink divided by total ink. Push it up by removing what doesn't help. This is called <b>decluttering</b>. White space counts too, because empty space helps the data stand out.</p>
+    <p>Excel's default charts are cluttered. Always clean them before you show your boss.</p>
+  </div>
+  <div class="chart">
+    <div class="btnrow"><button id="scarfBtn" aria-pressed="false">Declutter this chart</button></div>
+    <svg id="scarfChart" role="img" aria-label="Line chart of 20 days of scarf sales"></svg>
+    <div class="cap">Scarf sales for 20 days. Click the button to remove non-data ink.</div>
+  </div>
+
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain data-ink ratio in plain words. Then list 6 things in a default Excel chart that are usually non-data ink, and say for each one whether I should delete it, lighten it, or keep it.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Daily scarf sales (units) for 20 days:
+Day 1-10: 150, 170, 140, 150, 180, 180, 210, 230, 140, 200
+Day 11-20: 170, 160, 290, 200, 210, 110, 90, 140, 150, 230
+
+I made a default Excel line chart with gridlines, a legend, markers on every point, and a border. Give me step-by-step Excel instructions to declutter it. Then tell me how to make the best day stand out using one preattentive attribute and a short text label. Also tell me the best day, the worst day, and the average.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Can you declutter too much? Give me one example where removing gridlines or axis labels would make a chart worse. Then write a one-sentence rule I can use to decide when gridlines should stay.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Find the best and worst days yourself by scanning the numbers. Does the AI agree?</li><li>Compute the average in Excel with =AVERAGE(). Does it match the AI's average?</li></ul></div>
+  
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">Our old notes list the scarf data with a "Day 80" between Day 17 and Day 19. What happened, and what could go wrong if you gave that table to AI?</p>
+    
+    <p class="q">Your boss says "Remove the y-axis, the chart looks cleaner." Is that good decluttering?</p>
+    
+  </div>
+</section>
+
+<!-- ================= 3.2 ================= -->
+<section class="part" id="s32">
+  <div class="part-head"><span class="num">3.2</span><h2>Tables and PivotTables</h2></div>
+
+  <h3 id="tables" style="margin-top:.5rem">When a table beats a chart <span class="datafile">gossamer</span></h3>
+  <div class="prose">
+    <p class="idea">Use a <b>table</b> when:</p>
+    <ul>
+      <li>the reader needs exact numbers,</li>
+      <li>the reader needs to make precise comparisons, or</li>
+      <li>the values have different units or very different sizes, like dollars and head count.</li>
+    </ul>
+    <p>Use a <b>chart</b> when the shape or the trend matters more than the exact number. Sometimes the best answer is both: a small chart with a table underneath.</p>
+    <p>Good table design follows three rules. Put lines only under headers and above totals. Left-align labels and right-align numbers. Keep the table plain.</p>
+  </div>
+  <div class="tscroll">
+  <table class="data">
+    <thead><tr><th>Gossamer Industries</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td>Head count</td><td>8</td><td>9</td><td>10</td><td>9</td><td>9</td><td>9</td><td></td></tr>
+      <tr><td>Costs ($)</td><td>48,123</td><td>56,458</td><td>64,125</td><td>52,158</td><td>54,718</td><td>50,985</td><td class="tot">326,567</td></tr>
+      <tr><td>Revenues ($)</td><td>64,124</td><td>66,128</td><td>67,125</td><td>48,178</td><td>51,785</td><td>55,687</td><td class="tot">353,027</td></tr>
+      
+    </tbody>
+  </table>
+  </div>
+  <div class="swipe">Swipe the table sideways to see all months.</div>
+
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Give me 3 simple rules for when to use a table instead of a chart in a business report. Give one real business example for each rule.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Gossamer Industries, Jan to Jun:
+Costs ($): 48123, 56458, 64125, 52158, 54718, 50985
+Revenues ($): 64124, 66128, 67125, 48178, 51785, 55687
+
+Make a clean table with a Profit row (Revenue minus Cost) and a Total column. Use commas and show losses in parentheses. Then tell me which months lost money and the total profit for six months. Show your math for the total.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">My boss wants head count (8 to 10 employees) on the same line chart as costs and revenues (about $50,000 each). Explain why that chart would be hard to read. Give me two better options and say which you'd pick.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Build the Profit row in Excel with a formula (=Revenue − Cost). Do your six numbers match the AI's?</li><li>Does total profit equal total revenue minus total cost? Both ways should give the same number.</li></ul></div>
+  
+
+  <h3 id="crosstab">Crosstabulation and PivotTables <span class="datafile">restaurant</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>crosstabulation</b> is a table that counts how two variables combine. Our data has 300 Los Angeles restaurants from a Zagat review. The variables are <b>quality rating</b> (Good, Very Good, Excellent), <b>meal price</b> ($), and <b>wait time</b> (minutes). Excel calls a crosstab a <b>PivotTable</b>.</p>
+    <p>The totals on the right and the bottom are called the margins. They show each variable on its own. Use the buttons to switch what the table shows.</p>
+  </div>
+  <div class="chart">
+    <div class="btnrow" role="group" aria-label="PivotTable value">
+      <button data-ct="count" aria-pressed="true">Count</button>
+      <button data-ct="pct" aria-pressed="false">% of total</button>
+      <button data-ct="wait" aria-pressed="false">Average wait (min)</button>
+    </div>
+    <div class="tscroll" style="margin:0"><table class="data" id="ctTable" aria-describedby="ctCap"></table></div>
+    <div class="swipe">Swipe the table sideways to see all columns.</div>
+    <div class="cap" id="ctCap"></div>
+  </div>
+
+  <details class="excel"><summary>Try it in Excel: build the PivotTable</summary><div class="inner">
+    <ol>
+      <li>Go to <b>Insert</b> and choose <b>PivotTable</b>. For the range, enter A1:D301, and pick <b>New Worksheet</b>.</li>
+      <li>Drag <b>Quality Rating</b> to Rows, <b>Meal Price ($)</b> to Columns, and <b>Restaurant</b> to Values.</li>
+      <li>Click <b>Sum of Restaurant</b>, then choose <b>Value Field Settings</b> and then <b>Count</b>.</li>
+      <li>Right-click any price label and choose <b>Group</b>. Enter Starting at 10, Ending at 49, and By 10.</li>
+      <li>Right-click "Excellent," choose <b>Move</b>, then <b>Move "Excellent" to End</b>.</li>
+      <li>For percentages, go to <b>Value Field Settings</b>, then <b>Show Values As</b>, then <b>% of Grand Total</b>.</li>
+      <li>For wait time, remove Count, drag <b>Wait Time</b> to Values, and summarize by <b>Average</b> with 1 decimal place.</li>
+    </ol>
+  </div></details>
+
+  <div class="ladder">
+    <div class="ladder-title">Ask AI (attach restaurant.xlsx)</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">What is a crosstabulation? Explain it with a tiny made-up example about coffee shops (size: small/large, rating: good/great). Show the little table and explain what the row and column totals mean.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached restaurant.xlsx (300 restaurants). Build a crosstab:
+- Rows: Quality Rating in the order Good, Very Good, Excellent
+- Columns: Meal Price grouped as $10-19, $20-29, $30-39, $40-49
+- Cells: count of restaurants, with row and column totals
+
+Then show the same table as % of the grand total. Tell me which cell is the largest and what share of restaurants are rated Very Good.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Now replace the counts with the AVERAGE wait time in each cell (1 decimal). Write 3 findings a restaurant owner would care about, in plain English. Then tell me one thing this data cannot tell us, and what extra data we would need to answer it.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Do the AI's row totals add to 300? Do its column totals add to 300?</li><li>Does its largest cell match the largest cell in your Excel PivotTable?</li><li>Are the ratings in the right order (Good, Very Good, Excellent)? Are the price groups non-overlapping?</li></ul></div>
+  
+
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">Our old slide showed the Excellent row total as 300. How can you prove that's wrong without opening Excel?</p>
+    
+    <p class="q">In Good restaurants, wait time seems to fall from 2.6 to 0.5 minutes as price goes up. Do you believe the 0.5?</p>
+    
+    <p class="q">Wait time rises with price. Does charging more cause longer waits?</p>
+    
+    <p class="q">An AI groups prices as "10–20, 20–30, 30–40." What's wrong with that?</p>
+    
+  </div>
+</section>
+
+<!-- ================= 3.3a ================= -->
+<section class="part" id="s33a">
+  <div class="part-head"><span class="num">3.3</span><h2>Scatter, line, and bar charts</h2></div>
+
+  <h3 id="scatter" style="margin-top:.5rem">Scatter charts and trendlines <span class="datafile">electronics</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>scatter chart</b> shows the relationship between two numeric variables. Each dot is one observation. A <b>trendline</b> is the straight line that fits the dots best. Its slope tells you how much y changes, on average, when x goes up by one.</p>
+    <p>A San Francisco electronics store tracked how many TV commercials it ran each week and its sales that week, in hundreds of dollars.</p>
+  </div>
+  <div class="chart">
+    <div class="btnrow"><button id="trendBtn" aria-pressed="false">Add trendline</button></div>
+    <svg id="scatterChart" role="img" aria-label="Scatter chart of commercials and sales"></svg>
+    <div class="cap">Weekly sales ($100s) and number of commercials, 10 weeks.</div>
+  </div>
+  <details class="excel"><summary>Try it in Excel: scatter chart with trendline</summary><div class="inner">
+    <ol>
+      <li>Select B1:C11, then go to <b>Insert</b> and choose <b>Scatter</b>. You can also try <b>Recommended Charts</b> and see if Excel suggests a scatter.</li>
+      <li>Click <b>Chart Elements (+)</b>. Turn on Axis Titles and Trendline, and turn off Gridlines.</li>
+      <li>Name the axes "Number of Commercials" and "Sales ($100s)."</li>
+      <li>Right-click the trendline, choose <b>Format Trendline</b>, and check <b>Display Equation</b> and <b>Display R-squared</b>.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain a scatter chart and a trendline to a business student. What does the slope mean? What can a trendline NOT tell you? Keep it under 150 words.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Weekly data from an electronics store (commercials, sales in $100s):
+(2,50) (5,57) (1,41) (3,54) (4,54) (1,38) (5,63) (3,48) (4,59) (2,46)
+
+Find the linear trendline equation and R-squared. Show your calculation. Then explain the slope in plain English IN DOLLARS (remember sales are in hundreds of dollars).</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Use your equation to predict sales if the store runs 10 commercials in a week. Then give me three reasons that prediction might be wrong. Finally, the manager says "Commercials cause sales to go up." Is that proven by this data? Explain.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Does the AI's equation match the one Excel shows on your trendline?</li><li>Sales are in hundreds of dollars. Did the AI convert the slope into real dollars?</li><li>How many commercials did the store actually run in our data? Is 10 inside that range?</li></ul></div>
+  
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">This scatter chart starts the y-axis at 30, not 0. Is that cheating?</p>
+    
+    <p class="q">Give a real reason, other than the ads themselves, why weeks with more commercials might have higher sales.</p>
+    
+  </div>
+
+  <h3 id="line">Line charts, multiple lines, and sparklines <span class="datafile">kirkland, kirklandregional</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>line chart</b> is the standard chart for <b>time series</b> data, which means values measured over time. With two or more lines, use color to tell them apart and label the lines directly instead of using a legend. A <b>sparkline</b> is a tiny line chart that fits inside one Excel cell and shows the trend at a glance.</p>
+  </div>
+  <div class="chart">
+    <div class="btnrow" role="group" aria-label="Kirkland view">
+      <button data-kv="total" aria-pressed="true">Total sales (kirkland)</button>
+      <button data-kv="region" aria-pressed="false">North and South (kirklandregional)</button>
+    </div>
+    <svg id="kirkChart" role="img" aria-label="Kirkland monthly sales line chart"></svg>
+    <div class="cap">Kirkland Industries air compressor sales, $100s per month.</div>
+  </div>
+  <details class="excel"><summary>Try it in Excel: line chart and sparklines</summary><div class="inner">
+    <ol>
+      <li>Select A1:B13 in kirkland, go to <b>Insert</b>, choose <b>Line</b>, then <b>2-D Line</b>. Remove the gridlines and add axis titles.</li>
+      <li>For two lines, select A2:C14 in kirklandregional and follow the same steps.</li>
+      <li>For sparklines, go to <b>Insert</b> and choose <b>Sparklines: Line</b>. Set the Data Range to B3:B14 and the Location to B15. Then copy B15 to C15.</li>
+      <li>Under <b>Sparkline</b>, check <b>High Point</b> to mark the best month.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">When should I use a line chart instead of a column chart for data over time? Give me a simple rule and one example of each.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Monthly air compressor sales ($100s), Jan to Dec:
+North: 95, 100, 120, 115, 100, 85, 135, 110, 100, 50, 40, 40
+South: 40, 45, 55, 65, 60, 50, 75, 65, 60, 70, 75, 80
+
+Describe the trend in each region in two sentences. Give the peak month for each. In which month does South first sell more than North?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Add North and South together for each month and describe the total trend. Which story is hidden if the CEO only sees the total? Suggest two business reasons North collapses in Oct to Dec while South grows, and what data would confirm each reason.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Switch the chart above to North and South. Do the AI's peak months match what you see?</li><li>Add North + South for two months in Excel. Compare your totals with the kirkland file. What do you notice?</li></ul></div>
+  
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">Look at the total chart, then the regional chart. What would a CEO miss by seeing only the total?</p>
+    
+  </div>
+
+  <h3 id="bar">Bar and column charts <span class="datafile">accountsmanaged, kirklandregional</span></h3>
+  <div class="prose">
+    <p class="idea"><b>Bar charts</b> use horizontal bars, and <b>column charts</b> use vertical ones. Both use length, our best preattentive attribute. Sort the bars so the reader sees the ranking right away. To show more than one category, use a <b>clustered</b> chart (side by side) or a <b>stacked</b> chart (piled up).</p>
+  </div>
+  <div class="chart">
+    <div class="btnrow">
+      <button id="sortBtn" aria-pressed="false">Sort bars</button>
+      <button id="hiBtn" aria-pressed="false">Highlight fewer than 15</button>
+    </div>
+    <svg id="barChart" role="img" aria-label="Bar chart of accounts managed"></svg>
+    <div class="cap">Accounts managed by each manager.</div>
+  </div>
+  <details class="excel"><summary>Try it in Excel: sorted bar chart with labels</summary><div class="inner">
+    <ol>
+      <li>Select A2:B9, go to <b>Insert</b>, then <b>Bar</b>, then <b>Clustered Bar</b>.</li>
+      <li>Under Chart Elements, keep Axes, Axis Titles, and Chart Title, and remove Gridlines.</li>
+      <li>To sort, select A1:B9, right-click, choose <b>Sort</b>, then <b>Custom Sort</b>. Sort by Accounts Managed, <b>Smallest to Largest</b>.</li>
+      <li>Under Chart Elements, check <b>Data Labels</b>.</li>
+      <li>For stacked or clustered charts with kirklandregional, select A2:C14, go to <b>Insert</b>, then <b>Column</b>, and pick Stacked Column or Clustered Column.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">What is the difference between a clustered column chart and a stacked column chart? For each, name one question it answers well and one question it answers badly.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Monthly sales ($100s):
+North: 95, 100, 120, 115, 100, 85, 135, 110, 100, 50, 40, 40
+South: 40, 45, 55, 65, 60, 50, 75, 65, 60, 70, 75, 80
+
+Should I use a stacked or clustered column chart if my manager asks: (a) "What were total sales each month?" and (b) "Did South's sales grow over the year?" Explain each choice and give the Excel steps for both charts.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Gentry manages 37 accounts and Williams manages 6. Is Gentry the best manager? List the data you would need before making that claim, and suggest one chart that would make a fairer comparison.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Build both charts in Excel. In the stacked chart, try to judge whether South grew. Is it easy or hard? Does that match what the AI said?</li></ul></div>
+  
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">Our Excel steps sort "Smallest to Largest," yet the biggest bar ends up on top. Why?</p>
+    
+  </div>
+
+  <h3 id="pie">A word on pie charts and 3-D charts</h3>
+  <div class="prose">
+    <p class="idea">Pie charts are everywhere, but they rely on color (which color-blind readers struggle with) and area (which everyone judges badly). 3-D charts are worse, because the tilt makes the front slices look bigger. A sorted bar chart usually does the same job better.</p>
+  </div>
+  <div class="ladder">
+    <div class="ladder-title">Class debate</div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">A</span><b>Team pie</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Make the strongest possible case FOR using a pie chart to show how 171 accounts are split across 8 managers (Williams 6, Edwards 11, Jones 15, Smith 21, Davis 24, Francois 28, Lopez 29, Gentry 37). When are pie charts actually a good choice?</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">B</span><b>Team bar</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Make the strongest possible case AGAINST using a pie chart for how 171 accounts are split across 8 managers (Williams 6, Edwards 11, Jones 15, Smith 21, Davis 24, Francois 28, Lopez 29, Gentry 37). Which two managers would be hardest to compare in a pie, and why?</pre></div>
+  </div>
+  <div class="check"><strong>Your vote.</strong> After both teams read their best arguments, write one sentence: pie or bar for this data, and why?</div>
+  
+</section>
+
+<!-- ================= 3.3b ================= -->
+<section class="part" id="s33b">
+  <div class="part-head"><span class="num">3.3</span><h2>Charts for many variables</h2></div>
+
+  <h3 id="bubble" style="margin-top:.5rem">Bubble charts <span class="datafile">airportdata</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>bubble chart</b> is a scatter chart with a third variable shown as bubble size. For each airport, we have average TSA wait time (x), the cheapest parking rate in $/hour (y), and boarding passengers per year in millions (bubble size).</p>
+  </div>
+  <details class="excel"><summary>Try it in Excel: bubble chart with airport labels</summary><div class="inner">
+    <ol>
+      <li>Select B2:D16, go to <b>Insert</b>, choose <b>Scatter/Bubble</b>, then <b>Bubble</b>.</li>
+      <li>Add axis titles, a chart title, and data labels.</li>
+      <li>Double-click a data label, go to <b>Label Options</b>, choose <b>Value From Cells</b>, and select A2:A16 (the airport names). Then uncheck Y Value.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI (attach airportdata.xlsx)</div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached airportdata.xlsx. Describe a bubble chart with x = average TSA wait (min), y = cheapest parking ($/hr), and bubble size = boarding passengers (millions). Which 2 airports look like the worst deal for travelers and which look like the best? Explain using all three variables, and show the numbers for each airport you name.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Bubble size uses AREA to show passengers. Based on what we know about preattentive attributes, how accurately can readers compare bubble sizes? Suggest a different way to show the same three variables, and say what we gain and lose.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Sort the file by TSA wait, then by parking rate. Are the AI's "worst" airports near the top of both lists?</li><li>Did it report the same numbers that are in the file?</li></ul></div>
+  
+
+  <h3 id="matrix">Scatter-chart matrix and table lens <span class="datafile">nyc</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>scatter-chart matrix</b> is a grid of small scatter charts, one for every pair of variables. It lets you scan many relationships at once. A <b>table lens</b> does something similar inside a table. You put data bars in each column, sort by one column, and see whether the other columns rise or fall with it. Our data covers 55 New York City sub-boroughs, with median rent, % college graduates, poverty rate, and commute time.</p>
+  </div>
+  <details class="excel"><summary>Try it in Excel: table lens</summary><div class="inner">
+    <ol>
+      <li>Select B2:B56, go to <b>Home</b>, choose <b>Conditional Formatting</b>, then <b>Data Bars</b>, and pick a solid blue.</li>
+      <li>Repeat for C2:C56, D2:D56, and E2:E56.</li>
+      <li>Select A1:F56, go to <b>Data</b>, and choose <b>Sort</b>. Sort by Median Monthly Rent, Largest to Smallest.</li>
+      <li>Look down the other columns. Which bars shrink and which grow as rent goes down?</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI (attach nyc.xlsx)</div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached nyc.xlsx (55 NYC sub-boroughs). Make a scatter-chart matrix for median rent, % college graduates, poverty rate, and commute time. Also give me the correlation for each pair. Name the strongest positive and strongest negative relationships.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Rent and % college graduates move together. A city council member says "More college graduates cause rents to rise." Give two other explanations for the same pattern. What would you need to test which explanation is right?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>In Excel, use =CORREL() on two of the columns. Does your number match the AI's for that pair?</li><li>Does your table lens show the same direction (up together, or opposite) that the AI claims?</li></ul></div>
+  
+
+  <h3 id="pivotchart">PivotCharts <span class="datafile">restaurant</span></h3>
+  <div class="prose">
+    <p class="idea">A <b>PivotChart</b> is a chart attached to a PivotTable. When you change the PivotTable, the chart updates too. We'll chart the average wait time by quality rating and price group.</p>
+  </div>
+  <details class="excel"><summary>Try it in Excel: PivotChart</summary><div class="inner">
+    <ol>
+      <li>Go to <b>Insert</b>, choose <b>PivotChart</b>, set the range to A1:D301, and pick New Worksheet.</li>
+      <li>Drag Quality Rating to Axis, Meal Price to Legend, and Wait Time to Values.</li>
+      <li>Summarize the values by <b>Average</b> with 1 decimal. Group the prices from 10 to 49 by 10, and move Excellent to the end.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Average wait times (minutes) for restaurants, by quality rating and meal price:
+Good: $10-19 2.6, $20-29 2.5, $30-39 0.5, $40-49 none
+Very Good: 12.6, 12.6, 12.0, 10.0
+Excellent: 25.5, 29.1, 34.0, 32.3
+
+A restaurant manager has 30 seconds to look at this. Should I show her the table or a clustered column chart? Design the better one for her, and write the one-sentence headline that should sit above it.</pre></div>
+  </div>
+  
+</section>
+
+<!-- ================= 3.4 ================= -->
+<section class="part" id="s34">
+  <div class="part-head"><span class="num">3.4</span><h2>Specialized charts</h2></div>
+  <p class="prose">These charts are for special jobs. On Day 3, each team takes one station and teaches it to the room in two minutes.</p>
+
+  <h3 id="heatmap" style="margin-top:.5rem">Heat maps <span class="datafile">samestore_sales</span></h3>
+  <div class="prose"><p class="idea">A <b>heat map</b> colors each cell of a table by its value, so patterns jump out. You can add sparklines at the end of each row to show the trend.</p></div>
+  <details class="excel"><summary>Try it in Excel: heat map and sparklines</summary><div class="inner">
+    <ol>
+      <li>Select B2:M17, go to <b>Home</b>, choose <b>Conditional Formatting</b>, then <b>Color Scales</b>, and pick <b>Blue–White–Red</b>.</li>
+      <li>Select N2, go to <b>Insert</b>, and choose <b>Sparklines: Line</b>. Set the Data Range to B2:M2 and the Location to N2.</li>
+      <li>Copy N2 down to N3:N17.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached samestore_sales.xlsx. Describe what a heat map of this table would show. Which stores are trending up, which are trending down, and are there months where almost every store does badly? Name stores and months, and give the numbers.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">In a Blue-White-Red color scale, what does white mean? In US business reports red usually means "bad." If red here means HIGH sales, could that confuse a reader? Suggest a better color scheme and explain why.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Look at your sparklines in column N. Do the stores the AI calls "trending down" really slope down?</div>
+  
+
+  <h3 id="treemap">Treemaps <span class="datafile">brandvalues</span></h3>
+  <div class="prose"><p class="idea"><b>Hierarchical data</b> is data with categories inside categories, like brands inside industries. A <b>treemap</b> shows it as nested rectangles. The size of each rectangle shows the value, the color shows the group, and brands of the same group sit together.</p></div>
+  <details class="excel"><summary>Try it in Excel: treemap</summary><div class="inner">
+    <ol>
+      <li>Select A1:C11 and sort by Industry, A to Z (<b>Data</b>, then <b>Sort</b>).</li>
+      <li>Go to <b>Insert</b>, choose <b>Hierarchy Chart</b>, then <b>Treemap</b>.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached brandvalues.xlsx. Which industry has the most total brand value? Show the total for each industry. Then compare a treemap with a sorted bar chart for this data: which one lets a reader rank the 3rd and 4th most valuable brands more accurately, and why? When is the treemap still the better choice?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Make a quick PivotTable with Industry in Rows and Brand Value summed in Values. Does the top industry match the AI's answer?</div>
+  
+
+  <h3 id="waterfall">Waterfall charts <span class="datafile">gossamer</span></h3>
+  <div class="prose"><p class="idea">A <b>waterfall chart</b> shows how a series of ups and downs adds up to a total. Each column starts where the one before it ended. Here it shows Gossamer's monthly profit building to the six-month total.</p></div>
+  <div class="chart">
+    <svg id="waterChart" role="img" aria-label="Waterfall chart of Gossamer monthly profit"></svg>
+    <div class="cap">Gossamer monthly profit ($). Rising columns add to profit, and falling columns take it away.</div>
+  </div>
+  <details class="excel"><summary>Try it in Excel: waterfall</summary><div class="inner">
+    <ol>
+      <li>Select the month labels and the profit row. Hold Ctrl to select both rows.</li>
+      <li>Go to <b>Insert</b> and choose <b>Waterfall</b>.</li>
+      <li>Double-click only the Total column to open <b>Format Data Point</b>, then check <b>Set as total</b>. If Excel treats the Total as another month, this is the fix.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Gossamer monthly profit ($): Jan 16001, Feb 9670, Mar 3000, Apr -3980, May -2933, Jun 4702. Total 26460.
+Costs ($): 48123, 56458, 64125, 52158, 54718, 50985
+Revenues ($): 64124, 66128, 67125, 48178, 51785, 55687
+
+Explain the story of these six months to a CFO in 3 sentences. Profit was positive in Feb and Mar, so why should she still worry about them? What single question should she ask the sales team?</pre></div>
+  </div>
+  
+
+  <h3 id="stock">Stock charts <span class="datafile">verizon</span></h3>
+  <div class="prose"><p class="idea">A <b>high-low-close</b> stock chart draws one vertical line per day, running from the lowest price to the highest price, with a mark at the closing price. Excel has four stock chart types. Our file has five trading days of Verizon prices.</p></div>
+  <details class="excel"><summary>Try it in Excel: high-low-close chart</summary><div class="inner">
+    <ol>
+      <li>Select A1:D6, go to <b>Insert</b>, choose <b>Stock</b>, then <b>High-Low-Close</b>.</li>
+      <li>Add Data Labels, then delete the high and low labels so only the closing price labels remain.</li>
+      <li>Format the close series with a marker so the closing price is easy to see.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached verizon.xlsx (5 trading days). Which day had the widest gap between high and low, and what might that mean for an investor? Then: if I had 250 trading days instead of 5, would a high-low-close chart still work? What would you use instead?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Add a column in Excel: =High − Low. Which day has the biggest value? Is it the day the AI named?</div>
+  
+
+  <h3 id="parallel">Parallel-coordinates plots</h3>
+  <div class="prose"><p class="idea">A <b>parallel-coordinates plot</b> gives each variable its own vertical axis. Each observation is a line that connects its values across the axes. In our baseball example, first basemen hit many home runs (up to 39) but steal few bases, while second basemen show the opposite pattern (up to 30 steals, 0 home runs). The lines cross, which shows the trade-off.</p></div>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain a parallel-coordinates plot using baseball players with three variables: home runs, stolen bases, and batting average. Why does each axis need its own scale? What goes wrong when you plot 200 players instead of 20, and how would you fix it?</pre></div>
+  </div>
+  
+</section>
+
+<!-- ================= 3.5 ================= -->
+<section class="part" id="s35">
+  <div class="part-head"><span class="num">3.5</span><h2>Maps</h2></div>
+  <div class="prose">
+    <p class="idea">A <b>choropleth map</b> colors each region by its value. A weather map of daily high temperatures is the classic example. In Excel you can build one with <b>Insert</b>, <b>Maps</b>, <b>Filled Map</b>.</p>
+    <p>Maps have one big trap. Big states grab the eye even when few people live there. A <b>cartogram</b> resizes each state by something like population. It fixes the size problem but can make the map hard to recognize. An <b>equal-area cartogram</b> gives every state the same size square while keeping them roughly in place. Excel can't make cartograms.</p>
+  </div>
+  <details class="excel"><summary>Try it in Excel: filled map of median income</summary><div class="inner">
+    <ol>
+      <li>In income_state, select A1:B51. Go to <b>Insert</b>, choose <b>Maps</b>, then <b>Filled Map</b>.</li>
+      <li>In income_county, select A1:C3148 and follow the same steps. It may take a moment to load.</li>
+    </ol>
+  </div></details>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">What is a choropleth map? Give me two business uses (not weather). What is one way a choropleth map can mislead readers?</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached income_state.xlsx (median household income by state). Describe the geographic pattern a filled map would show. List the 5 highest and 5 lowest states with their incomes. Where does Louisiana rank out of 50?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">On a US map, Montana and Wyoming take up lots of space but have few people. How does that distort a choropleth map? Compare a regular map, a population cartogram, and an equal-area cartogram. Which would you show a national retail chain deciding where to open stores, and why?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Sort income_state from smallest to largest in Excel. Do the AI's top 5 and bottom 5 match yours?</li><li>Find Louisiana's row number after sorting. Is that the rank the AI gave?</li></ul></div>
+  
+  <div class="think">
+    <div class="think-title">Think harder</div>
+    <p class="q">State incomes range from about $44K to $83K. County incomes range from about $25K to $140K. Why is the county range so much wider?</p>
+    
+  </div>
+</section>
+
+<!-- ================= 3.6 ================= -->
+<section class="part" id="s36">
+  <div class="part-head"><span class="num">3.6</span><h2>Dashboards</h2></div>
+  <div class="prose">
+    <p class="idea">A <b>key performance indicator (KPI)</b> is a number that tells you how the business is doing right now, such as sales today, calls waiting, or orders late. A <b>data dashboard</b> puts several KPIs on one screen and updates as new data arrives.</p>
+    <p>Good dashboards follow these rules:</p>
+    <ul>
+      <li>All KPIs for one part of the business fit on <b>one screen</b>, with no scrolling.</li>
+      <li>Use several dashboards if needed, rather than one giant one.</li>
+      <li>Every KPI should connect to a <b>decision</b> someone makes.</li>
+      <li>Everything from 3.1 still applies, including a high data-ink ratio and smart use of preattentive attributes.</li>
+      <li>Use color to call attention to something, not to decorate.</li>
+    </ul>
+    <p><b>Example:</b> Grogan Oil runs an IT call center in Austin. Its dashboard shows five things:</p>
+    <ul>
+      <li>call volume by problem type each hour (stacked column),</li>
+      <li>the share of employee time spent on each problem type (column),</li>
+      <li>unresolved cases waiting over 15 minutes (bar),</li>
+      <li>call volume by office (bar), and</li>
+      <li>how long cases take to resolve (histogram).</li>
+    </ul>
+  </div>
+  <div class="ladder">
+    <div class="ladder-title">Ask AI</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">What is a KPI? List 5 KPIs a restaurant manager in New Orleans should watch every day, and the decision each one helps her make.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Design a one-screen dashboard for the manager of an IT help desk. Calls come in about email, internet, and software problems from three offices. List the KPIs, the best chart type for each, and where each sits on the screen (the most important goes top-left). Explain each choice in one sentence.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Now critique your own dashboard using data-ink ratio and preattentive attributes. Remove one chart and defend why the manager doesn't need it. Where exactly should color be used, and where should it NOT be used?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> For every KPI the AI lists, ask yourself: what decision would the manager make with this number? If there's no decision, the KPI doesn't belong on the dashboard.</div>
+  
+</section>
+
+<!-- ================= PRACTICE LAB ================= -->
+<section class="part" id="lab">
+  <div class="part-head"><h2>Practice lab: supermarket sales</h2></div>
+  <div class="prose">
+    <p class="idea">Now you practice everything from this module on one bigger, messier dataset. It holds 1,000 sales from a supermarket chain with three branches, from January to March 2019. This is also the dataset for the <a href="#challenge">Data Viz Challenge</a>, so every exercise here is practice for the competition.</p>
+    <p><a href="SuperMarket_Analysis.xlsx" download><b>Download SuperMarket_Analysis.xlsx</b></a> (also on Canvas).</p>
+  </div>
+
+  <h3 style="margin-top:1.4rem">What's in the file</h3>
+  <div class="tscroll">
+  <table class="files">
+    <thead><tr><th>Column</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td>Invoice ID</td><td>One row is one customer's purchase (1,000 rows)</td></tr>
+      <tr><td>Branch, City</td><td>Three stores, each in a different city</td></tr>
+      <tr><td>Customer type</td><td>Member (loyalty card) or Normal</td></tr>
+      <tr><td>Gender</td><td>Female or Male</td></tr>
+      <tr><td>Product line</td><td>Six groups, like Food and beverages or Health and beauty</td></tr>
+      <tr><td>Unit price, Quantity</td><td>The price of one item, and how many were bought</td></tr>
+      <tr><td>Sales</td><td>The total paid, including 5% tax</td></tr>
+      <tr><td>Date, Time</td><td>When the purchase happened</td></tr>
+      <tr><td>Payment</td><td>Cash, Credit card, or Ewallet</td></tr>
+      <tr><td>Tax 5%, cogs, gross income, gross margin percentage</td><td>Money columns (read these carefully, see Data detective below)</td></tr>
+      <tr><td>Rating</td><td>Customer rating of the shopping experience, 1 to 10</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <details class="excel"><summary>Excel helper columns you'll need</summary><div class="inner">
+    <ul>
+      <li><b>Hour:</b> in a new column, type <code>=HOUR(L2)</code> and fill down. The Time column is L.</li>
+      <li><b>Day of week:</b> use <code>=TEXT(K2,"ddd")</code> for Mon, Tue, and so on.</li>
+      <li><b>Month:</b> use <code>=TEXT(K2,"mmm")</code>, or in a PivotTable right-click a date and choose <b>Group</b>, then <b>Months</b>.</li>
+      <li><b>Weeks:</b> in a PivotTable, right-click a date, choose <b>Group</b>, select only <b>Days</b>, and set Number of days to 7.</li>
+    </ul>
+  </div></details>
+
+  <h3>Warm-up: chart makeover</h3>
+  <p class="prose">Someone sent this chart of sales by product line to the regional manager. List everything wrong with it, then rebuild it in Excel using what you learned in 3.1 and 3.3.</p>
+  <div class="chart">
+    <svg id="badPie" role="img" aria-label="A cluttered pie chart of supermarket sales by product line"></svg>
+    <div class="cap">The "before" chart. Can you rank the six product lines from this picture?</div>
+  </div>
+  
+
+  <h3>Practice set A: tables and crosstabs <span class="datafile">after Day 1</span></h3>
+
+  <h4>A1. Which branch sells what?</h4>
+  <p class="prose">Build a PivotTable with Product line as rows, Branch as columns, and Sum of Sales as values. Then show the values as <b>% of Column Total</b>. Each branch has its own "specialty." Find it.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached SuperMarket_Analysis.xlsx (1,000 sales, 3 branches). Build a crosstab of total Sales with Product line as rows and Branch as columns, with totals. Then show each cell as % of its branch's total. For each branch, name its strongest and weakest product line. Show the numbers.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">The three branches have almost the same total sales, but very different product mixes. Give two possible business reasons for the difference, and one decision a regional manager could make with this table. Then tell me what this data CANNOT tell us about why the mix differs.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Does the grand total in the AI's table match the total in your PivotTable?</li><li>Does each branch's % column add to 100%?</li></ul></div>
+  
+
+  <h4>A2. Who spends more per visit?</h4>
+  <p class="prose">Build a PivotTable with Customer type as rows, Gender as columns, and <b>Average</b> of Sales as values.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, make a table of AVERAGE Sales per purchase by Customer type (rows) and Gender (columns), with overall averages. Which group spends the most per visit? How many purchases are in each group?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Members spend more per visit than Normal customers. Does that prove the membership program makes people spend more? Give one other explanation, and describe a simple test the store could run to find out.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Did it use Average, not Sum? Compare its four numbers with your PivotTable.</div>
+  
+
+  <h3>Practice set B: the core charts <span class="datafile">after Day 2</span></h3>
+
+  <h4>B1. Sales over time: by week and by month</h4>
+  <p class="prose">Make a line chart of weekly sales, grouping the dates by 7 days in a PivotTable. Then make a column chart of monthly sales. Look closely at the first and last points, and at February.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, total the Sales by month (Jan, Feb, Mar) and by 7-day week starting Jan 1. Which month and which week were best and worst? Also tell me how many days of data are in each month and in the last week.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">My manager says "February was our worst month and the last week of March was a disaster." Check both claims fairly. What adjustment should we make before comparing months or weeks of different lengths? Recalculate and tell me if the claims still hold.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Count the days in each month and in the last week yourself. Use a PivotTable with Date in Rows, or =COUNTIFS.</li><li>Is it fair to compare a short period with a full one?</li></ul></div>
+  
+
+  <h4>B2. Scatter charts: what goes together?</h4>
+  <p class="prose">Make two scatter charts: <b>Quantity vs. Sales</b>, and <b>Unit price vs. Rating</b>. Add a trendline to each and show R².</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, calculate the correlation between (a) Quantity and Sales, (b) Unit price and Sales, and (c) Unit price and Rating. Explain each in one plain sentence a store manager would understand.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">The scatter chart of Unit price vs Rating looks like a random cloud. Is "no relationship" a useful finding for a business? What would you tell a manager who wants to raise prices but is worried about ratings? What can't this data tell her?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Use <code>=CORREL(H2:H1001, J2:J1001)</code> for Quantity and Sales. Do your numbers match the AI's?</div>
+  
+
+  <h4>B3. Histograms: what does a typical sale look like?</h4>
+  <p class="prose">Select the Sales column, go to <b>Insert</b>, choose <b>Statistic Chart</b>, then <b>Histogram</b>. Do the same for Rating. A <b>histogram</b> shows how values are spread out, which Grogan Oil's dashboard used for resolution time.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, describe the shape of the Sales distribution and the Rating distribution. Give the mean and median of each. Which one is skewed, and which number (mean or median) better describes a "typical" sale?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Real customer ratings usually pile up at the high end (most people give 8, 9 or 10). This dataset's ratings are spread almost evenly from 4 to 10. What might that tell us about where this data came from, and how careful should we be when making claims about customer satisfaction?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Compute =AVERAGE() and =MEDIAN() on the Sales column. Which is bigger? What does that tell you about the shape?</div>
+  
+
+  <h4>B4. Clustered columns: product line by gender</h4>
+  <p class="prose">Build a PivotTable with Product line as rows, Gender as columns, and Sum of Sales as values, then insert a clustered bar chart. Is there any product line where the usual pattern flips?</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, total Sales by Product line and Gender. In which product lines do women spend more, and is there any product line where men spend more? Give the numbers.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Women make more purchases than men in this data (571 vs 429). How does that affect the comparison of total sales by gender? Would average sale per purchase be a fairer chart? Redesign the chart and explain the difference.</pre></div>
+  </div>
+  
+
+  <h3>Practice set C: many variables and special charts <span class="datafile">after Day 3</span></h3>
+
+  <h4>C1. Heat map: when is the store busy?</h4>
+  <p class="prose">Add Hour and Day-of-week helper columns. Build a PivotTable with Day as rows, Hour as columns, and Count of Invoice ID as values. Then apply a color scale.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, make a table of total Sales by day of week (Mon to Sun) and by hour of the day. Which day and which hour bring in the most sales? Which are the quietest? What hours is the store open, based on the data?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">The store manager wants to use this heat map to schedule staff. What color scheme should the heat map use, and why? What's one risk of scheduling staff from only 3 months of data?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong> Does the AI's opening and closing hour match the smallest and largest values in your Hour column?</div>
+  
+
+  <h4>C2. Bubble chart: product lines at a glance</h4>
+  <p class="prose">Make a bubble chart with one bubble per product line: x = average Rating, y = total Sales, and bubble size = number of purchases.</p>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, make a bubble chart description: x = average Rating by product line, y = total Sales, bubble size = number of purchases. Excel will probably zoom the x-axis to about 6.8 to 7.1. How does that zoom change the story a reader sees? Is the difference in ratings meaningful?</pre></div>
+  </div>
+  
+
+  <h4>C3. Waterfall: how did sales move month to month?</h4>
+  <p class="prose">Build a waterfall with four columns: Jan sales, change to Feb, change to Mar, and Mar sales (set it as total).</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, give me the numbers for a waterfall chart: January total sales, the change from January to February, the change from February to March, and March total sales. Then tell me which branch lost the most from January to February.</pre></div>
+  </div>
+  
+
+  <h4>C4. 100% stacked columns: how do customers pay?</h4>
+  <p class="prose">Build a PivotTable with Branch as rows, Payment as columns, and Count of Invoice ID as values. Then insert a <b>100% Stacked Column</b> chart.</p>
+  <div class="ladder">
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, count purchases by Branch and Payment method, and show each branch's mix as percentages. The finance team is deciding whether to promote Ewallet. Which branch is the best place to start, and is the difference between branches big enough to matter?</pre></div>
+  </div>
+  
+
+  <h3>Data detective: catch the problems before AI does</h3>
+  <p class="prose">Real data is messy. Answer these before you build any competition dashboard, because a judge might ask.</p>
+  <div class="think">
+    <p class="q">Compare the columns "Tax 5%" and "gross income" row by row. What do you notice? Can we use "gross income" as the store's profit?</p>
+    
+    <p class="q">Look at the Branch and City columns together. Does anything seem odd?</p>
+    
+    <p class="q">What is the first date and the last date in the file? Why does that matter for monthly and weekly charts?</p>
+    
+    <p class="q">Check that Sales = Unit price × Quantity × 1.05 for a few rows. Why should you test a formula like this before trusting a dataset?</p>
+    
+  </div>
+</section>
+
+<!-- ================= CHALLENGE ================= -->
+<section class="part" id="challenge">
+  <div class="part-head"><h2>The B205 Data Viz Challenge</h2></div>
+  <div class="box maroon">
+    <h4>The brief</h4>
+    <p>You are the analytics team for a supermarket chain with three branches. The regional manager has <b>three minutes</b> and one question:</p>
+    <p style="font-size:1.25rem;font-family:var(--sans);font-weight:700;margin:.4rem 0">"Where should we focus next quarter to grow sales?"</p>
+    <p style="margin:0">Give her <b>one screen</b> of charts built in Excel from SuperMarket_Analysis.xlsx, and a <b>three-minute pitch</b>. She is busy, smart, and skeptical.</p>
+  </div>
+
+  <h3 style="margin-top:1.6rem">How it works</h3>
+  <div class="tscroll"><table class="plan"><tbody>
+    <tr><td>Round 1</td><td><b>Chart makeover sprint</b> (Day 3, last 10 minutes). Each team rebuilds the bad pie chart from the practice lab. The class votes for the best makeover, and the winning team earns <b>+3 bonus points</b>.</td></tr>
+    <tr><td>Round 2</td><td><b>Insight sprint</b> (Day 4, 20 minutes). Each team finds three facts in the data and proves each one with a PivotTable. Every correct, checked fact earns <b>+1 bonus point</b> (up to +3). A fact the AI stated wrongly and your team caught counts double.</td></tr>
+    <tr><td>Build</td><td>Teams have one week to build the dashboard and prepare the pitch. Use the practice sets above as your toolkit.</td></tr>
+    <tr><td>Finals</td><td>Each team pitches for 3 minutes and takes 2 minutes of judge questions. Judges score with the rubric below, and the class votes for People's Choice.</td></tr>
+  </tbody></table></div>
+
+  <h3>Teams and roles</h3>
+  <p class="prose">Teams have three people, and everyone uses AI and Excel. Each person also owns one job:</p>
+  <ul class="prose">
+    <li><b>Data lead:</b> checks that every number on the dashboard matches a PivotTable in the workbook.</li>
+    <li><b>Design lead:</b> owns the layout, colors, and decluttering, and makes sure the dashboard fits on one screen.</li>
+    <li><b>Story lead:</b> owns the headline, the recommendation, and the pitch.</li>
+  </ul>
+
+  <h3>Rules</h3>
+  <ol class="prose">
+    <li>Use only SuperMarket_Analysis.xlsx. You may add helper columns, such as Hour or Day.</li>
+    <li>Build every chart in <b>Excel</b>. AI can suggest, explain, write formulas, and critique, but it can't draw your charts for you.</li>
+    <li>Every number on your dashboard must come from a PivotTable or formula in your workbook. Judges will ask, "Show me where this number came from."</li>
+    <li>The dashboard fits on <b>one screen</b> at 100% zoom, with no scrolling.</li>
+    <li>No 3-D charts. No pie charts with more than three slices. Use no more than four colors plus gray.</li>
+    <li>Include at least one honest <b>limitation</b> of the data on your dashboard or in your pitch.</li>
+    <li>Hand in an <b>AI log</b> with your five best prompts, one time AI was wrong, and how you caught it.</li>
+  </ol>
+
+  <h3>What to hand in</h3>
+  <ul class="prose">
+    <li>The Excel workbook, with the dashboard on the first sheet and PivotTables on the other sheets. Name it Team#_Dashboard.xlsx.</li>
+    <li>A screenshot or PDF of the dashboard, for the judges.</li>
+    <li>A one-page AI log.</li>
+    <li>Your headline recommendation, in one sentence.</li>
+  </ul>
+
+  <h3>Judging rubric</h3>
+  <div class="tscroll">
+  <table class="plan">
+    <thead><tr><th>Points</th><th>Category and what judges look for</th></tr></thead>
+    <tbody>
+      <tr><td>30</td><td><b>Insight and recommendation.</b> The dashboard answers the manager's question with a clear, specific recommendation. The evidence supports it, and a risk or limitation is stated.</td></tr>
+      <tr><td>20</td><td><b>Accuracy.</b> The numbers match the workbook. Comparisons are fair: per day, per purchase, and full periods.</td></tr>
+      <tr><td>15</td><td><b>Chart choice.</b> Each chart fits its question, whether that's a trend, a ranking, a relationship, or a mix.</td></tr>
+      <tr><td>15</td><td><b>Design.</b> One screen, a high data-ink ratio, color used for attention, clear titles that state findings, and axes that start at zero for bars.</td></tr>
+      <tr><td>10</td><td><b>Pitch.</b> Three minutes, a clear story, and confident, honest answers to questions.</td></tr>
+      <tr><td>10</td><td><b>AI log and data integrity.</b> Specific prompts, a real AI mistake caught, and data problems noticed.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="prose"><b>Deductions:</b> −5 for each number that doesn't match the workbook, −5 if the dashboard needs scrolling, −3 for a 3-D chart or an overloaded pie, and −10 for a missing AI log. <b>Bonus:</b> Round 1 (up to +3), Round 2 (up to +3), and +2 for catching a real problem in the dataset itself.</p>
+
+  <h3>Awards</h3>
+  <ul class="prose">
+    <li><b>Grand Prize:</b> the highest total score.</li>
+    <li><b>Best Insight:</b> the most useful recommendation for the manager.</li>
+    <li><b>Data-Ink Award:</b> the cleanest design.</li>
+    <li><b>AI Detective Award:</b> the best-documented catch of an AI mistake.</li>
+    <li><b>People's Choice:</b> the class vote.</li>
+  </ul>
+
+  <h3>A three-minute pitch that works</h3>
+  <ol class="prose">
+    <li><b>The question</b> (15 seconds): "You asked where to focus next quarter."</li>
+    <li><b>The answer, in one sentence</b> (15 seconds).</li>
+    <li><b>The evidence</b> (90 seconds): walk through two or three charts, and point to the number that matters on each.</li>
+    <li><b>The recommendation and its risk</b> (45 seconds).</li>
+    <li><b>What data you'd want next</b> (15 seconds).</li>
+  </ol>
+
+  <div class="ladder">
+    <div class="ladder-title">Prompts for your team</div>
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Find questions</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached SuperMarket_Analysis.xlsx. A regional manager asks: "Where should we focus next quarter to grow sales?" Suggest 8 specific questions we could answer with this data (branch, product line, customer type, time of day, day of week, payment). For each, name the best chart type. Don't give answers yet.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Critique</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Here is a screenshot of our dashboard. Critique it like a tough judge using these criteria: one screen, data-ink ratio, preattentive attributes, chart choice, whether titles state findings, and whether axes are honest. List the three changes that would improve it most.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Stress test</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Our recommendation is: [paste your one sentence]. Act as a skeptical regional manager. Ask us the 5 hardest questions you would ask in a meeting, including at least one about whether the data is good enough. Then tell us which question we are least prepared for.</pre></div>
+  </div>
+  
+</section>
+
+<!-- ================= PROJECT ================= -->
+<section class="part" id="project">
+  <div class="part-head"><h2>Practice project: the restaurant dashboard</h2></div>
+  <div class="box maroon">
+    <h4>Your task</h4>
+    <p style="margin:0">Optional practice before the challenge, or extra credit. A restaurant group in Los Angeles is deciding where to put its next restaurant in the price and quality range. Using <b>restaurant.xlsx</b>, build a one-screen Excel dashboard that helps them decide. Work in teams of 2 or 3. You may use AI at every step, but every number must be checked in Excel.</p>
+  </div>
+  <h4>What to hand in</h4>
+  <ol class="prose">
+    <li><b>The dashboard</b> should be one Excel sheet with 3 or 4 charts or tables. At least one must be a PivotTable or PivotChart.</li>
+    <li><b>Three findings</b> in plain English, one sentence each, written for the owner.</li>
+    <li><b>A recommendation</b> of which price and quality segment to enter, with one reason and one risk.</li>
+    <li><b>An AI log</b> listing your 3 best prompts, and one time the AI was wrong along with how you caught it.</li>
+  </ol>
+  <div class="tscroll">
+  <table class="plan">
+    <thead><tr><th>Points</th><th>What we look for</th></tr></thead>
+    <tbody>
+      <tr><td>25</td><td><b>Correct numbers.</b> The totals match (300 restaurants), and the averages are right.</td></tr>
+      <tr><td>25</td><td><b>Right chart for the question.</b> Each chart choice can be defended.</td></tr>
+      <tr><td>20</td><td><b>Clean design.</b> High data-ink ratio, color used on purpose, clear titles, and one screen.</td></tr>
+      <tr><td>20</td><td><b>Insight.</b> The findings and recommendation follow from the data, and they don't claim cause without evidence.</td></tr>
+      <tr><td>10</td><td><b>AI log.</b> Honest, specific, and shows that you checked the AI's work.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="ladder">
+    <div class="ladder-title">A starter prompt for your team</div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">★</span><b>Kickoff</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached restaurant.xlsx (300 LA restaurants: quality rating, meal price, wait time). My team is building a one-screen Excel dashboard to help a restaurant group choose which price and quality segment to enter next.
+
+1. Suggest 4 questions the dashboard should answer.
+2. For each question, suggest the best chart or table and explain why.
+3. Give the Excel steps for the one you think is most important.
+Do not give me final conclusions yet - we will check the numbers ourselves first.</pre></div>
+  </div>
+  
+</section>
+
+<!-- ================= SUMMARY ================= -->
+<section class="part" id="summary">
+  <div class="part-head"><h2>Summary</h2></div>
+  <div class="prose">
+    <p>In this module you learned to:</p>
+    <ul>
+      <li>use <b>preattentive attributes</b> (color, size, shape, length) and a high <b>data-ink ratio</b> so charts read in seconds;</li>
+      <li>choose <b>tables</b> for exact values and <b>charts</b> for shape and trend;</li>
+      <li>build <b>crosstabs</b> with PivotTables, and check that the totals agree;</li>
+      <li>match the chart to the question: <b>scatter</b> for relationships, <b>line</b> for time, <b>sorted bar</b> for ranking, and <b>stacked or clustered</b> charts for parts and comparisons;</li>
+      <li>show many variables with <b>bubble charts, scatter matrices, table lenses</b>, and <b>parallel coordinates</b>;</li>
+      <li>use special charts (<b>heat maps, treemaps, waterfalls, stock charts</b>) when they do a job nothing else can;</li>
+      <li>read <b>maps</b> carefully, because big areas are not big numbers;</li>
+      <li>design <b>dashboards</b> where every KPI leads to a decision.</li>
+    </ul>
+    <p>Then you put it all together in the Data Viz Challenge, turning 1,000 rows into one screen and a three-minute recommendation.</p>
+    <p>Most of all, you practiced working with AI the way professionals do. You give it clear prompts, push it further, and never hand in a number you haven't checked.</p>
+  </div>
+  <footer>BUAN B205, Module 4. Nuwan Indika, Ph.D., Peter Callais Business Analytics Institute, College of Business, Loyola University New Orleans. The examples use the textbook data files. AI tools change often, so if a prompt stops working well, rewrite it using the five-part recipe.</footer>
+</section>
+</main>
+</div>
+
+<script>
+(function(){
+
+  /* ---------- copy buttons ---------- */
+  document.querySelectorAll('button.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.closest('.rung').querySelector('pre.prompt').innerText;
+      function done(){btn.textContent='Copied';btn.classList.add('done');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},1600);}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+        document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(text).then(done, fallback);} else {fallback();}
+    });
+  });
+
+  /* ---------- open all answer keys (instructor) ---------- */
+  var oa=document.getElementById('openAll');
+  if(oa){ oa.addEventListener('click',function(){
+    var keys=document.querySelectorAll('details.key'), open=oa.dataset.open!=='1';
+    keys.forEach(function(k){k.open=open;});
+    oa.dataset.open=open?'1':'0'; oa.textContent=open?'Close all answer keys':'Open all answer keys';
+  });}
+
+  /* ---------- count the 7s ---------- */
+  var rows=[[7,3,4,1,3,4,5,6,4,0],[3,0,6,9,0,4,5,8,6,3],[2,7,2,2,9,9,4,5,2,1],[2,2,4,5,2,0,9,2,0,4],[2,4,0,7,6,9,3,0,0,4],[7,7,8,9,2,6,7,2,4,7],[6,1,3,3,2,1,4,4,9,0],[3,6,6,2,7,5,5,2,5,4],[1,1,4,0,6,3,4,0,5,1],[3,7,5,2,7,5,7,7,3,9],[3,3,8,6,9,5,5,3,6,4],[7,6,0,3,0,9,9,0,2,9],[4,6,9,4,8,2,6,5,8,3],[9,3,9,2,2,8,4,3,9,8],[5,8,8,2,9,1,2,4,8,5],[1,7,4,0,1,1,9,9,5,8]];
+  var g=document.getElementById('grid7'), sevens=0;
+  rows.forEach(function(r){r.forEach(function(n){var s=document.createElement('span');s.textContent=n;if(n===7){s.className='s';sevens++;}g.appendChild(s);});});
+  document.querySelectorAll('[data-mode]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-mode]').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      g.classList.remove('color','size');
+      if(b.dataset.mode!=='plain') g.classList.add(b.dataset.mode);
+      document.getElementById('answer7').textContent='';
+    });
+  });
+  var t0=null, iv=null, tEl=document.getElementById('timer'), tb=document.getElementById('timerBtn');
+  tb.addEventListener('click',function(){
+    if(iv){clearInterval(iv);iv=null;tb.textContent='Start timer';}
+    else{t0=Date.now();iv=setInterval(function(){tEl.textContent=((Date.now()-t0)/1000).toFixed(1)+' s';},100);tb.textContent='Stop, I counted them';}
+  });
+  
+
+  /* ---------- svg helpers ---------- */
+  var NS='http://www.w3.org/2000/svg', W=640, H=320, M={l:58,r:30,t:30,b:46};
+  var C={ink:'#231F20',soft:'#57504C',maroon:'#7B1E2E',gold:'#C8922A',slate:'#3F6173',line:'#DCD8D2',wash:'#ECEAE7'};
+  function el(tag,a,txt){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
+  function reset(svg,h){svg.innerHTML='';svg.setAttribute('viewBox','0 0 '+W+' '+(h||H));}
+  function lin(d0,d1,r0,r1){return function(v){return r0+(v-d0)/(d1-d0)*(r1-r0);};}
+  function fmt(n){return n.toLocaleString('en-US');}
+
+  /* ---------- scarf chart ---------- */
+  var scarf=[150,170,140,150,180,180,210,230,140,200,170,160,290,200,210,110,90,140,150,230];
+  function drawScarf(clean){
+    var svg=document.getElementById('scarfChart');reset(svg);
+    var x=lin(1,20,M.l,W-M.r), y=lin(0,350,H-M.b,M.t);
+    if(!clean){
+      svg.appendChild(el('rect',{x:1,y:1,width:W-2,height:H-2,fill:'none',stroke:'#000','stroke-width':2}));
+      svg.appendChild(el('rect',{x:M.l,y:M.t,width:W-M.l-M.r,height:H-M.t-M.b,fill:'#E6E6E6'}));
+      for(var v=0;v<=350;v+=25){svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:y(v),y2:y(v),stroke:'#9a9a9a','stroke-width':1}));
+        if(v%50===0)svg.appendChild(el('text',{x:M.l-6,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'#000'},v.toFixed(2)));}
+      for(var d=1;d<=20;d++){svg.appendChild(el('line',{x1:x(d),x2:x(d),y1:M.t,y2:H-M.b,stroke:'#9a9a9a'}));
+        svg.appendChild(el('text',{x:x(d),y:H-M.b+16,'text-anchor':'middle','font-size':11},d));}
+      svg.appendChild(el('text',{x:W/2,y:20,'text-anchor':'middle','font-size':15,'font-weight':800},'SCARF SALES'));
+      svg.appendChild(el('polyline',{points:scarf.map(function(s,i){return x(i+1)+','+y(s);}).join(' '),fill:'none',stroke:'#1f4fa3','stroke-width':2}));
+      scarf.forEach(function(s,i){svg.appendChild(el('rect',{x:x(i+1)-4,y:y(s)-4,width:8,height:8,fill:'#1f4fa3',stroke:'#000'}));});
+      svg.appendChild(el('rect',{x:W-M.r-130,y:M.t+8,width:122,height:24,fill:'#fff',stroke:'#000'}));
+      svg.appendChild(el('line',{x1:W-M.r-122,x2:W-M.r-100,y1:M.t+20,y2:M.t+20,stroke:'#1f4fa3','stroke-width':2}));
+      svg.appendChild(el('text',{x:W-M.r-94,y:M.t+24,'font-size':11},'Sales (units)'));
+      svg.appendChild(el('text',{x:W/2,y:H-8,'text-anchor':'middle','font-size':12,'font-weight':700},'DAY'));
+    } else {
+      [0,100,200,300].forEach(function(v){svg.appendChild(el('text',{x:M.l-8,y:y(v)+4,'text-anchor':'end','font-size':12,fill:C.soft},v));});
+      svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:y(0),y2:y(0),stroke:C.line}));
+      [1,5,10,15,20].forEach(function(d){svg.appendChild(el('text',{x:x(d),y:H-M.b+18,'text-anchor':'middle','font-size':12,fill:C.soft},d));});
+      svg.appendChild(el('text',{x:M.l,y:18,'font-size':14,'font-weight':700,fill:C.ink},'Scarf sales, units per day'));
+      svg.appendChild(el('polyline',{points:scarf.map(function(s,i){return x(i+1)+','+y(s);}).join(' '),fill:'none',stroke:C.slate,'stroke-width':2.5,'stroke-linejoin':'round'}));
+      svg.appendChild(el('circle',{cx:x(13),cy:y(290),r:6,fill:C.maroon}));
+      svg.appendChild(el('text',{x:x(13)+10,y:y(290)+2,'font-size':12,'font-weight':700,fill:C.maroon},'Day 13: 290, best day'));
+      svg.appendChild(el('text',{x:W/2,y:H-8,'text-anchor':'middle','font-size':12,fill:C.soft},'Day'));
+    }
+  }
+  drawScarf(false);
+  var sb=document.getElementById('scarfBtn');
+  sb.addEventListener('click',function(){var on=sb.getAttribute('aria-pressed')!=='true';sb.setAttribute('aria-pressed',on);sb.textContent=on?'Show the cluttered version':'Declutter this chart';drawScarf(on);});
+
+  /* ---------- crosstab ---------- */
+  var ct={
+    cols:['$10–19','$20–29','$30–39','$40–49','Total'],
+    rows:['Good','Very Good','Excellent','Total'],
+    count:[[42,40,2,0,84],[34,64,46,6,150],[2,14,28,22,66],[78,118,76,28,300]],
+    wait:[[2.6,2.5,0.5,null,2.5],[12.6,12.6,12.0,10.0,12.3],[25.5,29.1,34.0,32.3,32.1],[7.6,11.1,19.8,27.5,13.9]]
+  };
+  var caps={
+    count:'Number of restaurants in each rating and price group. Row and column totals are in bold.',
+    pct:'Each cell as a percent of all 300 restaurants.',
+    wait:'Average wait time in minutes. A dash means no restaurants are in that group.'
+  };
+  function drawCT(mode){
+    var t=document.getElementById('ctTable');
+    var h='<caption class="visually-hidden" style="position:absolute;left:-9999px">Restaurant crosstab</caption>';
+    h+='<thead><tr class="group"><th></th><th colspan="4">Meal price</th><th></th></tr><tr><th>Quality rating</th>';
+    ct.cols.forEach(function(c){h+='<th>'+c+'</th>';});
+    h+='</tr></thead><tbody>';
+    ct.rows.forEach(function(r,i){
+      h+='<tr'+(r==='Total'?' class="total"':'')+'><td>'+r+'</td>';
+      ct.cols.forEach(function(c,j){
+        var v;
+        if(mode==='count') v=ct.count[i][j];
+        else if(mode==='pct') v=(ct.count[i][j]/300*100).toFixed(2)+'%';
+        else v=(ct.wait[i][j]===null)?'–':ct.wait[i][j].toFixed(1);
+        var cls=[];
+        if(j===4) cls.push('tot');
+        
+        h+='<td'+(cls.length?' class="'+cls.join(' ')+'"':'')+'>'+v+'</td>';
+      });
+      h+='</tr>';
+    });
+    t.innerHTML=h+'</tbody>';
+    document.getElementById('ctCap').textContent=caps[mode];
+  }
+  drawCT('count');
+  document.querySelectorAll('[data-ct]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-ct]').forEach(function(x){x.setAttribute('aria-pressed','false');});b.setAttribute('aria-pressed','true');drawCT(b.dataset.ct);});});
+
+  /* ---------- scatter ---------- */
+  var elec=[[2,50],[5,57],[1,41],[3,54],[4,54],[1,38],[5,63],[3,48],[4,59],[2,46]];
+  function drawScatter(trend){
+    var svg=document.getElementById('scatterChart');reset(svg);
+    var x=lin(0,6,M.l,W-M.r), y=lin(30,70,H-M.b,M.t);
+    [30,40,50,60,70].forEach(function(v){svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:y(v),y2:y(v),stroke:C.wash}));svg.appendChild(el('text',{x:M.l-8,y:y(v)+4,'text-anchor':'end','font-size':12,fill:C.soft},v));});
+    for(var i=0;i<=6;i++)svg.appendChild(el('text',{x:x(i),y:H-M.b+18,'text-anchor':'middle','font-size':12,fill:C.soft},i));
+    svg.appendChild(el('text',{x:W/2,y:H-8,'text-anchor':'middle','font-size':12,fill:C.soft},'Number of commercials'));
+    svg.appendChild(el('text',{x:16,y:H/2,'text-anchor':'middle','font-size':12,fill:C.soft,transform:'rotate(-90 16 '+H/2+')'},'Sales ($100s)'));
+    if(trend){
+      var n=elec.length, mx=0, my=0; elec.forEach(function(p){mx+=p[0]/n;my+=p[1]/n;});
+      var sxy=0,sxx=0; elec.forEach(function(p){sxy+=(p[0]-mx)*(p[1]-my);sxx+=(p[0]-mx)*(p[0]-mx);});
+      var b1=sxy/sxx, b0=my-b1*mx;
+      svg.appendChild(el('line',{x1:x(0.8),y1:y(b0+b1*0.8),x2:x(5.2),y2:y(b0+b1*5.2),stroke:C.maroon,'stroke-width':2.5}));
+      
+    }
+    elec.forEach(function(p){svg.appendChild(el('circle',{cx:x(p[0]),cy:y(p[1]),r:7,fill:C.slate,'fill-opacity':.85}));});
+  }
+  drawScatter(false);
+  var trb=document.getElementById('trendBtn');
+  trb.addEventListener('click',function(){var on=trb.getAttribute('aria-pressed')!=='true';trb.setAttribute('aria-pressed',on);trb.textContent=on?'Hide trendline':'Add trendline';drawScatter(on);});
+
+  /* ---------- kirkland ---------- */
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var north=[95,100,120,115,100,85,135,110,100,50,40,40], south=[40,45,55,65,60,50,75,65,60,70,75,80];
+  var total=north.map(function(n,i){return n+south[i];});
+  function drawKirk(mode){
+    var svg=document.getElementById('kirkChart');reset(svg);
+    var rr=72, max=mode==='total'?250:150;
+    var x=lin(0,11,M.l,W-rr), y=lin(0,max,H-M.b,M.t);
+    for(var v=0;v<=max;v+=50){svg.appendChild(el('line',{x1:M.l,x2:W-rr,y1:y(v),y2:y(v),stroke:C.wash}));svg.appendChild(el('text',{x:M.l-8,y:y(v)+4,'text-anchor':'end','font-size':12,fill:C.soft},v));}
+    months.forEach(function(m,i){svg.appendChild(el('text',{x:x(i),y:H-M.b+18,'text-anchor':'middle','font-size':12,fill:C.soft},m));});
+    var series=mode==='total'?[{d:total,c:C.ink,n:'Total'}]:[{d:north,c:C.slate,n:'North'},{d:south,c:C.maroon,n:'South'}];
+    series.forEach(function(s){
+      svg.appendChild(el('polyline',{points:s.d.map(function(v,i){return x(i)+','+y(v);}).join(' '),fill:'none',stroke:s.c,'stroke-width':2.8,'stroke-linejoin':'round'}));
+      svg.appendChild(el('text',{x:x(11)+8,y:y(s.d[11])+4,'font-size':13,'font-weight':700,fill:s.c},s.n));
+    });
+  }
+  drawKirk('total');
+  document.querySelectorAll('[data-kv]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-kv]').forEach(function(x){x.setAttribute('aria-pressed','false');});b.setAttribute('aria-pressed','true');drawKirk(b.dataset.kv);});});
+
+  /* ---------- bar chart ---------- */
+  var acct={Williams:6,Edwards:11,Jones:15,Smith:21,Davis:24,Francois:28,Lopez:29,Gentry:37};
+  var sorted=false, hi=false;
+  function drawBar(){
+    var svg=document.getElementById('barChart'), bh=300;reset(svg,bh);
+    var names=Object.keys(acct);
+    names = sorted ? names.sort(function(a,b){return acct[b]-acct[a];}) : names.sort();
+    var L=90, x=lin(0,40,L,W-40), rowH=(bh-20)/names.length;
+    names.forEach(function(n,i){
+      var yy=10+i*rowH, v=acct[n], col = hi ? (v<15?C.maroon:'#C9C4BE') : C.slate;
+      svg.appendChild(el('text',{x:L-10,y:yy+rowH/2+4,'text-anchor':'end','font-size':13,fill:C.ink},n));
+      svg.appendChild(el('rect',{x:L,y:yy+5,width:x(v)-L,height:rowH-10,fill:col,rx:2}));
+      svg.appendChild(el('text',{x:x(v)+6,y:yy+rowH/2+4,'font-size':12,'font-weight':600,fill:C.ink},v));
+    });
+  }
+  drawBar();
+  var sBtn=document.getElementById('sortBtn'), hBtn=document.getElementById('hiBtn');
+  sBtn.addEventListener('click',function(){sorted=!sorted;sBtn.setAttribute('aria-pressed',sorted);sBtn.textContent=sorted?'Back to A–Z order':'Sort bars';drawBar();});
+  hBtn.addEventListener('click',function(){hi=!hi;hBtn.setAttribute('aria-pressed',hi);drawBar();});
+
+  /* ---------- supermarket makeover: bad pie ---------- */
+  var pl=[['Food and beverages',56144.84],['Sports and travel',55122.83],['Electronic accessories',54337.53],['Fashion accessories',54305.90],['Home and lifestyle',53861.91],['Health and beauty',49193.74]];
+  (function(){
+    var svg=document.getElementById('badPie'); if(!svg) return; reset(svg,340);
+    var order=[4,0,5,2,1,3], cols=['#e6194b','#f58231','#ffe119','#3cb44b','#4363d8','#911eb4'];
+    var tot=pl.reduce(function(a,b){return a+b[1];},0), cx=190, cy=190, r=120, a0=-Math.PI/2;
+    svg.appendChild(el('rect',{x:2,y:2,width:W-4,height:336,fill:'#fffbe6',stroke:'#333','stroke-width':3}));
+    svg.appendChild(el('text',{x:W/2,y:34,'text-anchor':'middle','font-size':20,'font-weight':800,fill:'#c00'},'SALES BY PRODUCT LINE!!!'));
+    svg.appendChild(el('ellipse',{cx:cx+8,cy:cy+10,rx:r,ry:r,fill:'#999'}));
+    order.forEach(function(k,i){
+      var v=pl[k][1], a1=a0+v/tot*2*Math.PI, big=(a1-a0)>Math.PI?1:0;
+      var d='M'+cx+','+cy+' L'+(cx+r*Math.cos(a0))+','+(cy+r*Math.sin(a0))+' A'+r+','+r+' 0 '+big+' 1 '+(cx+r*Math.cos(a1))+','+(cy+r*Math.sin(a1))+' Z';
+      svg.appendChild(el('path',{d:d,fill:cols[i],stroke:'#000','stroke-width':1.5}));
+      var am=(a0+a1)/2; svg.appendChild(el('text',{x:cx+r*.65*Math.cos(am),y:cy+r*.65*Math.sin(am)+4,'text-anchor':'middle','font-size':11,'font-weight':700,fill:'#000'},(v/tot*100).toFixed(2)+'%'));
+      svg.appendChild(el('rect',{x:360,y:90+i*30,width:16,height:16,fill:cols[i],stroke:'#000'}));
+      svg.appendChild(el('text',{x:384,y:103+i*30,'font-size':13,fill:'#000'},pl[k][0]));
+      a0=a1;
+    });
+  })();
+  
+
+  /* ---------- waterfall ---------- */
+  (function(){
+    var svg=document.getElementById('waterChart');reset(svg);
+    var labs=['Jan','Feb','Mar','Apr','May','Jun','Total'], d=[16001,9670,3000,-3980,-2933,4702];
+    var bw=(W-M.l-M.r)/7, y=lin(0,32000,H-M.b,M.t), cum=0;
+    [0,10000,20000,30000].forEach(function(v){svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:y(v),y2:y(v),stroke:C.wash}));svg.appendChild(el('text',{x:M.l-8,y:y(v)+4,'text-anchor':'end','font-size':12,fill:C.soft},v/1000+'K'));});
+    labs.forEach(function(l,i){
+      var a,b,col,txt;
+      if(i<6){a=cum;b=cum+d[i];cum=b;col=d[i]>=0?C.slate:C.gold;txt=(d[i]>=0?'+':'−')+fmt(Math.abs(d[i]));}
+      else{a=0;b=cum;col=C.ink;txt=fmt(cum);}
+      var top=y(Math.max(a,b)), hgt=Math.abs(y(a)-y(b)), bx=M.l+i*bw+bw*0.18, w=bw*0.64;
+      svg.appendChild(el('rect',{x:bx,y:top,width:w,height:Math.max(hgt,1),fill:col,rx:2}));
+      svg.appendChild(el('text',{x:bx+w/2,y:top-6,'text-anchor':'middle','font-size':11.5,'font-weight':700,fill:col===C.gold?'#8a5f12':col},txt));
+      svg.appendChild(el('text',{x:bx+w/2,y:H-M.b+18,'text-anchor':'middle','font-size':12,fill:C.soft},l));
+      if(i<5){svg.appendChild(el('line',{x1:bx+w,x2:bx+bw,y1:y(cum),y2:y(cum),stroke:C.soft,'stroke-dasharray':'3 3'}));}
+    });
+  })();
+})();
+</script>
+</body>
+</html>
