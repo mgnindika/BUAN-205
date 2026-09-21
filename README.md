@@ -31,5 +31,9 @@ Use `--mode edit` instead of `--mode run` to give students a version they can ch
 GitHub Pages serves the `main` branch root. `.nojekyll` at the repo root keeps Jekyll
 from rewriting the notebook bundle.
 
-The instructor copy (`instructor.html`, with answers) is listed in `.gitignore` and is
-deliberately never committed — it would be publicly readable if it were.
+The instructor copy (`module4/instructor.html`, with answers) is published too, at the
+owner's decision. GitHub Pages has no access control, so **it is publicly readable by
+anyone with the URL, including students.** It carries `noindex, nofollow` to keep it out
+of search results and is linked from no page, so it is reachable only by typing the
+address — but that is obscurity, not protection. Students use `module4/index.html`, which
+contains no answers.
