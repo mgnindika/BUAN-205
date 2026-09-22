@@ -128,6 +128,8 @@ table.plan td,table.plan th{white-space:normal;text-align:left;vertical-align:to
 table.plan td:first-child{white-space:nowrap;font-weight:700;color:var(--maroon);width:5.5rem}
 table.files td,table.files th{white-space:normal;text-align:left}
 table.files td:first-child{font-family:var(--mono);font-size:.85rem;white-space:nowrap}
+    /* .pick tables lead with a sentence, not a filename, so undo the mono column */
+    table.pick td:first-child{font-family:var(--sans);font-size:.95rem;white-space:normal}
 /* charts */
 .chart{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1.2rem 0}
 .chart svg{width:100%;height:auto;display:block}
@@ -186,6 +188,7 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
   <a class="day" href="#day4">Day 4: Maps and dashboards</a>
   <h5>Notes</h5>
   <a href="#s31">3.1 Seeing before thinking</a>
+  <a href="#chooser">3.1b Choosing the right chart</a>
   <a href="#s32">3.2 Tables and PivotTables</a>
   <a href="#s33a">3.3 Scatter, line, bar</a>
   <a href="#s33b">3.3 Many variables</a>
@@ -385,6 +388,26 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
     
   </div>
   <div class="check"><strong>Only two meetings?</strong> Session 1 covers Day 1, then the scatter and line charts from Day 2. Session 2 covers bar charts, the pie chart debate, bubble, heat map, waterfall, and dashboards, and launches the challenge. Skip Round 1, run Round 2 as homework, and hold finals the week after.</div>
+
+  <div class="box">
+    <p><b>Five short topics, and where they fit.</b> Each one is self-contained, takes about ten minutes,
+    and ends in a test you can run on the spot. Skip any of them without breaking the rest.</p>
+    <div class="tscroll">
+    <table class="files pick">
+      <thead><tr><th>Topic</th><th>Day</th><th>Slot it into</th><th>The test</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#color">Color that everyone can read</a></td><td>Day 1</td><td>Right after decluttering, while the scarf chart is still up</td><td>Recolor to five grays and one accent</td></tr>
+        <tr><td><a href="#chooser">Choosing the right chart</a></td><td>Day 2</td><td>Open the day with it &mdash; it sets up every chart that follows, and the Day 2 exit ticket already tests it</td><td>Name the chart, six questions</td></tr>
+        <tr><td><a href="#axes">Axis honesty and dual axes</a></td><td>Day 2</td><td>With line and bar charts, using kirkland, which is already open</td><td>Build the same data three ways</td></tr>
+        <tr><td><a href="#smallmult">Small multiples</a></td><td>Day 3</td><td>Just before the heat map &mdash; same file, different question</td><td>16 stores on one screen</td></tr>
+        <tr><td><a href="#simpson">Aggregation traps</a></td><td>Day 3 or 4</td><td>Before teams start the Challenge build, so they catch it in their own dashboards</td><td>The county and the state</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>If you only have time for one, run <a href="#chooser">choosing the right chart</a>. It is the topic
+    students carry into every later dashboard.</p>
+  </div>
+
 </section>
 
 <!-- ================= 3.1 ================= -->
@@ -456,6 +479,124 @@ I made a default Excel line chart with gridlines, a legend, markers on every poi
     <p class="q">Your boss says "Remove the y-axis, the chart looks cleaner." Is that good decluttering?</p>
     
   </div>
+
+  <h3 id="color">Color that everyone can read</h3>
+  <p class="prose">Color is the strongest attention-getter you have, which is exactly why it is so easy to
+  waste. Two rules cover almost every business chart.</p>
+  <p class="prose"><b>Rule one: gray is a color.</b> Put everything in gray, then use one bright color for the
+  single thing you want noticed. A chart where everything is colorful is a chart where nothing stands out.
+  If your dashboard has a headline, the color should point at the evidence for that headline.</p>
+  <p class="prose"><b>Rule two: never let color carry the meaning alone.</b> About <b>1 in 12 men</b> and 1 in
+  200 women cannot reliably tell red from green. A red-and-green &ldquo;bad vs good&rdquo; chart is unreadable
+  for two or three students in a class of thirty, and for a share of every audience you will ever present to.</p>
+  <div class="box">
+    <p><b>What to do instead.</b></p>
+    <ul>
+      <li><b>Use blue and orange</b> rather than red and green. The contrast survives every common type of
+        color blindness, and it still prints in grayscale.</li>
+      <li><b>Add a second signal.</b> Label the bar, or order the categories, or use solid versus dashed
+        lines. Then color becomes a bonus, not a requirement.</li>
+      <li><b>Four colors plus gray, maximum.</b> Past that, readers stop matching the legend and give up.</li>
+      <li><b>Check it in gray.</b> Screenshot your chart, desaturate it on your phone, and see whether you
+        can still read it. If you cannot, neither can part of your audience.</li>
+    </ul>
+  </div>
+  <p class="prose">A quick way to think about it: color for <i>attention</i>, position and length for
+  <i>value</i>. People compare lengths accurately and colors badly, so never ask color to encode a number
+  you want read precisely.</p>
+  <h4 id="color-drill">Test yourself: fix the palette</h4>
+  <p class="prose">Open your product-line chart from the practice lab, where each of the six product lines
+  has its own bright color. Make two changes: put five lines in light gray and one in a strong color, and
+  change the title so it says what you found. Compare the two versions side by side.</p>
+  <div class="ladder">
+    <div class="rung r1"><div class="rung-head"><span><span class="lvl">1</span><b>Understand</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain to a first-year business student why a chart with six equally bright colors is harder to read than the same chart with five grays and one bright color. Then explain why red-versus-green is a poor choice for "below target versus above target", and give me two color pairs that work better and still survive black-and-white printing.</pre></div>
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I have a column chart of total Sales for six product lines, and I want to draw attention to the single weakest one. Give me the exact Excel steps to set every column to light gray and that one column to a strong color, and suggest a chart title that states the finding rather than describing the chart.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it tell you to click a single data point twice (once to select the series, once to select the
+      one column)? That is the step people miss in Excel.</li>
+    <li>Is its suggested title a <i>finding</i> ("Health and beauty trails the other five lines") rather than
+      a <i>label</i> ("Sales by Product Line")?</li>
+  </ul></div>
+
+</section>
+
+
+<!-- ================= CHART CHOOSER ================= -->
+<section class="part" id="chooser">
+  <div class="part-head"><span class="num">3.1b</span><h2>Choosing the right chart</h2></div>
+
+  <p class="idea">Every chart answers one question. Pick the question first, and the chart picks itself.</p>
+
+  <p class="prose">Most bad business charts are not ugly &mdash; they are the wrong shape for the question
+  being asked. Before you touch Excel, finish this sentence out loud: <b>&ldquo;I want to show that
+  &hellip;&rdquo;</b> The words you use point straight at the chart.</p>
+
+  <div class="tscroll">
+  <table class="files pick">
+    <thead><tr><th>If you are asking&hellip;</th><th>You are showing</th><th>Use</th><th>Try it with</th></tr></thead>
+    <tbody>
+      <tr><td>Which one is biggest? Who is ahead?</td><td>Comparison</td><td>Bar chart, <b>sorted</b></td><td><a href="data/accountsmanaged.xlsx" download>accountsmanaged</a></td></tr>
+      <tr><td>Did it go up or down over time?</td><td>Trend</td><td>Line chart</td><td><a href="data/kirkland.xlsx" download>kirkland</a></td></tr>
+      <tr><td>Do these two move together?</td><td>Relationship</td><td>Scatter, plus a trendline</td><td><a href="data/electronics.xlsx" download>electronics</a></td></tr>
+      <tr><td>What is typical? What is unusual?</td><td>Distribution</td><td>Histogram</td><td><a href="data/restaurant.xlsx" download>restaurant</a></td></tr>
+      <tr><td>What is it made of?</td><td>Composition</td><td>Stacked bar, or a treemap</td><td><a href="data/brandvalues.xlsx" download>brandvalues</a></td></tr>
+      <tr><td>Where is it happening?</td><td>Geography</td><td>Map</td><td><a href="data/income_state.xlsx" download>income_state</a></td></tr>
+      <tr><td>How do many groups each behave?</td><td>Many trends at once</td><td>Small multiples</td><td><a href="data/samestore_sales.xlsx" download>samestore_sales</a></td></tr>
+      <tr><td>Does a third thing matter too?</td><td>Three variables</td><td>Bubble chart</td><td><a href="data/airportdata.xlsx" download>airportdata</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box">
+    <p><b>Four questions before you choose.</b></p>
+    <ol>
+      <li><b>What is my one sentence?</b> If you cannot say it, no chart will say it for you.</li>
+      <li><b>How many variables?</b> One, two, or three? Three is the practical limit for one chart.</li>
+      <li><b>Is one of them time?</b> If yes, time goes on the horizontal axis, and a line is usually right.</li>
+      <li><b>Are my categories ordered?</b> Ordered (Jan&ndash;Dec, Good&ndash;Excellent) keeps its natural
+        order. Unordered (branches, managers) gets <b>sorted by value</b>.</li>
+    </ol>
+  </div>
+
+  <p class="prose">Two rules that settle most arguments. <b>Time goes left to right</b>, always &mdash; never
+  sort months by size. And <b>unordered categories get sorted</b>, because an unsorted bar chart makes the
+  reader do the ranking you were paid to do.</p>
+
+  <h3 id="chooser-drill">Test yourself: name the chart</h3>
+  <p class="prose">Six questions a manager might actually ask. For each one, name the chart and say which
+  column goes on which axis. Two minutes, no Excel. Then compare with a partner &mdash; the arguments are the
+  useful part.</p>
+  <div class="box recipe">
+    <ol>
+      <li>&ldquo;Which of our eight account managers is carrying the heaviest load?&rdquo;</li>
+      <li>&ldquo;Has the Kirkland compressor line grown this year?&rdquo;</li>
+      <li>&ldquo;Are we wasting money on TV commercials?&rdquo;</li>
+      <li>&ldquo;What does a normal meal cost at the restaurants we rated?&rdquo;</li>
+      <li>&ldquo;Which industries do our top ten brands come from, and how much are they worth?&rdquo;</li>
+      <li>&ldquo;Our 16 stores all claim they are doing fine. Are they?&rdquo;</li>
+    </ol>
+  </div>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Here are six business questions. For each one, tell me which chart type answers it, which column goes on each axis, and one chart type that people commonly pick instead that would be a worse choice, and why.
+1. Which of our eight account managers is carrying the heaviest load?
+2. Has the Kirkland compressor line grown this year?
+3. Are we wasting money on TV commercials?
+4. What does a normal meal cost at the restaurants we rated?
+5. Which industries do our top ten brands come from, and how much are they worth?
+6. Our 16 stores all claim they are doing fine. Are they?</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">For question 6, I have 16 stores and 12 months of same-store sales percentages. Compare putting all 16 on one line chart against 16 small multiples. Which one would let a regional manager spot a struggling store in five seconds, and why? What does each one hide?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it sort the bar chart in #1? If it did not say &ldquo;sorted,&rdquo; it missed the point.</li>
+    <li>For #4, did it say histogram? &ldquo;Bar chart&rdquo; is the common wrong answer &mdash; a bar chart
+      compares categories, a histogram shows a distribution.</li>
+    <li>For #3, did it warn you that a relationship is not proof that commercials <i>caused</i> sales?</li>
+  </ul></div>
 </section>
 
 <!-- ================= 3.2 ================= -->
@@ -558,6 +699,52 @@ Then show the same table as % of the grand total. Tell me which cell is the larg
     <p class="q">An AI groups prices as "10–20, 20–30, 30–40." What's wrong with that?</p>
     
   </div>
+
+  <h3 id="simpson">Aggregation traps</h3>
+  <p class="prose">A PivotTable makes it very easy to produce a number that is technically correct and
+  completely misleading. Three traps cause most of the damage, and all three show up in student dashboards
+  every semester.</p>
+  <p class="prose"><b>1. The average of averages.</b> If Branch A averages $300 over 100 sales and Branch B
+  averages $400 over 900 sales, the combined average is not $350. It is close to $390, because B has nine
+  times the weight. Averaging averages silently assumes every group is the same size. Always average the
+  underlying rows, not the summary.</p>
+  <p class="prose"><b>2. Comparing unequal periods.</b> Three weeks of January against four weeks of February
+  will always make February look better. Compare complete periods, or compare per-day figures. Our supermarket
+  file ends on <b>30 March</b>, so March is a short month in this data &mdash; a trap the Challenge rubric
+  specifically checks for.</p>
+  <p class="prose"><b>3. Simpson's paradox.</b> The strangest one: a pattern that holds in every group can
+  <b>reverse</b> when the groups are combined. It happens when group sizes differ and the grouping variable
+  is related to both things you are measuring. This is not a curiosity &mdash; it is how honest people
+  produce confident, wrong recommendations.</p>
+  <div class="box">
+    <p><b>The habit that protects you.</b> Every time you report an average or a percentage, ask two
+    questions: <i>&ldquo;an average over how many rows?&rdquo;</i> and <i>&ldquo;would this still hold inside
+    each group?&rdquo;</i> Put the row count on your dashboard next to any average. It costs one column and
+    it is the single fastest way to catch this family of error.</p>
+  </div>
+  <h4 id="simpson-drill">Test yourself: the county and the state</h4>
+  <p class="prose">Download <a href="data/income_county.xlsx" download>income_county</a> (3,147 counties with
+  a median income each) and <a href="data/income_state.xlsx" download>income_state</a> (50 state medians).</p>
+  <div class="box recipe">
+    <ol>
+      <li>Build a PivotTable averaging <b>Median Income ($)</b> by State from the county file.</li>
+      <li>Put that next to the published state median from the state file.</li>
+      <li>They disagree, sometimes badly. Write one sentence explaining why, and say which number you would
+        put on a dashboard for &ldquo;the typical household in this state.&rdquo;</li>
+    </ol>
+  </div>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I have two files. One has 3,147 US counties with a median household income for each. The other has one median household income per state. If I average the county medians within a state, I do not get the state's published median. Explain exactly why, in plain language, using county population as part of the explanation. Then tell me which figure belongs on a dashboard labelled "typical household income" and what I should call the other one.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain Simpson's paradox to a first-year business student using a short, concrete example with real-looking numbers, where a company looks better than a rival overall but worse in every single region. Show the arithmetic that makes it work. Then tell me what to check in a PivotTable to catch this before I present it.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it mention that counties have wildly different populations, so an unweighted average treats a
+      county of 2,000 people the same as one of 2 million?</li>
+    <li>Did it notice that a <b>median of medians is not a median</b> at all &mdash; not even a weighted one?</li>
+  </ul></div>
+
 </section>
 
 <!-- ================= 3.3a ================= -->
@@ -700,6 +887,47 @@ Should I use a stacked or clustered column chart if my manager asks: (a) "What w
   </div>
   <div class="check"><strong>Your vote.</strong> After both teams read their best arguments, write one sentence: pie or bar for this data, and why?</div>
   
+
+  <h3 id="axes">Axis honesty and the dual-axis trap</h3>
+  <p class="prose">The fastest way to lie with a chart is to leave the data alone and move the axis. You will
+  be shown charts like this, and you will be tempted to make them.</p>
+  <p class="prose"><b>Bars must start at zero.</b> A bar says &ldquo;this much&rdquo; with its length, so if
+  the axis starts at 140 instead of 0, a 5% difference can look like a 300% difference. This is not a style
+  preference &mdash; it is the difference between a true chart and a false one.</p>
+  <p class="prose"><b>Lines may start elsewhere, if you say so.</b> A line says &ldquo;this changed,&rdquo;
+  and it uses position rather than length, so a zoomed axis is legitimate when the change is genuinely small
+  and genuinely matters. The rule is disclosure: label the axis clearly and never hide the break.</p>
+  <div class="box">
+    <p><b>The dual-axis trap.</b> A chart with one series on a left axis and another on a right axis lets you
+    slide the two scales independently &mdash; which means <b>you can make almost any two series look like
+    they move together.</b> The correlation is manufactured by your axis choices, not found in the data.</p>
+    <p>If you want to show that two things move together, use a scatter chart, where the relationship has to
+    survive on its own. Keep dual axes for the rare case where the two series share a real, stated
+    relationship, and label both axes loudly.</p>
+  </div>
+  <h4 id="axes-drill">Test yourself: make the same data lie</h4>
+  <p class="prose">Open <a href="data/kirkland.xlsx" download>kirkland</a> (12 months, Sales $100s, ranging
+  115 to 210). Build the same column chart three times:</p>
+  <div class="box recipe">
+    <ol>
+      <li>Axis starting at <b>0</b> &mdash; the honest version.</li>
+      <li>Axis starting at <b>110</b> &mdash; the version that gets put in a pitch deck.</li>
+      <li>Version 2, but as a <b>line chart</b> instead of columns.</li>
+    </ol>
+    <p>Then write one sentence: which of the three would you be comfortable showing a regional manager, and why?</p>
+  </div>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I have 12 months of sales ranging from 115 to 210 ($100s). If I draw a column chart with the y-axis starting at 110 instead of 0, roughly how many times bigger does the Jan-to-Dec difference look than it really is? Show the arithmetic. Then tell me when starting a LINE chart above zero is acceptable and when it is not.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Explain the dual-axis trap: why can I make two unrelated series appear to move together by choosing the left and right axis ranges? Give me a concrete business example where a manager was misled this way, and tell me what chart I should use instead if I genuinely want to show that two measures are related.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it actually do the arithmetic, or just say &ldquo;it exaggerates&rdquo;? Make it show the numbers.</li>
+    <li>Did it distinguish <b>bars</b> (length, must start at zero) from <b>lines</b> (position, may not)?
+      An answer that gives one blanket rule for both is wrong.</li>
+  </ul></div>
+
 </section>
 
 <!-- ================= 3.3b ================= -->
@@ -771,6 +999,47 @@ Excellent: 25.5, 29.1, 34.0, 32.3
 A restaurant manager has 30 seconds to look at this. Should I show her the table or a clustered column chart? Design the better one for her, and write the one-sentence headline that should sit above it.</pre></div>
   </div>
   
+
+  <h3 id="smallmult">Small multiples</h3>
+  <p class="prose">When you have many groups and one measure, the instinct is to put every group on one
+  chart. With four series that works. With sixteen you get spaghetti: a tangle nobody can read, where the
+  only visible information is that things are complicated.</p>
+  <p class="prose"><b>Small multiples</b> solve this by repeating one small chart once per group, all on the
+  <b>same axes</b>, arranged in a grid. Because the shape of each panel is comparable, your eye finds the odd
+  one out in seconds &mdash; which is exactly the job a regional manager needs done.</p>
+  <div class="box">
+    <p><b>The one rule that matters:</b> every panel must share the same scale. If Excel auto-scales each
+    little chart to its own data, a store that moved 2% and a store that moved 20% will look identical, and
+    the grid becomes worse than the spaghetti. Set the axis minimum and maximum by hand on the first panel,
+    then copy the formatting to the rest.</p>
+    <p>Keep the panels small and strip them bare: no legend, no gridlines, one label per panel. The whole
+    point is the shape, not the detail.</p>
+  </div>
+  <p class="prose">Small multiples and heat maps answer similar questions in different ways. A heat map is
+  denser and better for spotting <i>where</i> something happened across two dimensions; small multiples keep
+  the actual shape of each trend, so they are better when the <i>pattern over time</i> is what matters.</p>
+  <h4 id="smallmult-drill">Test yourself: 16 stores, one screen</h4>
+  <p class="prose">Open <a href="data/samestore_sales.xlsx" download>samestore_sales</a> &mdash; 16 stores,
+  12 months, same-store sales change. Remember the values are decimals, so format them as percentages first.</p>
+  <div class="box recipe">
+    <ol>
+      <li>Put all 16 stores on <b>one</b> line chart. Look at it for ten seconds. Which store is in trouble?</li>
+      <li>Now build a grid of 16 small line charts, all with the y-axis fixed to the same range.</li>
+      <li>Answer again: which stores are in trouble, and which are turning around?</li>
+    </ol>
+  </div>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached samestore_sales.xlsx: 16 stores down the rows, 12 months across the columns, values are monthly same-store sales change stored as decimals (0.1575 means +15.75%). Give me the exact Excel steps to build a grid of 16 small line charts that all share the same y-axis range, and tell me what range to use and why. Then name the stores whose trend is clearly falling and the ones clearly rising, with numbers.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Using the same file, tell me which single store I should visit first and why, in one sentence a regional manager would act on. Then tell me what this data does NOT tell me about why that store is struggling, and what one extra column would let me answer that.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it warn you that the values are decimals, not percents? If it reports &ldquo;15,750%&rdquo;
+      somewhere, it multiplied wrongly.</li>
+    <li>Did it insist on a <b>fixed, shared</b> y-axis? Auto-scaled panels are the classic failure here.</li>
+  </ul></div>
+
 </section>
 
 <!-- ================= 3.4 ================= -->
