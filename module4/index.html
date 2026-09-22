@@ -199,6 +199,7 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
   <a href="#lab">Practice lab: supermarket</a>
   <a href="#setd">Practice set D: all files</a>
   <a href="#challenge">Data Viz Challenge</a>
+  <a href="#trackb">&mdash; Track B: real data</a>
   <a href="#project">Practice project: restaurant</a>
   <a href="#summary">Summary</a>
 </nav>
@@ -1457,6 +1458,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
 <!-- ================= CHALLENGE ================= -->
 <section class="part" id="challenge">
   <div class="part-head"><h2>The B205 Data Viz Challenge</h2></div>
+  <p class="prose"><b>Two tracks.</b> <b>Track A</b> is the brief below, run on the supermarket file &mdash; one clean dataset, one question, everything you need already on this page. <a href="#trackb"><b>Track B</b></a> is the same competition on real public data your team chooses and has to defend. Same rubric, same pitch, same one screen. Pick one.</p>
   <div class="box maroon">
     <h4>The brief</h4>
     <p>You are the analytics team for a supermarket chain with three branches. The regional manager has <b>three minutes</b> and one question:</p>
@@ -1523,6 +1525,106 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
     <li><b>AI Detective Award:</b> the best-documented catch of an AI mistake.</li>
     <li><b>People's Choice:</b> the class vote.</li>
   </ul>
+
+
+  <h3 id="trackb">Track B: bring your own real data</h3>
+  <p class="prose">Everything above is <b>Track A</b>: one clean file, one manager, one question. It is the
+  right way to learn the moves. <b>Track B</b> is the same competition run on data nobody cleaned for you
+  &mdash; which is the only kind you will meet after graduation. Your team picks one track.</p>
+  <div class="box">
+    <p><b>What changes, and what does not.</b> The rubric, the three-minute pitch, the one-screen dashboard,
+    the AI log, and every rule about building charts in Excel are <b>identical</b>. Two things are added:
+    you choose the question, and you have to defend the data itself.</p>
+  </div>
+
+  <h4>Step 1: pick a dataset that can actually carry a dashboard</h4>
+  <p class="prose">Most failed projects fail here, in week one, by picking something too small or too flat.
+  Before you commit, check all four:</p>
+  <div class="box recipe">
+    <ol>
+      <li><b>At least 200 rows.</b> Fewer, and every chart is a handful of points.</li>
+      <li><b>At least one category column</b> you can group by &mdash; region, product, type, department.</li>
+      <li><b>At least two number columns</b>, so you can show a relationship and not just a ranking.</li>
+      <li><b>A time or place column.</b> Without one, you cannot show a trend or draw a map, and you lose
+        half the toolkit.</li>
+    </ol>
+    <p>Then say your question out loud in one sentence, with a decision attached: <i>&ldquo;Which
+    &lt;category&gt; should &lt;someone&gt; &lt;do something about&gt; next &lt;period&gt;?&rdquo;</i> If you
+    cannot finish that sentence, the dataset is not ready.</p>
+  </div>
+
+  <h4>Step 2: where to look</h4>
+  <p class="prose">All of these are free, public, and download as CSV or Excel. Start with the first two
+  &mdash; they are the cleanest.</p>
+  <div class="tscroll">
+  <table class="files pick">
+    <thead><tr><th>Source</th><th>Good for</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Data.gov</td><td>The widest catalogue of US federal and local data, on nearly any topic</td><td><a href="https://data.gov" target="_blank" rel="noopener">data.gov</a></td></tr>
+      <tr><td>DataDriven, City of New Orleans</td><td>Local and immediately relatable: permits, 311 calls, inspections, crime, streets</td><td><a href="https://datadriven.nola.gov" target="_blank" rel="noopener">datadriven.nola.gov</a></td></tr>
+      <tr><td>FRED, St.&nbsp;Louis Fed</td><td>Economic and financial time series, already tidy, excellent for trends</td><td><a href="https://fred.stlouisfed.org" target="_blank" rel="noopener">fred.stlouisfed.org</a></td></tr>
+      <tr><td>Bureau of Labor Statistics</td><td>Employment, wages and prices by industry and metro area</td><td><a href="https://www.bls.gov/data/" target="_blank" rel="noopener">bls.gov/data</a></td></tr>
+      <tr><td>US Census, data.census.gov</td><td>Population, income, housing and business, down to county level</td><td><a href="https://data.census.gov" target="_blank" rel="noopener">data.census.gov</a></td></tr>
+      <tr><td>Kaggle Datasets</td><td>Business-flavoured datasets: retail, airlines, marketing, HR</td><td><a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener">kaggle.com/datasets</a></td></tr>
+      <tr><td>Our World in Data</td><td>Clean international series, well documented, easy to download</td><td><a href="https://ourworldindata.org" target="_blank" rel="noopener">ourworldindata.org</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="prose">Get your dataset approved before you build anything. Bring the file and your one-sentence
+  question &mdash; approval takes about two minutes and saves a wasted week.</p>
+
+  <h4>Step 3: the data audit (this is graded)</h4>
+  <p class="prose">Real data is dirty, and pretending otherwise is the fastest way to lose points. Before you
+  chart anything, run this audit and keep the answers &mdash; one slide of it goes in your hand-in.</p>
+  <div class="box recipe">
+    <ol>
+      <li><b>How many rows and columns?</b> Write the number down. Check it again after every filter.</li>
+      <li><b>What is missing?</b> Count blanks per column. Decide what to do and <b>say so</b>: drop them,
+        leave them out of that one chart, or show them as their own category.</li>
+      <li><b>Any duplicates?</b> Check whether the same record appears twice.</li>
+      <li><b>Does every column mean what its name says?</b> Find the source's data dictionary. Columns named
+        <span class="datafile">value</span> or <span class="datafile">amount</span> hide more than they tell.</li>
+      <li><b>What are the units?</b> Dollars or thousands of dollars? Percent or decimal? Get this wrong and
+        every number on your dashboard is wrong.</li>
+      <li><b>What period does it cover, and is the last one complete?</b> A partial final month makes any
+        trend look like a collapse.</li>
+      <li><b>Any impossible values?</b> Negative ages, future dates, a 400% share. Sort each column both
+        ways and look at the ends.</li>
+      <li><b>Who collected it, and who was left out?</b> Every dataset counts some people and misses others.
+        That gap is your honest limitation.</li>
+    </ol>
+  </div>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I am about to build a dashboard from the attached dataset. Before any charts, audit it for me: number of rows and columns, missing values per column, duplicate rows, columns whose name does not match their contents, unclear units, the period covered and whether the last period is complete, and any impossible or out-of-range values. List what you find as problems I must fix, problems I should disclose, and things that are fine. Do not suggest charts yet.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Who is likely to be missing from this dataset, and how would that bias a recommendation built on it? Give me one sentence I could put on my dashboard that states this limitation honestly without undermining my whole analysis.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Re-count the rows yourself. AI routinely miscounts, and the row count is the one number everything
+      else rests on.</li>
+    <li>If it says a column is clean, sort that column and look at the top and bottom ten rows yourself.</li>
+  </ul></div>
+
+  <h4>What Track B hands in</h4>
+  <p class="prose">Everything from Track A, plus two things:</p>
+  <ul class="prose">
+    <li><b>A source line</b> on the dashboard: who published the data, what it covers, and when you
+      downloaded it. One line, small type, always present.</li>
+    <li><b>The data audit</b>, one page, with what you found and what you did about it.</li>
+  </ul>
+  <div class="box">
+    <p><b>Judging is the same rubric</b>, with one adjustment. Under <i>Accuracy</i>, judges also ask whether
+    your cleaning decisions were reasonable and disclosed. A team that finds a real problem, handles it
+    sensibly and says so out loud scores <b>higher</b> than a team whose data happened to be clean. Finding
+    the flaw is the skill.</p>
+    <p><b>Track B teams are eligible for one extra award: Best Data Detective</b>, for the team that finds
+    and explains the most important problem in their own dataset.</p>
+  </div>
+  <p class="prose">One warning worth taking seriously: <b>do not pick a topic you cannot present in three
+  minutes.</b> &ldquo;Climate change&rdquo; is not a project. &ldquo;Which three New Orleans ZIP codes waited
+  longest for permit approval last year?&rdquo; is.</p>
+
 
   <h3>A three-minute pitch that works</h3>
   <ol class="prose">
