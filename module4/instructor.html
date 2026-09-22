@@ -290,26 +290,43 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
 <!-- ================= FILES ================= -->
 <section class="part" id="files">
   <div class="part-head"><h2>Data files for this module</h2></div>
-  <p class="prose">These are the same Excel files from our textbook, so download them from Canvas. Small datasets are also typed into the prompts below, so you can copy and go.</p>
+  <p class="prose"><b>Click any file name below to download it.</b> These are the same Excel files from our textbook, and they are on Canvas too &mdash; either copy works. Small datasets are also typed into the prompts below, so you can copy and go.</p>
   <div class="tscroll">
   <table class="files">
     <thead><tr><th>File</th><th>What's inside</th><th>Used in</th></tr></thead>
     <tbody>
-      <tr><td>restaurant</td><td>300 Los Angeles restaurants: quality rating, meal price ($), wait time (min)</td><td>3.2 crosstab, PivotChart, final project</td></tr>
-      <tr><td>gossamer</td><td>Six months of costs and revenues for Gossamer Industries</td><td>3.2 tables, 3.4 waterfall</td></tr>
-      <tr><td>electronics</td><td>10 weeks of TV commercials and sales ($100s)</td><td>3.3 scatter and trendline</td></tr>
-      <tr><td>kirkland</td><td>Monthly air compressor sales ($100s)</td><td>3.3 line chart</td></tr>
-      <tr><td>kirklandregional</td><td>The same sales split into North and South</td><td>3.3 multiple lines, sparklines, stacked and clustered</td></tr>
-      <tr><td>accountsmanaged</td><td>Number of accounts for 8 managers</td><td>3.3 bar chart, pie chart debate</td></tr>
-      <tr><td>airportdata</td><td>TSA wait, parking rate, passengers per year</td><td>3.3 bubble chart</td></tr>
-      <tr><td>nyc</td><td>55 NYC sub-boroughs: rent, % college grads, poverty rate, commute</td><td>3.3 scatter matrix, table lens</td></tr>
-      <tr><td>samestore_sales</td><td>Monthly same-store sales by store</td><td>3.4 heat map</td></tr>
-      <tr><td>brandvalues</td><td>Brand values grouped by industry</td><td>3.4 treemap</td></tr>
-      <tr><td>verizon</td><td>Five trading days of Verizon stock prices</td><td>3.4 stock chart</td></tr>
-      <tr><td>SuperMarket_Analysis</td><td>1,000 supermarket sales, 3 branches, Jan–Mar 2019 (<a href="SuperMarket_Analysis.xlsx" download>download</a>)</td><td>Practice lab and the Data Viz Challenge</td></tr>
-      <tr><td>income_state, income_county</td><td>Median household income by state and by county</td><td>3.5 maps</td></tr>
+      <tr><td><a href="data/restaurant.xlsx" download>restaurant</a></td><td>300 Los Angeles restaurants: quality rating, meal price ($), wait time (min)</td><td>3.2 crosstab, PivotChart, final project</td></tr>
+      <tr><td><a href="data/gossamer_profit.xlsx" download>gossamer</a></td><td>Six months of costs and revenues for Gossamer Industries</td><td>3.2 tables, 3.4 waterfall</td></tr>
+      <tr><td><a href="data/electronics.xlsx" download>electronics</a></td><td>10 weeks of TV commercials and sales ($100s)</td><td>3.3 scatter and trendline</td></tr>
+      <tr><td><a href="data/kirkland.xlsx" download>kirkland</a></td><td>Monthly air compressor sales ($100s)</td><td>3.3 line chart</td></tr>
+      <tr><td><a href="data/kirklandregional.xlsx" download>kirklandregional</a></td><td>The same sales split into North and South</td><td>3.3 multiple lines, sparklines, stacked and clustered</td></tr>
+      <tr><td><a href="data/accountsmanaged.xlsx" download>accountsmanaged</a></td><td>Number of accounts for 8 managers</td><td>3.3 bar chart, pie chart debate</td></tr>
+      <tr><td><a href="data/airportdata.xlsx" download>airportdata</a></td><td>TSA wait, parking rate, passengers per year</td><td>3.3 bubble chart</td></tr>
+      <tr><td><a href="data/nyc.xlsx" download>nyc</a></td><td>55 NYC sub-boroughs: rent, % college grads, poverty rate, commute</td><td>3.3 scatter matrix, table lens</td></tr>
+      <tr><td><a href="data/samestore_sales.xlsx" download>samestore_sales</a></td><td>Monthly same-store sales by store</td><td>3.4 heat map</td></tr>
+      <tr><td><a href="data/brandvalues.xlsx" download>brandvalues</a></td><td>Brand values grouped by industry</td><td>3.4 treemap</td></tr>
+      <tr><td><a href="data/verizon.xlsx" download>verizon</a></td><td>Five trading days of Verizon stock prices</td><td>3.4 stock chart</td></tr>
+      <tr><td><a href="SuperMarket_Analysis.xlsx" download>SuperMarket_Analysis</a></td><td>1,000 supermarket sales, 3 branches, Jan–Mar 2019</td><td>Practice lab and the Data Viz Challenge</td></tr>
+      <tr><td><a href="data/income_state.xlsx" download>income_state</a>, <a href="data/income_county.xlsx" download>income_county</a></td><td>Median household income by state and by county</td><td>3.5 maps</td></tr>
     </tbody>
   </table>
+  </div>
+
+  <div class="box">
+    <p><b>Before you build a PivotTable, look at the top-left corner.</b> Three of these files do not open
+    as a clean table, and that is normal for real business files:</p>
+    <ul>
+      <li><b>gossamer</b> &mdash; the months run <i>across</i> the top and the labels (Costs, Revenues, Gross
+        Profit) run <i>down</i> the side, with a <span class="datafile">Total</span> column on the end. Excel
+        wants the opposite. Transpose it, and leave the Total column out of any chart.</li>
+      <li><b>kirklandregional</b> &mdash; the first row is one merged heading, <span class="datafile">Sales
+        ($100s)</span>, and the real column names (Month, North, South) are on the second row.</li>
+      <li><b>samestore_sales</b> &mdash; the store names in column A have no header, and the values are
+        <b>decimals, not percentages</b>: <span class="datafile">0.1575</span> means +15.75%. Format them as
+        percentages before you chart them, or every label will be wrong.</li>
+    </ul>
+    <p>A good habit: open a file, and before anything else ask yourself <i>&ldquo;is every column one variable,
+    and every row one observation?&rdquo;</i> If not, fix that first.</p>
   </div>
 </section>
 

@@ -1,2 +1,6 @@
 # Source archives
 *.zip
+
+# Plaintext instructor notes with the answer keys. Only the encrypted
+# module4/instructor.html is published; this is what it is built from.
+instructor.source.html
