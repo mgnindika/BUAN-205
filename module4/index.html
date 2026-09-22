@@ -197,6 +197,7 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
   <a href="#s36">3.6 Dashboards</a>
   <h5>Practice and competition</h5>
   <a href="#lab">Practice lab: supermarket</a>
+  <a href="#setd">Practice set D: all files</a>
   <a href="#challenge">Data Viz Challenge</a>
   <a href="#project">Practice project: restaurant</a>
   <a href="#summary">Summary</a>
@@ -1343,6 +1344,101 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
 <pre class="prompt">Using the attached SuperMarket_Analysis.xlsx, count purchases by Branch and Payment method, and show each branch's mix as percentages. The finance team is deciding whether to promote Ewallet. Which branch is the best place to start, and is the difference between branches big enough to matter?</pre></div>
   </div>
   
+
+  
+  <h3 id="setd">Practice set D: the textbook files <span class="datafile">any time after Day 2</span></h3>
+  <p class="prose">Sets A to C all use the supermarket file. These eight use the other files on this page,
+  and each one takes about ten minutes. <b>Build the chart in Excel first, then ask AI.</b> If you only have
+  time for three, do D1, D4 and D7 &mdash; they cover comparison, distribution, and messy data.</p>
+
+  <h4>D1. Sorted bars beat pie slices <span class="datafile">accountsmanaged</span></h4>
+  <p class="prose">Eight managers, one number each. Build a pie chart and a sorted bar chart of the same
+  data. Then time a classmate: how fast can they name the third-busiest manager from each one?</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached accountsmanaged.xlsx: 8 account managers and the number of accounts each one manages. Give me the exact Excel steps to build a bar chart sorted from most to fewest. Then explain why a pie chart makes it hard to rank 8 categories, using the actual numbers in this file to show how close some of the slices are.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Did it sort <i>descending</i>, and did it say to sort the data, not just the chart?</li><li>Does its total match yours?</li></ul></div>
+
+  <h4>D2. A trendline in dollars, not decoration <span class="datafile">electronics</span></h4>
+  <p class="prose">Ten weeks of commercials and sales. Build a scatter chart, add a linear trendline, and
+  display the equation. Then answer in a sentence: <i>what does one more commercial buy us?</i></p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached electronics.xlsx: 10 weeks, with Number of Commercials and Sales ($100s). Build the scatter chart and linear trendline, give me the equation, and translate the slope into plain English: how many dollars of extra sales does one extra commercial predict? Remember sales are in hundreds of dollars.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">With only 10 weeks of data, how confident should I be in that slope? List three reasons the relationship might not be causal, and tell me what I would need to run to actually test whether commercials cause sales.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it multiply the slope by 100? Sales are in $100s, and forgetting that is the usual error.</li>
+    <li>Did it resist saying the commercials <i>caused</i> the sales?</li></ul></div>
+
+  <h4>D3. One line, then two <span class="datafile">kirkland</span> <span class="datafile">kirklandregional</span></h4>
+  <p class="prose">Start with <b>kirkland</b>: 12 months, one line. Then open <b>kirklandregional</b>, which
+  splits the same sales into North and South. Remember the real column names are on <b>row 2</b>. Build a
+  two-line chart and answer: does the total hide anything?</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached kirklandregional.xlsx. Careful: row 1 is a single merged heading "Sales ($100s)" and the real column names (Month, North, South) are on row 2. Clean that up, then build a line chart with one line per region. Tell me which region drives the overall trend, and name any month where the two regions move in opposite directions.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Do North + South add up to the kirkland totals for the same months?</li><li>Did it keep the months in calendar order?</li></ul></div>
+
+  <h4>D4. What does a typical meal cost? <span class="datafile">restaurant</span></h4>
+  <p class="prose">300 restaurants. Build a <b>histogram</b> of Meal Price ($), then a crosstab of Quality
+  Rating against price bands. Watch the ordering: Good, Very Good, Excellent is a <i>ranking</i>, and Excel
+  will sort it alphabetically into Excellent, Good, Very Good unless you tell it not to.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached restaurant.xlsx: 300 restaurants with Quality Rating (Good, Very Good, Excellent), Meal Price ($) and Wait Time (min). Build a histogram of Meal Price with sensible bins and tell me the shape of the distribution. Then build a crosstab of Quality Rating by price band. Keep the quality ratings in their real order, Good to Excellent, not alphabetical order.</pre></div>
+    <div class="rung r3"><div class="rung-head"><span><span class="lvl">3</span><b>Push further</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">Does a higher quality rating mean a longer wait in this data? Show me the average wait time by quality rating, with the number of restaurants behind each average. Then tell me whether that average is trustworthy and what it might hide.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Is the quality order Good &rarr; Very Good &rarr; Excellent, not alphabetical?</li>
+    <li>Did it report how many restaurants sit behind each average?</li>
+    <li>Do the crosstab counts add to 300?</li></ul></div>
+
+  <h4>D5. Three variables in one picture <span class="datafile">airportdata</span></h4>
+  <p class="prose">15 airports: TSA wait, parking cost, and annual passengers. Build a bubble chart with
+  wait on one axis, parking on the other, and passengers as the bubble size. Then find the airport that is
+  bad at everything.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached airportdata.xlsx: 15 airports with TSA wait time (minutes), cheapest on-site parking cost, and annual enplanements (millions). Build a bubble chart using wait and parking on the axes and passengers as bubble size. Name the best and worst airports for a traveller, and explain what the bubble size adds that a plain scatter would miss.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Did it label the bubbles with airport codes? An unlabelled bubble chart is unreadable.</li><li>Did it say which direction is "good" on each axis?</li></ul></div>
+
+  <h4>D6. Too many variables for one chart <span class="datafile">nyc</span></h4>
+  <p class="prose">55 NYC sub-boroughs with rent, % college graduates, poverty rate, and commute time. Four
+  numbers is too many for one chart, so build a scatter-chart matrix, and pick the one pair that tells the
+  clearest story.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached nyc.xlsx: 55 sub-boroughs with median monthly rent, percent college graduates, poverty rate and commute time. Which two of these four variables have the strongest relationship? Show me the scatter and the correlation, and then write the one-sentence headline a housing reporter would put above that chart.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Did it check more than one pair before picking?</li><li>Is its headline a finding, with a number in it?</li></ul></div>
+
+  <h4>D7. The messy file <span class="datafile">gossamer</span></h4>
+  <p class="prose">Six months of costs and revenues for Gossamer Industries &mdash; except the months run
+  across the top, the labels run down the side, and there is a Total column on the end. Reshape it, then
+  build a waterfall of gross profit by month.</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached gossamer_profit.xlsx. The layout is awkward: months 1-6 run across the columns, the row labels (Costs, Revenues, Gross Profit) are in the first column, and the last column is a Total. Show me how to transpose it into a clean table with one row per month. Then build a waterfall chart of gross profit by month and tell me which months lost money and by how much.</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul>
+    <li>Did it <b>exclude the Total column</b> from the chart? Including it double-counts and is the mistake to expect.</li>
+    <li>Does Revenues minus Costs equal Gross Profit in every month?</li></ul></div>
+
+  <h4>D8. Five days is not a trend <span class="datafile">verizon</span></h4>
+  <p class="prose">A stock chart of five trading days of Verizon. Build it &mdash; then answer the real
+  question: what can you honestly conclude from five days?</p>
+  <div class="ladder">
+    <div class="rung r2"><div class="rung-head"><span><span class="lvl">2</span><b>Do</b></span><button class="copy">Copy</button></div>
+<pre class="prompt">I attached verizon.xlsx: 5 trading days with High, Low and Close. Build a high-low-close stock chart. Then tell me honestly what a 5-day window can and cannot support. If someone showed me this chart and said "Verizon is trending up", what should I ask them?</pre></div>
+  </div>
+  <div class="check"><strong>Check the AI.</strong><ul><li>Did it push back on the word "trend" for five points? If it happily called it a trend, that is your teachable moment.</li></ul></div>
+
 
   <h3>Data detective: catch the problems before AI does</h3>
   <p class="prose">Real data is messy. Answer these before you build any competition dashboard, because a judge might ask.</p>
