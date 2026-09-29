@@ -68,6 +68,9 @@ section.part{padding-top:1rem;margin-bottom:3.2rem}
 .part-head{display:flex;align-items:baseline;gap:1rem;border-bottom:3px solid var(--ink);padding-bottom:.5rem;margin-bottom:1rem}
 .part-head .num{font-family:var(--sans);font-weight:800;font-size:1.9rem;color:var(--maroon)}
 .datafile{display:inline-block;font-family:var(--mono);font-size:.78rem;background:var(--slate-wash);color:var(--slate);padding:.1rem .5rem;border-radius:4px;margin-left:.4rem;vertical-align:middle;font-weight:500}
+    /* a badge naming a real file downloads it, so it has to look clickable */
+    .datafile a{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
+    .datafile a:hover{color:var(--maroon);text-decoration-style:solid}
 .idea{font-size:1.1rem}
 /* prompt ladder */
 .ladder{margin:1.4rem 0 1rem}
@@ -312,12 +315,12 @@ footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-fa
     <p><b>Before you build a PivotTable, look at the top-left corner.</b> Three of these files do not open
     as a clean table, and that is normal for real business files:</p>
     <ul>
-      <li><b>gossamer</b> &mdash; the months run <i>across</i> the top and the labels (Costs, Revenues, Gross
+      <li><b><a href="data/gossamer_profit.xlsx" download>gossamer</a></b> &mdash; the months run <i>across</i> the top and the labels (Costs, Revenues, Gross
         Profit) run <i>down</i> the side, with a <span class="datafile">Total</span> column on the end. Excel
         wants the opposite. Transpose it, and leave the Total column out of any chart.</li>
-      <li><b>kirklandregional</b> &mdash; the first row is one merged heading, <span class="datafile">Sales
+      <li><b><a href="data/kirklandregional.xlsx" download>kirklandregional</a></b> &mdash; the first row is one merged heading, <span class="datafile">Sales
         ($100s)</span>, and the real column names (Month, North, South) are on the second row.</li>
-      <li><b>samestore_sales</b> &mdash; the store names in column A have no header, and the values are
+      <li><b><a href="data/samestore_sales.xlsx" download>samestore_sales</a></b> &mdash; the store names in column A have no header, and the values are
         <b>decimals, not percentages</b>: <span class="datafile">0.1575</span> means +15.75%. Format them as
         percentages before you chart them, or every label will be wrong.</li>
     </ul>
@@ -605,7 +608,7 @@ I made a default Excel line chart with gridlines, a legend, markers on every poi
 <section class="part" id="s32">
   <div class="part-head"><span class="num">3.2</span><h2>Tables and PivotTables</h2></div>
 
-  <h3 id="tables" style="margin-top:.5rem">When a table beats a chart <span class="datafile">gossamer</span></h3>
+  <h3 id="tables" style="margin-top:.5rem">When a table beats a chart <span class="datafile"><a href="data/gossamer_profit.xlsx" download>gossamer</a></span></h3>
   <div class="prose">
     <p class="idea">Use a <b>table</b> when:</p>
     <ul>
@@ -645,7 +648,7 @@ Make a clean table with a Profit row (Revenue minus Cost) and a Total column. Us
   <div class="check"><strong>Check the AI.</strong><ul><li>Build the Profit row in Excel with a formula (=Revenue − Cost). Do your six numbers match the AI's?</li><li>Does total profit equal total revenue minus total cost? Both ways should give the same number.</li></ul></div>
   
 
-  <h3 id="crosstab">Crosstabulation and PivotTables <span class="datafile">restaurant</span></h3>
+  <h3 id="crosstab">Crosstabulation and PivotTables <span class="datafile"><a href="data/restaurant.xlsx" download>restaurant</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>crosstabulation</b> is a table that counts how two variables combine. Our data has 300 Los Angeles restaurants from a Zagat review. The variables are <b>quality rating</b> (Good, Very Good, Excellent), <b>meal price</b> ($), and <b>wait time</b> (minutes). Excel calls a crosstab a <b>PivotTable</b>.</p>
     <p>The totals on the right and the bottom are called the margins. They show each variable on its own. Use the buttons to switch what the table shows.</p>
@@ -753,7 +756,7 @@ Then show the same table as % of the grand total. Tell me which cell is the larg
 <section class="part" id="s33a">
   <div class="part-head"><span class="num">3.3</span><h2>Scatter, line, and bar charts</h2></div>
 
-  <h3 id="scatter" style="margin-top:.5rem">Scatter charts and trendlines <span class="datafile">electronics</span></h3>
+  <h3 id="scatter" style="margin-top:.5rem">Scatter charts and trendlines <span class="datafile"><a href="data/electronics.xlsx" download>electronics</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>scatter chart</b> shows the relationship between two numeric variables. Each dot is one observation. A <b>trendline</b> is the straight line that fits the dots best. Its slope tells you how much y changes, on average, when x goes up by one.</p>
     <p>A San Francisco electronics store tracked how many TV commercials it ran each week and its sales that week, in hundreds of dollars.</p>
@@ -793,7 +796,7 @@ Find the linear trendline equation and R-squared. Show your calculation. Then ex
     
   </div>
 
-  <h3 id="line">Line charts, multiple lines, and sparklines <span class="datafile">kirkland, kirklandregional</span></h3>
+  <h3 id="line">Line charts, multiple lines, and sparklines <span class="datafile"><a href="data/kirkland.xlsx" download>kirkland</a>, <a href="data/kirklandregional.xlsx" download>kirklandregional</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>line chart</b> is the standard chart for <b>time series</b> data, which means values measured over time. With two or more lines, use color to tell them apart and label the lines directly instead of using a legend. A <b>sparkline</b> is a tiny line chart that fits inside one Excel cell and shows the trend at a glance.</p>
   </div>
@@ -834,7 +837,7 @@ Describe the trend in each region in two sentences. Give the peak month for each
     
   </div>
 
-  <h3 id="bar">Bar and column charts <span class="datafile">accountsmanaged, kirklandregional</span></h3>
+  <h3 id="bar">Bar and column charts <span class="datafile"><a href="data/accountsmanaged.xlsx" download>accountsmanaged</a>, <a href="data/kirklandregional.xlsx" download>kirklandregional</a></span></h3>
   <div class="prose">
     <p class="idea"><b>Bar charts</b> use horizontal bars, and <b>column charts</b> use vertical ones. Both use length, our best preattentive attribute. Sort the bars so the reader sees the ranking right away. To show more than one category, use a <b>clustered</b> chart (side by side) or a <b>stacked</b> chart (piled up).</p>
   </div>
@@ -936,7 +939,7 @@ Should I use a stacked or clustered column chart if my manager asks: (a) "What w
 <section class="part" id="s33b">
   <div class="part-head"><span class="num">3.3</span><h2>Charts for many variables</h2></div>
 
-  <h3 id="bubble" style="margin-top:.5rem">Bubble charts <span class="datafile">airportdata</span></h3>
+  <h3 id="bubble" style="margin-top:.5rem">Bubble charts <span class="datafile"><a href="data/airportdata.xlsx" download>airportdata</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>bubble chart</b> is a scatter chart with a third variable shown as bubble size. For each airport, we have average TSA wait time (x), the cheapest parking rate in $/hour (y), and boarding passengers per year in millions (bubble size).</p>
   </div>
@@ -957,7 +960,7 @@ Should I use a stacked or clustered column chart if my manager asks: (a) "What w
   <div class="check"><strong>Check the AI.</strong><ul><li>Sort the file by TSA wait, then by parking rate. Are the AI's "worst" airports near the top of both lists?</li><li>Did it report the same numbers that are in the file?</li></ul></div>
   
 
-  <h3 id="matrix">Scatter-chart matrix and table lens <span class="datafile">nyc</span></h3>
+  <h3 id="matrix">Scatter-chart matrix and table lens <span class="datafile"><a href="data/nyc.xlsx" download>nyc</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>scatter-chart matrix</b> is a grid of small scatter charts, one for every pair of variables. It lets you scan many relationships at once. A <b>table lens</b> does something similar inside a table. You put data bars in each column, sort by one column, and see whether the other columns rise or fall with it. Our data covers 55 New York City sub-boroughs, with median rent, % college graduates, poverty rate, and commute time.</p>
   </div>
@@ -979,7 +982,7 @@ Should I use a stacked or clustered column chart if my manager asks: (a) "What w
   <div class="check"><strong>Check the AI.</strong><ul><li>In Excel, use =CORREL() on two of the columns. Does your number match the AI's for that pair?</li><li>Does your table lens show the same direction (up together, or opposite) that the AI claims?</li></ul></div>
   
 
-  <h3 id="pivotchart">PivotCharts <span class="datafile">restaurant</span></h3>
+  <h3 id="pivotchart">PivotCharts <span class="datafile"><a href="data/restaurant.xlsx" download>restaurant</a></span></h3>
   <div class="prose">
     <p class="idea">A <b>PivotChart</b> is a chart attached to a PivotTable. When you change the PivotTable, the chart updates too. We'll chart the average wait time by quality rating and price group.</p>
   </div>
@@ -1049,7 +1052,7 @@ A restaurant manager has 30 seconds to look at this. Should I show her the table
   <div class="part-head"><span class="num">3.4</span><h2>Specialized charts</h2></div>
   <p class="prose">These charts are for special jobs. On Day 3, each team takes one station and teaches it to the room in two minutes.</p>
 
-  <h3 id="heatmap" style="margin-top:.5rem">Heat maps <span class="datafile">samestore_sales</span></h3>
+  <h3 id="heatmap" style="margin-top:.5rem">Heat maps <span class="datafile"><a href="data/samestore_sales.xlsx" download>samestore_sales</a></span></h3>
   <div class="prose"><p class="idea">A <b>heat map</b> colors each cell of a table by its value, so patterns jump out. You can add sparklines at the end of each row to show the trend.</p></div>
   <details class="excel"><summary>Try it in Excel: heat map and sparklines</summary><div class="inner">
     <ol>
@@ -1067,7 +1070,7 @@ A restaurant manager has 30 seconds to look at this. Should I show her the table
   <div class="check"><strong>Check the AI.</strong> Look at your sparklines in column N. Do the stores the AI calls "trending down" really slope down?</div>
   
 
-  <h3 id="treemap">Treemaps <span class="datafile">brandvalues</span></h3>
+  <h3 id="treemap">Treemaps <span class="datafile"><a href="data/brandvalues.xlsx" download>brandvalues</a></span></h3>
   <div class="prose"><p class="idea"><b>Hierarchical data</b> is data with categories inside categories, like brands inside industries. A <b>treemap</b> shows it as nested rectangles. The size of each rectangle shows the value, the color shows the group, and brands of the same group sit together.</p></div>
   <details class="excel"><summary>Try it in Excel: treemap</summary><div class="inner">
     <ol>
@@ -1082,7 +1085,7 @@ A restaurant manager has 30 seconds to look at this. Should I show her the table
   <div class="check"><strong>Check the AI.</strong> Make a quick PivotTable with Industry in Rows and Brand Value summed in Values. Does the top industry match the AI's answer?</div>
   
 
-  <h3 id="waterfall">Waterfall charts <span class="datafile">gossamer</span></h3>
+  <h3 id="waterfall">Waterfall charts <span class="datafile"><a href="data/gossamer_profit.xlsx" download>gossamer</a></span></h3>
   <div class="prose"><p class="idea">A <b>waterfall chart</b> shows how a series of ups and downs adds up to a total. Each column starts where the one before it ended. Here it shows Gossamer's monthly profit building to the six-month total.</p></div>
   <div class="chart">
     <svg id="waterChart" role="img" aria-label="Waterfall chart of Gossamer monthly profit"></svg>
@@ -1105,7 +1108,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   </div>
   
 
-  <h3 id="stock">Stock charts <span class="datafile">verizon</span></h3>
+  <h3 id="stock">Stock charts <span class="datafile"><a href="data/verizon.xlsx" download>verizon</a></span></h3>
   <div class="prose"><p class="idea">A <b>high-low-close</b> stock chart draws one vertical line per day, running from the lowest price to the highest price, with a mark at the closing price. Excel has four stock chart types. Our file has five trading days of Verizon prices.</p></div>
   <details class="excel"><summary>Try it in Excel: high-low-close chart</summary><div class="inner">
     <ol>
@@ -1352,7 +1355,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   and each one takes about ten minutes. <b>Build the chart in Excel first, then ask AI.</b> If you only have
   time for three, do D1, D4 and D7 &mdash; they cover comparison, distribution, and messy data.</p>
 
-  <h4>D1. Sorted bars beat pie slices <span class="datafile">accountsmanaged</span></h4>
+  <h4>D1. Sorted bars beat pie slices <span class="datafile"><a href="data/accountsmanaged.xlsx" download>accountsmanaged</a></span></h4>
   <p class="prose">Eight managers, one number each. Build a pie chart and a sorted bar chart of the same
   data. Then time a classmate: how fast can they name the third-busiest manager from each one?</p>
   <div class="ladder">
@@ -1361,7 +1364,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   </div>
   <div class="check"><strong>Check the AI.</strong><ul><li>Did it sort <i>descending</i>, and did it say to sort the data, not just the chart?</li><li>Does its total match yours?</li></ul></div>
 
-  <h4>D2. A trendline in dollars, not decoration <span class="datafile">electronics</span></h4>
+  <h4>D2. A trendline in dollars, not decoration <span class="datafile"><a href="data/electronics.xlsx" download>electronics</a></span></h4>
   <p class="prose">Ten weeks of commercials and sales. Build a scatter chart, add a linear trendline, and
   display the equation. Then answer in a sentence: <i>what does one more commercial buy us?</i></p>
   <div class="ladder">
@@ -1374,8 +1377,8 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
     <li>Did it multiply the slope by 100? Sales are in $100s, and forgetting that is the usual error.</li>
     <li>Did it resist saying the commercials <i>caused</i> the sales?</li></ul></div>
 
-  <h4>D3. One line, then two <span class="datafile">kirkland</span> <span class="datafile">kirklandregional</span></h4>
-  <p class="prose">Start with <b>kirkland</b>: 12 months, one line. Then open <b>kirklandregional</b>, which
+  <h4>D3. One line, then two <span class="datafile"><a href="data/kirkland.xlsx" download>kirkland</a></span> <span class="datafile"><a href="data/kirklandregional.xlsx" download>kirklandregional</a></span></h4>
+  <p class="prose">Start with <b><a href="data/kirkland.xlsx" download>kirkland</a></b>: 12 months, one line. Then open <b><a href="data/kirklandregional.xlsx" download>kirklandregional</a></b>, which
   splits the same sales into North and South. Remember the real column names are on <b>row 2</b>. Build a
   two-line chart and answer: does the total hide anything?</p>
   <div class="ladder">
@@ -1384,7 +1387,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   </div>
   <div class="check"><strong>Check the AI.</strong><ul><li>Do North + South add up to the kirkland totals for the same months?</li><li>Did it keep the months in calendar order?</li></ul></div>
 
-  <h4>D4. What does a typical meal cost? <span class="datafile">restaurant</span></h4>
+  <h4>D4. What does a typical meal cost? <span class="datafile"><a href="data/restaurant.xlsx" download>restaurant</a></span></h4>
   <p class="prose">300 restaurants. Build a <b>histogram</b> of Meal Price ($), then a crosstab of Quality
   Rating against price bands. Watch the ordering: Good, Very Good, Excellent is a <i>ranking</i>, and Excel
   will sort it alphabetically into Excellent, Good, Very Good unless you tell it not to.</p>
@@ -1399,7 +1402,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
     <li>Did it report how many restaurants sit behind each average?</li>
     <li>Do the crosstab counts add to 300?</li></ul></div>
 
-  <h4>D5. Three variables in one picture <span class="datafile">airportdata</span></h4>
+  <h4>D5. Three variables in one picture <span class="datafile"><a href="data/airportdata.xlsx" download>airportdata</a></span></h4>
   <p class="prose">15 airports: TSA wait, parking cost, and annual passengers. Build a bubble chart with
   wait on one axis, parking on the other, and passengers as the bubble size. Then find the airport that is
   bad at everything.</p>
@@ -1409,7 +1412,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   </div>
   <div class="check"><strong>Check the AI.</strong><ul><li>Did it label the bubbles with airport codes? An unlabelled bubble chart is unreadable.</li><li>Did it say which direction is "good" on each axis?</li></ul></div>
 
-  <h4>D6. Too many variables for one chart <span class="datafile">nyc</span></h4>
+  <h4>D6. Too many variables for one chart <span class="datafile"><a href="data/nyc.xlsx" download>nyc</a></span></h4>
   <p class="prose">55 NYC sub-boroughs with rent, % college graduates, poverty rate, and commute time. Four
   numbers is too many for one chart, so build a scatter-chart matrix, and pick the one pair that tells the
   clearest story.</p>
@@ -1419,7 +1422,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
   </div>
   <div class="check"><strong>Check the AI.</strong><ul><li>Did it check more than one pair before picking?</li><li>Is its headline a finding, with a number in it?</li></ul></div>
 
-  <h4>D7. The messy file <span class="datafile">gossamer</span></h4>
+  <h4>D7. The messy file <span class="datafile"><a href="data/gossamer_profit.xlsx" download>gossamer</a></span></h4>
   <p class="prose">Six months of costs and revenues for Gossamer Industries &mdash; except the months run
   across the top, the labels run down the side, and there is a Total column on the end. Reshape it, then
   build a waterfall of gross profit by month.</p>
@@ -1431,7 +1434,7 @@ Explain the story of these six months to a CFO in 3 sentences. Profit was positi
     <li>Did it <b>exclude the Total column</b> from the chart? Including it double-counts and is the mistake to expect.</li>
     <li>Does Revenues minus Costs equal Gross Profit in every month?</li></ul></div>
 
-  <h4>D8. Five days is not a trend <span class="datafile">verizon</span></h4>
+  <h4>D8. Five days is not a trend <span class="datafile"><a href="data/verizon.xlsx" download>verizon</a></span></h4>
   <p class="prose">A stock chart of five trading days of Verizon. Build it &mdash; then answer the real
   question: what can you honestly conclude from five days?</p>
   <div class="ladder">
