@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assignment: The B205 Data Viz Challenge | BUAN B205, Module 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#231F20; --ink-soft:#57504C;
+  --maroon:#7B1E2E; --maroon-wash:#F6ECEE;
+  --gold:#C8922A; --gold-wash:#FBF3E2;
+  --slate:#3F6173; --slate-wash:#EBF1F4;
+  --paper:#FFFFFF; --wash:#F4F3F1; --line:#DCD8D2;
+  --sans:"Libre Franklin","Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--wash);color:var(--ink);
+     font-family:var(--serif);font-size:1.06rem;line-height:1.62}
+a{color:var(--maroon)}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--sans);line-height:1.2;color:var(--ink)}
+h1{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin:.2rem 0 .3rem}
+h2{font-size:1.5rem;font-weight:800;margin:2.6rem 0 .6rem;padding-bottom:.35rem;
+   border-bottom:3px solid var(--ink)}
+h3{font-size:1.15rem;font-weight:700;margin:1.8rem 0 .4rem}
+h4{font-size:1rem;font-weight:700;margin:1.2rem 0 .3rem}
+p{margin:.6rem 0}
+ul,ol{padding-left:1.25rem}
+li{margin:.3rem 0}
+main{max-width:52rem;margin:0 auto;padding:2.2rem 1.4rem 5rem;background:var(--paper);
+     box-shadow:0 0 36px rgba(0,0,0,.05)}
+.kicker{font-family:var(--sans);font-size:.82rem;font-weight:700;letter-spacing:.09em;
+        text-transform:uppercase;color:var(--maroon);margin:0}
+.byline{font-family:var(--sans);font-size:.92rem;color:var(--ink-soft);margin:.2rem 0 1.4rem}
+.lede{font-size:1.16rem;color:var(--ink-soft)}
+.rule{height:3px;background:var(--ink);margin:1.2rem 0 0}
+
+/* at-a-glance card */
+.glance{background:var(--maroon-wash);border-left:5px solid var(--maroon);
+        border-radius:0 10px 10px 0;padding:1.1rem 1.3rem;margin:1.6rem 0}
+.glance h2{border:0;margin:0 0 .5rem;font-size:1.1rem}
+.glance dl{display:grid;grid-template-columns:9.5rem 1fr;gap:.35rem .9rem;margin:0;
+           font-family:var(--sans);font-size:.95rem}
+.glance dt{font-weight:700;color:var(--maroon)}
+.glance dd{margin:0}
+
+.box{background:var(--wash);border-radius:10px;padding:.9rem 1.2rem;margin:1.1rem 0}
+.box.gold{background:var(--gold-wash);border-left:4px solid var(--gold)}
+.box.slate{background:var(--slate-wash);border-left:4px solid var(--slate)}
+.box p:first-child{margin-top:0} .box p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;margin:1rem 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.93rem;
+      background:var(--paper)}
+th,td{border-bottom:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}
+thead th{border-bottom:2px solid var(--ink);font-weight:700;background:var(--wash)}
+td.pts{font-weight:800;color:var(--maroon);white-space:nowrap;width:4.2rem;
+       font-variant-numeric:tabular-nums}
+tr.total td{border-top:2px solid var(--ink);font-weight:800;background:var(--wash)}
+
+.track{border:2px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.2rem 0}
+.track.a{border-color:var(--slate)}
+.track.b{border-color:var(--gold)}
+.track h3{margin-top:0;display:flex;align-items:baseline;gap:.6rem}
+.tag{font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.07em;
+     text-transform:uppercase;padding:.16rem .5rem;border-radius:999px;color:#fff}
+.tag.a{background:var(--slate)} .tag.b{background:var(--gold)}
+
+.datafile{display:inline-block;font-family:var(--mono);font-size:.8rem;
+          background:var(--slate-wash);color:var(--slate);padding:.08rem .45rem;
+          border-radius:4px;font-weight:500}
+.datafile a{color:inherit;text-decoration:underline;text-decoration-style:dotted;
+            text-underline-offset:2px}
+.datafile a:hover{color:var(--maroon);text-decoration-style:solid}
+
+.check{list-style:none;padding-left:0}
+.check li{padding-left:1.9rem;position:relative;margin:.45rem 0}
+.check li::before{content:"";position:absolute;left:0;top:.25em;width:1.05rem;height:1.05rem;
+                  border:2px solid var(--ink-soft);border-radius:3px}
+
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);
+       font-family:var(--sans);font-size:.86rem;color:var(--ink-soft)}
+
+@media print{
+  body{background:#fff;font-size:10pt;line-height:1.45}
+  main{box-shadow:none;max-width:100%;padding:0}
+  h1{font-size:1.7rem}
+  h2{font-size:1.25rem;margin:1.5rem 0 .4rem;page-break-after:avoid}
+  h3,h4{page-break-after:avoid}
+  /* Let long blocks flow across pages -- forcing them whole leaves half-empty
+     pages. Keep only rows, list items and the small cards intact. */
+  thead{display:table-header-group}
+  tr,li,.glance,.box{page-break-inside:avoid}
+  .track{padding:.7rem .9rem}
+  .tscroll{overflow:visible;margin:.6rem 0}
+  table{font-size:9pt}
+  th,td{padding:.3rem .45rem}
+  a{color:inherit;text-decoration:none}
+  .noprint{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+
+  <p class="kicker">BUAN B205 &middot; Module 4 &middot; Assignment</p>
+  <h1>The B205 Data Viz Challenge</h1>
+  <p class="byline">Business Analytics with AI &middot; Nuwan Indika, Ph.D. &middot;
+     College of Business, Loyola University New Orleans</p>
+  <p class="lede">Build a one-screen Excel dashboard that answers a real business question, then
+     pitch it in three minutes to a busy, skeptical manager. You will use AI throughout &mdash; and
+     your most important job is checking whether it got things right.</p>
+  <div class="rule"></div>
+
+  <div class="glance">
+    <h2>At a glance</h2>
+    <dl>
+      <dt>Worth</dt><dd>100 points, plus up to 8 bonus points</dd>
+      <dt>Team size</dt><dd>3 students, each with a named role</dd>
+      <dt>Choose one</dt><dd><a href="#track-a">Track A</a> (supplied dataset) or
+        <a href="#track-b">Track B</a> (real public data you pick)</dd>
+      <dt>You hand in</dt><dd>An Excel workbook, a dashboard image, a one-page AI log, and your
+        one-sentence recommendation</dd>
+      <dt>Submit to</dt><dd>Canvas, one submission per team</dd>
+      <dt>Due</dt><dd>See the due date on this Canvas assignment</dd>
+    </dl>
+  </div>
+
+  <p>Everything you need to build this is in the
+     <a href="index.html">Module 4 lecture notes</a>: the chart recipes, the prompt ladders, and
+     Practice sets A&ndash;D. This page is the assignment itself &mdash; the rules, what to hand in,
+     and exactly how you will be graded.</p>
+
+  <!-- ============================================================= -->
+  <h2 id="brief">1. The situation</h2>
+
+  <p>You are an analytics team. A manager has <b>three minutes</b>, one question, and no patience
+     for a chart that needs explaining. Your dashboard has to answer the question on one screen,
+     and every number on it has to be defensible when someone asks "where did that come from?"</p>
+
+  <p>That is the whole assignment. The two tracks below differ only in <i>whose</i> data you use
+     and <i>who</i> writes the question.</p>
+
+  <!-- ============================================================= -->
+  <h2 id="tracks">2. Choose your track</h2>
+
+  <p>Your team picks <b>one</b> track and tells me which at the start of the build week. Both are
+     graded on the same 100-point rubric. Neither is "the easy one" &mdash; Track A asks you to find
+     something non-obvious in data everyone else also has; Track B asks you to make messy data
+     trustworthy.</p>
+
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>&nbsp;</th><th>Track A</th><th>Track B</th></tr></thead>
+    <tbody>
+      <tr><td><b>Dataset</b></td><td>Supplied: the supermarket file</td><td>Real public data your team finds</td></tr>
+      <tr><td><b>Question</b></td><td>Given to you</td><td>You write it, and get it approved</td></tr>
+      <tr><td><b>Extra work</b></td><td>None</td><td>A graded data audit, plus a source line on the dashboard</td></tr>
+      <tr><td><b>Main risk</b></td><td>Everyone has the same data, so a dull finding stands out</td><td>Cleaning can eat your week if you pick badly</td></tr>
+      <tr><td><b>Rubric</b></td><td colspan="2">Identical, except that Track B's <i>Accuracy</i> also covers whether your cleaning decisions were sensible and disclosed</td></tr>
+      <tr><td><b>Awards</b></td><td>All five</td><td>All five, plus Best Data Detective</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ============================================================= -->
+  <div class="track a" id="track-a">
+    <h3><span class="tag a">Track A</span> The supermarket brief</h3>
+
+    <p>You are the analytics team for a supermarket chain with three branches. The regional manager
+       asks:</p>
+
+    <div class="box slate">
+      <p style="font-family:var(--sans);font-weight:700;font-size:1.15rem;margin:0">
+        &ldquo;Where should we focus next quarter to grow sales?&rdquo;</p>
+    </div>
+
+    <p>Answer her with one screen of charts built in Excel from
+       <span class="datafile"><a href="SuperMarket_Analysis.xlsx" download>SuperMarket_Analysis.xlsx</a></span>
+       &mdash; 1,000 purchases across three branches, January to March 2019 &mdash; and a
+       three-minute pitch. She is busy, smart, and skeptical.</p>
+
+    <h4>Where to start</h4>
+    <ul>
+      <li>Practice sets A&ndash;C in the <a href="index.html#lab">notes</a> are built on this exact
+        file. They are your toolkit, not extra homework.</li>
+      <li>You may add helper columns &mdash; Hour, Day of week, Month &mdash; from the existing
+        columns.</li>
+      <li>Watch the calendar: <b>the data stops on 30 March</b>, so March is a short month. Comparing
+        raw monthly totals will make March look like a collapse when it isn't. The rubric checks
+        for this.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================= -->
+  <div class="track b" id="track-b">
+    <h3><span class="tag b">Track B</span> Bring your own real data</h3>
+
+    <p>Same competition, run on data nobody cleaned for you &mdash; which is the only kind you will
+       meet after graduation. You choose the question, and you have to defend the data itself.</p>
+
+    <h4>Step 1 &mdash; Pick a dataset that can carry a dashboard</h4>
+    <p>Most failed projects fail here, in week one, by picking something too small or too flat.
+       Before you commit, check <b>all four</b>:</p>
+    <ul class="check">
+      <li><b>At least 200 rows.</b> Fewer, and every chart is a handful of points.</li>
+      <li><b>At least one category column</b> to group by &mdash; region, product, type, department.</li>
+      <li><b>At least two number columns</b>, so you can show a relationship and not just a ranking.</li>
+      <li><b>A time or place column.</b> Without one you cannot show a trend or draw a map, and you
+        lose half the toolkit.</li>
+    </ul>
+    <p>Then finish this sentence out loud: <i>&ldquo;Which &lt;category&gt; should &lt;someone&gt;
+       &lt;do something about&gt; next &lt;period&gt;?&rdquo;</i> If you cannot finish it, the
+       dataset is not ready.</p>
+
+    <div class="box gold">
+      <p><b>Get your dataset approved before you build anything.</b> Bring the file and your
+         one-sentence question. Approval takes about two minutes and saves a wasted week. A team
+         whose data is still not chart-ready at the end of week one moves to Track A.</p>
+    </div>
+
+    <h4>Step 2 &mdash; Where to look</h4>
+    <p>All free, all public, all download as CSV or Excel. The first two are the cleanest.</p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Source</th><th>Good for</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>Data.gov</td><td>The widest catalogue of US federal and local data</td><td><a href="https://data.gov" target="_blank" rel="noopener">data.gov</a></td></tr>
+        <tr><td>DataDriven, City of New Orleans</td><td>Local and relatable: permits, 311 calls, inspections, streets</td><td><a href="https://datadriven.nola.gov" target="_blank" rel="noopener">datadriven.nola.gov</a></td></tr>
+        <tr><td>FRED, St.&nbsp;Louis Fed</td><td>Economic and financial time series, already tidy</td><td><a href="https://fred.stlouisfed.org" target="_blank" rel="noopener">fred.stlouisfed.org</a></td></tr>
+        <tr><td>Bureau of Labor Statistics</td><td>Employment, wages and prices by industry and metro</td><td><a href="https://www.bls.gov/data/" target="_blank" rel="noopener">bls.gov/data</a></td></tr>
+        <tr><td>US Census</td><td>Population, income, housing and business, to county level</td><td><a href="https://data.census.gov" target="_blank" rel="noopener">data.census.gov</a></td></tr>
+        <tr><td>Kaggle Datasets</td><td>Business-flavoured: retail, airlines, marketing, HR</td><td><a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener">kaggle.com/datasets</a></td></tr>
+        <tr><td>Our World in Data</td><td>Clean international series, well documented</td><td><a href="https://ourworldindata.org" target="_blank" rel="noopener">ourworldindata.org</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h4>Step 3 &mdash; The data audit <span class="tag b">graded</span></h4>
+    <p>Real data is dirty, and pretending otherwise is the fastest way to lose points. Run this
+       before you chart anything, and hand in one page of it.</p>
+    <ol>
+      <li><b>How many rows and columns?</b> Write it down. Check again after every filter.</li>
+      <li><b>What is missing?</b> Count blanks per column. Decide what to do and say so.</li>
+      <li><b>Any duplicates?</b> Does the same record appear twice?</li>
+      <li><b>Does every column mean what its name says?</b> Find the data dictionary. Columns named
+        <span class="datafile">value</span> or <span class="datafile">amount</span> hide more than
+        they tell.</li>
+      <li><b>What are the units?</b> Dollars or thousands? Percent or decimal? Get this wrong and
+        every number on your dashboard is wrong.</li>
+      <li><b>What period does it cover, and is the last one complete?</b> A partial final month
+        makes any trend look like a collapse.</li>
+      <li><b>Any impossible values?</b> Negative ages, future dates, a 400% share. Sort each column
+        both ways and look at the ends.</li>
+      <li><b>Who collected it, and who was left out?</b> That gap is your honest limitation.</li>
+    </ol>
+
+    <div class="box">
+      <p><b>Finding a flaw is worth more than having clean data.</b> A team that finds a real
+         problem, handles it sensibly and says so out loud scores <b>higher</b> than a team whose
+         data happened to be tidy. Track B teams also compete for <b>Best Data Detective</b>.</p>
+    </div>
+
+    <div class="box gold">
+      <p><b>One warning.</b> Do not pick a topic you cannot present in three minutes.
+         &ldquo;Climate change&rdquo; is not a project. &ldquo;Which three New Orleans ZIP codes
+         waited longest for permit approval last year?&rdquo; is.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <h2 id="rules">3. Rules</h2>
+  <p>These apply to <b>both tracks</b>.</p>
+  <ol>
+    <li><b>Build every chart in Excel.</b> AI can suggest, explain, write formulas and critique, but
+      it cannot draw your charts for you.</li>
+    <li><b>Every number must be traceable.</b> It comes from a PivotTable or a formula in your
+      workbook. Judges will ask, "show me where this number came from."</li>
+    <li><b>One screen at 100% zoom</b>, with no scrolling.</li>
+    <li><b>No 3-D charts. No pie chart with more than three slices.</b></li>
+    <li><b>Four colors plus gray, maximum.</b> Use color for attention, gray for context.</li>
+    <li><b>Bars start at zero.</b> Lines may not, if the axis is clearly labelled.</li>
+    <li><b>State one honest limitation</b> of the data, on the dashboard or in the pitch.</li>
+    <li><b>Keep an AI log</b> as you go. Reconstructing it the night before is obvious and scores badly.</li>
+  </ol>
+
+  <!-- ============================================================= -->
+  <h2 id="teams">4. Teams and roles</h2>
+  <p>Teams of three. Everyone uses AI and Excel; each person also owns one job and answers for it
+     during judging.</p>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Role</th><th>Owns</th><th>Judges will ask them</th></tr></thead>
+    <tbody>
+      <tr><td><b>Data lead</b></td><td>That every number on the dashboard matches a PivotTable in the workbook</td><td>"Show me where this figure came from."</td></tr>
+      <tr><td><b>Design lead</b></td><td>Layout, color, decluttering, and fitting one screen</td><td>"Why this chart type, and why that color?"</td></tr>
+      <tr><td><b>Story lead</b></td><td>The headline, the recommendation, and the pitch</td><td>"What should the manager do on Monday?"</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ============================================================= -->
+  <h2 id="how">5. How it runs</h2>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Stage</th><th>When</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td><b>Round 1</b><br>Chart makeover</td><td>Day 3, last 10 min</td><td>Each team rebuilds the bad pie chart from the practice lab. The class votes. Winning team earns <b>+3 bonus</b>.</td></tr>
+      <tr><td><b>Round 2</b><br>Insight sprint</td><td>Day 4, 20 min</td><td>Find three facts and prove each with a PivotTable. <b>+1 each</b> (up to +3). A fact the AI got wrong and you caught <b>counts double</b>.</td></tr>
+      <tr><td><b>Build</b></td><td>One week</td><td>Build the dashboard and prepare the pitch. Track B teams get their dataset approved first.</td></tr>
+      <tr><td><b>Finals</b></td><td>See Canvas</td><td>3-minute pitch, 2 minutes of judge questions. Judges score the rubric; the class votes People's Choice.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ============================================================= -->
+  <h2 id="handin">6. What to hand in</h2>
+  <p>One submission per team, to this Canvas assignment.</p>
+  <h4>Both tracks</h4>
+  <ul class="check">
+    <li><b>The Excel workbook.</b> Dashboard on the first sheet, PivotTables on the others. Name it
+      <span class="datafile">Team#_Dashboard.xlsx</span>.</li>
+    <li><b>A screenshot or PDF of the dashboard</b>, for the judges.</li>
+    <li><b>A one-page AI log</b>: your five best prompts, one time AI was wrong, and how you caught it.</li>
+    <li><b>Your headline recommendation</b>, in one sentence.</li>
+  </ul>
+  <h4>Track B also hands in</h4>
+  <ul class="check">
+    <li><b>A source line on the dashboard</b>: who published the data, what it covers, and when you
+      downloaded it. One line, small type, always visible.</li>
+    <li><b>The data audit</b>, one page: what you found and what you did about it.</li>
+  </ul>
+
+  <!-- ============================================================= -->
+  <h2 id="rubric">7. How you are graded</h2>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Pts</th><th>Category</th><th>What earns full marks</th></tr></thead>
+    <tbody>
+      <tr><td class="pts">30</td><td><b>Insight and recommendation</b></td>
+        <td>The dashboard answers the question with a clear, specific recommendation. The evidence
+            supports it. A risk or limitation is stated out loud.</td></tr>
+      <tr><td class="pts">20</td><td><b>Accuracy</b></td>
+        <td>Numbers match the workbook. Comparisons are fair: per day, per purchase, complete
+            periods. <i>Track B:</i> cleaning decisions are sensible and disclosed.</td></tr>
+      <tr><td class="pts">15</td><td><b>Chart choice</b></td>
+        <td>Each chart fits its question &mdash; comparison, trend, relationship, distribution or
+            composition. Unordered categories are sorted; time runs left to right.</td></tr>
+      <tr><td class="pts">15</td><td><b>Design</b></td>
+        <td>One screen. High data-ink ratio. Color used for attention, not decoration. Titles state
+            findings, not labels. Axes are honest.</td></tr>
+      <tr><td class="pts">10</td><td><b>Pitch</b></td>
+        <td>Three minutes, a clear story, and confident, honest answers &mdash; including
+            "we don't know" where that is the truth.</td></tr>
+      <tr><td class="pts">10</td><td><b>AI log and data integrity</b></td>
+        <td>Specific prompts, a real AI mistake caught and explained, and data problems noticed.</td></tr>
+      <tr class="total"><td class="pts">100</td><td colspan="2">Total</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Deductions</h3>
+  <div class="tscroll">
+  <table>
+    <tbody>
+      <tr><td class="pts">&minus;5</td><td>For each number that does not match the workbook</td></tr>
+      <tr><td class="pts">&minus;5</td><td>If the dashboard needs scrolling</td></tr>
+      <tr><td class="pts">&minus;3</td><td>For a 3-D chart, or a pie with more than three slices</td></tr>
+      <tr><td class="pts">&minus;10</td><td>For a missing AI log</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Bonus (up to +8)</h3>
+  <div class="tscroll">
+  <table>
+    <tbody>
+      <tr><td class="pts">+3</td><td>Round 1, the chart makeover sprint</td></tr>
+      <tr><td class="pts">+3</td><td>Round 2, the insight sprint</td></tr>
+      <tr><td class="pts">+2</td><td>Catching a real problem in the dataset itself</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Awards</h3>
+  <ul>
+    <li><b>Grand Prize</b> &mdash; the highest total score.</li>
+    <li><b>Best Insight</b> &mdash; the most useful recommendation for the manager.</li>
+    <li><b>Data-Ink Award</b> &mdash; the cleanest design.</li>
+    <li><b>AI Detective Award</b> &mdash; the best-documented catch of an AI mistake.</li>
+    <li><b>People's Choice</b> &mdash; the class vote.</li>
+    <li><b>Best Data Detective</b> <span class="tag b">Track B</span> &mdash; the most important
+      problem found and explained in your own dataset.</li>
+  </ul>
+
+  <!-- ============================================================= -->
+  <h2 id="pitch">8. A three-minute pitch that works</h2>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Time</th><th>Say this</th></tr></thead>
+    <tbody>
+      <tr><td class="pts">0:15</td><td><b>The question.</b> "You asked where to focus next quarter."</td></tr>
+      <tr><td class="pts">0:15</td><td><b>The answer, in one sentence.</b> Lead with it. Do not build up to it.</td></tr>
+      <tr><td class="pts">1:30</td><td><b>The evidence.</b> Two or three charts. Point at the number that matters on each.</td></tr>
+      <tr><td class="pts">0:45</td><td><b>The recommendation and its risk.</b> What to do, and what could make it wrong.</td></tr>
+      <tr><td class="pts">0:15</td><td><b>What data you would want next.</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ============================================================= -->
+  <h2 id="ai">9. Using AI on this assignment</h2>
+  <p>AI use is <b>expected</b>, not merely allowed. The skill being graded is not whether you used
+     it &mdash; it is whether you checked it.</p>
+  <div class="box slate">
+    <p><b>Encouraged:</b> asking AI to explain a concept, suggest chart types, write an Excel
+       formula, draft a headline, critique your dashboard, or play a skeptical manager.</p>
+    <p><b>Not allowed:</b> having AI generate the charts or the dashboard itself, or handing in
+       numbers you have not verified against your own workbook.</p>
+    <p><b>Required:</b> the AI log. Five prompts that actually moved your work forward, one
+       documented case where AI was wrong, and how you caught it. &ldquo;AI was never wrong&rdquo;
+       is not a credible log &mdash; keep looking.</p>
+  </div>
+
+  <!-- ============================================================= -->
+  <h2 id="checklist">10. Before you submit</h2>
+  <ul class="check">
+    <li>Every number on the dashboard traces to a PivotTable or formula in the workbook.</li>
+    <li>It fits one screen at 100% zoom, with no scrolling.</li>
+    <li>No 3-D. No pie with more than three slices. Four colors plus gray, at most.</li>
+    <li>Bars start at zero. Every axis is labelled.</li>
+    <li>Every chart title states a finding, not just a subject.</li>
+    <li>Comparisons are fair &mdash; complete periods, or per-day and per-purchase figures.</li>
+    <li>One honest limitation is stated.</li>
+    <li>The AI log names five real prompts and one caught mistake.</li>
+    <li>Your recommendation is one sentence, and someone could act on it Monday morning.</li>
+    <li><b>Track B:</b> the source line is on the dashboard and the data audit page is attached.</li>
+    <li>The workbook is named <span class="datafile">Team#_Dashboard.xlsx</span>.</li>
+  </ul>
+
+  <footer>
+    <p>BUAN B205, Business Analytics with AI &middot; Module 4: Data Visualization.
+       The full notes, chart recipes, prompt ladders and practice sets are at
+       <a href="index.html">the Module 4 page</a>.</p>
+  </footer>
+
+</main>
+</body>
+</html>

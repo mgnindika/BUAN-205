@@ -1,6 +1,8 @@
 # BUAN B205, Module 4: Data Visualization
 
 - `index.html`: student lecture notes (no answers)
+- `assignment.html`: the Data Viz Challenge assignment sheet, both tracks plus the grading
+  rubric. Standalone and print-friendly (7 pages on Letter); posted in Canvas as a link.
 - `instructor.html`: instructor copy, same notes with 59 answer-key boxes. Published
   on GitHub Pages at the owner's decision, so it is **publicly readable by anyone with
   the URL**. Unlinked and `noindex`, but not private. Students use `index.html`.
